@@ -1,7 +1,7 @@
 {
-  "npmScope": "new-pangea",
+  "npmScope": "pang",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "dev"
   },
   "implicitDependencies": {
     "angular.json": "*",
