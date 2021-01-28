@@ -16,8 +16,13 @@
             "polyfills": "apps/dashboard/src/polyfills.ts",
             "tsConfig": "apps/dashboard/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/dashboard/src/favicon.ico", "apps/dashboard/src/assets"],
-            "styles": ["apps/dashboard/src/styles.scss"],
+            "assets": [
+              "apps/dashboard/src/favicon.ico",
+              "apps/dashboard/src/assets"
+            ],
+            "styles": [
+              "apps/dashboard/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -70,12 +75,17 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/dashboard/src/**/*.ts", "apps/dashboard/src/**/*.html"]
+            "lintFilePatterns": [
+              "apps/dashboard/src/**/*.ts",
+              "apps/dashboard/src/**/*.html"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/dashboard"],
+          "outputs": [
+            "coverage/apps/dashboard"
+          ],
           "options": {
             "jestConfig": "apps/dashboard/jest.config.js",
             "passWithNoTests": true
@@ -104,7 +114,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/dashboard-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/dashboard-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -124,8 +136,13 @@
             "polyfills": "apps/mobile/src/polyfills.ts",
             "tsConfig": "apps/mobile/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/mobile/src/favicon.ico", "apps/mobile/src/assets"],
-            "styles": ["apps/mobile/src/styles.scss"],
+            "assets": [
+              "apps/mobile/src/favicon.ico",
+              "apps/mobile/src/assets"
+            ],
+            "styles": [
+              "apps/mobile/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -178,15 +195,101 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/mobile/src/**/*.ts", "apps/mobile/src/**/*.html"]
+            "lintFilePatterns": [
+              "apps/mobile/src/**/*.ts",
+              "apps/mobile/src/**/*.html"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/mobile"],
+          "outputs": [
+            "coverage/apps/mobile"
+          ],
           "options": {
             "jestConfig": "apps/mobile/jest.config.js",
             "passWithNoTests": true
+          }
+        },
+        "cap": {
+          "builder": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "--help"
+          }
+        },
+        "add": {
+          "builder": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "add",
+            "packageInstall": true
+          },
+          "configurations": {
+            "ios": {
+              "cmd": "add ios"
+            },
+            "android": {
+              "cmd": "add android"
+            }
+          }
+        },
+        "copy": {
+          "builder": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "copy",
+            "packageInstall": false
+          },
+          "configurations": {
+            "ios": {
+              "cmd": "copy ios"
+            },
+            "android": {
+              "cmd": "copy android"
+            }
+          }
+        },
+        "open": {
+          "builder": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "open",
+            "packageInstall": false
+          },
+          "configurations": {
+            "ios": {
+              "cmd": "open ios"
+            },
+            "android": {
+              "cmd": "open android"
+            }
+          }
+        },
+        "sync": {
+          "builder": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "sync",
+            "packageInstall": true
+          },
+          "configurations": {
+            "ios": {
+              "cmd": "sync ios"
+            },
+            "android": {
+              "cmd": "sync android"
+            }
+          }
+        },
+        "update": {
+          "builder": "@nxtend/capacitor:cap",
+          "options": {
+            "cmd": "update",
+            "packageInstall": true
+          },
+          "configurations": {
+            "ios": {
+              "cmd": "update ios"
+            },
+            "android": {
+              "cmd": "update android"
+            }
           }
         }
       }
@@ -212,14 +315,17 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/mobile-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/mobile-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "1835e4e1-27ab-4f5b-b9cc-1309e71f739e"
   },
   "schematics": {
     "@nrwl/angular": {
