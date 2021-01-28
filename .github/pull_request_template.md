@@ -5,5 +5,3 @@
 
 # Evidence
 Static Image, Gif or Videos that show the change in the pr 
-
-other
