@@ -1,1 +1,13 @@
-{}
+{
+  "appId": "com.pappcorn.newpangea",
+  "appName": "New Pangea",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "../../dist/apps/mobile",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
