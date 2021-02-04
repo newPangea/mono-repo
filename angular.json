@@ -21,8 +21,12 @@
               "apps/dashboard/src/assets"
             ],
             "styles": [
-              "apps/dashboard/src/styles.scss"
+              "apps/dashboard/src/styles.scss",
+              "libs/styles/global.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["apps/dashboard/src", "libs/styles"]
+            },
             "scripts": []
           },
           "configurations": {
@@ -318,6 +322,63 @@
             "lintFilePatterns": [
               "apps/mobile-e2e/**/*.{js,ts}"
             ]
+          }
+        }
+      }
+    },
+    "ui": {
+      "projectType": "library",
+      "root": "libs/ui",
+      "sourceRoot": "libs/ui/src",
+      "prefix": "pang",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ui/src/**/*.ts",
+              "libs/ui/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/ui"
+          ],
+          "options": {
+            "jestConfig": "libs/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/ui/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "outputPath": "dist/storybook/ui",
+            "config": {
+              "configFolder": "libs/ui/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
           }
         }
       }
