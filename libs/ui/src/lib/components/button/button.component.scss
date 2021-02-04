@@ -1,6 +1,25 @@
 @import 'global.scss';
 
-.button {
-  background: $primary;
-  color: red;
+.btn-basic {
+  min-width: 100px;
+  height: 48px;
+  padding: 8px 20px;
+  border-radius: 26px;
+  color: $buttonText;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.primary {
+    background-color: $primary;
+  }
+
+  &.secondary {
+    background-color: $secondary;
+  }
 }

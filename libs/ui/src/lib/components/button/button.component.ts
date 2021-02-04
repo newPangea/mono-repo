@@ -1,20 +1,41 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ElementRef,
+  ViewEncapsulation,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
-  selector: 'pang-button',
-  template: `
-    <button class="button">
-      my button
-    </button>
-  `,
+  selector: 'button[pangButton]',
+  exportAs: 'pangButton',
+  templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent implements OnInit, OnChanges {
+  private element: HTMLButtonElement;
 
-  constructor() { }
+  @Input() color: 'primary' | 'secondary' | 'alert' = 'primary';
 
-  ngOnInit(): void {
+  constructor(elementRef: ElementRef<HTMLButtonElement>) {
+    this.element = elementRef.nativeElement;
+    this.element.classList.add('btn-basic');
+    this.element.classList.add(this.color);
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    const colorChange = changes['color'];
+    if (colorChange) {
+      if(colorChange.previousValue) {
+        this.element.classList.remove(colorChange.previousValue);
+      }
+      this.element.classList.add(colorChange.currentValue)
+    }
   }
 
+  ngOnInit(): void {}
 }
