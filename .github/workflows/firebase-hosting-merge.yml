@@ -16,7 +16,7 @@ jobs:
         with:
           path: dist
           key: ${{ runner.os }}-dist
-      - run: ls dist
+      - run: ls
       - run: npm install
       - run: npm run affected:build
       - run: ls dist
