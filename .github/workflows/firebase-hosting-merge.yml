@@ -11,14 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Cache
+        uses: actions/cache@v2
+          with:
+            path: dist
+            key: ${{ runner.os }}-dist
+      - run: ls dist
       - run: npm install
-      - run: npm run build
-      - run: npm run build:ui
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEWPANGEA_DEV }}'
-          channelId: live
-          projectId: newpangea-dev
-        env:
-          FIREBASE_CLI_PREVIEWS: hostingchannels
+      - run: npm run affected:build
+      - run: ls dist
+      # - uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
+      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEWPANGEA_DEV }}'
+      #     channelId: live
+      #     projectId: newpangea-dev
+      #   env:
+      #     FIREBASE_CLI_PREVIEWS: hostingchannels
