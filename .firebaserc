@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "newpangea-dev"
+  },
+  "targets": {
+    "newpangea-dev": {
+      "hosting": {
+        "dashboard": [
+          "newpangea-dev"
+        ],
+        "ui": [
+          "newpangea-ui"
+        ]
+      }
+    }
+  }
+}
