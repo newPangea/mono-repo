@@ -9,6 +9,9 @@ name: Deploy to Firebase Hosting on merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    env:
+      BEFORE_COMMIT: ${{ github.event.before }}
+      AFTHER_COMMIT: ${{ github.event.after }}
     steps:
       - uses: actions/checkout@v2
       - name: Cache
@@ -17,8 +20,14 @@ jobs:
           path: dist
           key: ${{ runner.os }}-dist
       - run: ls
+
       - run: npm install
-      - run: npm run affected:build
+
+      - name: check affected apps
+        run: npm run affected:apps -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
+
+      - run: npm run affected:build -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
+
       - run: ls dist
       # - uses: FirebaseExtended/action-hosting-deploy@v0
       #   with:
