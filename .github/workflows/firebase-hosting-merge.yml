@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: export GOOGLE_APPLICATION_CREDENTIALS="$secrets.FIREBASE_SERVICE_ACCOUNT_NEWPANGEA_DEV"
+      - run: export GOOGLE_APPLICATION_CREDENTIALS=123
 
       - run: echo $GOOGLE_APPLICATION_CREDENTIALS
       # - name: install firebase
