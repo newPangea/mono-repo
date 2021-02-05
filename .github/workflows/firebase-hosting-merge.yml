@@ -15,6 +15,7 @@ jobs:
     env:
       BEFORE_COMMIT: ${{ github.event.before }}
       AFTHER_COMMIT: ${{ github.event.after }}
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEWPANGEA_DEV }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -35,9 +36,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: export GOOGLE_APPLICATION_CREDENTIALS=123
-
-      - run: echo $GOOGLE_APPLICATION_CREDENTIALS
+      run: echo "Hello $BEFORE_COMMIT today is Monday! $GOOGLE_APPLICATION_CREDENTIALS"
       # - name: install firebase
       #   run: npm i -g firebase-tools
 
