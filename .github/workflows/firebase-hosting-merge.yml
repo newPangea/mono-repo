@@ -36,22 +36,24 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: echo "Hello $BEFORE_COMMIT today is Monday! $GOOGLE_APPLICATION_CREDENTIALS"
       # - name: install firebase
       #   run: npm i -g firebase-tools
 
-      # - name: install dependencies
-      #   run: npm install
-      #   if: steps.npm-cache.outputs.cache-hit != 'true'
+      - name: install dependencies
+        run: npm install
+        if: steps.npm-cache.outputs.cache-hit != 'true'
 
-      # - name: check affected apps
-      #   run: npm run affected:apps -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
+      - name: check affected apps
+        run: npm run affected:apps -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
 
-      # - name: check affected libs
-      #   run: npm run affected:libs -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
+      - name: check affected libs
+        run: npm run affected:libs -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
 
-      # - name: Build affected
-      #   run: npm run affected:build -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT" --progress=false
+      - name: Build affected
+        run: npm run affected:build -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT" --progress=false
+
+      - name: Deploy firebase
+        run: npx firebase-tools deploy --only hosting
 
       # - uses: FirebaseExtended/action-hosting-deploy@v0
       #   with:
