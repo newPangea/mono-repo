@@ -16,7 +16,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - run: echo "$PULL_NUMBER - $BRANCH_NAME"
+      - run: echo "$PULL_NUMBER-$BRANCH_NAME"
         env:
           PULL_NUMBER: ${{ github.event.pull_request.number }}
           BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
