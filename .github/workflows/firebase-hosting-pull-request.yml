@@ -16,9 +16,9 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - run: echo "$GITHUB_CONTEXT"
-        env:
-          GITHUB_CONTEXT: ${{ toJson(GITHUB_REF) }}
+      - run: echo "$GITHUB_REF"
+        # env:
+        #   GITHUB_CONTEXT: ${{ toJson(GITHUB_REF) }}
 
       # - name: npm cahce
       #   uses: actions/cache@v2
