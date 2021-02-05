@@ -16,9 +16,9 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
-      - run: echo "$GITHUB_CONTEXT"
+      - run: echo "$PULL_NUMBER - $BRANCH_NAME"
         env:
-          GITHUB_CONTEXT: ${{ toJson(github.event.pull_request.number) }}
+          PULL_NUMBER: ${{ github.event.pull_request.number }}
           BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
 
       # - name: npm cahce
