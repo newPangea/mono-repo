@@ -43,7 +43,7 @@ jobs:
         run: npm run affected:build -- --base=origin/dev --progress=false
 
       - name: Deploy temporal
-        run: npm run affected:pre-deploy -- --base=origin/dev --chanel="$PULL_NUMBER-$BRANCH_NAME"
+        run: npm run affected:pre-deploy -- --base=origin/dev --chanel="$BRANCH_NAME"
         env:
           PULL_NUMBER: ${{ github.event.pull_request.number }}
           BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
