@@ -100,6 +100,12 @@
           "options": {
             "command": "npx firebase-tools deploy --only hosting:dashboard"
           }
+        },
+        "pre-deploy": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npx firebase-tools hosting:channel:deploy {args.chanel} --only dashboard"
+          }
         }
       }
     },
@@ -342,6 +348,12 @@
           "builder": "@nrwl/workspace:run-commands",
           "options": {
             "command": "npx firebase-tools deploy --only hosting:ui"
+          }
+        },
+        "pre-deploy": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npx firebase-tools hosting:channel:deploy {args.chanel} --only ui"
           }
         },
         "build": {
