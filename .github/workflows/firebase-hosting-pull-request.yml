@@ -18,7 +18,7 @@ jobs:
 
       - run: echo "$GITHUB_CONTEXT"
         env:
-          GITHUB_CONTEXT: ${{ toJson(github.event.pull_request.ref) }}
+          GITHUB_CONTEXT: ${{ toJson(github.event.pull_request) }}
 
       # - name: npm cahce
       #   uses: actions/cache@v2
