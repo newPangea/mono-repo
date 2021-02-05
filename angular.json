@@ -94,6 +94,12 @@
             "jestConfig": "apps/dashboard/jest.config.js",
             "passWithNoTests": true
           }
+        },
+        "deploy": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npx firebase-tools deploy --only hosting:dashboard"
+          }
         }
       }
     },
@@ -332,6 +338,12 @@
       "sourceRoot": "libs/ui/src",
       "prefix": "pang",
       "architect": {
+        "deploy": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "npx firebase-tools deploy --only hosting:ui"
+          }
+        },
         "build": {
           "builder": "@nrwl/workspace:run-commands",
           "options": {

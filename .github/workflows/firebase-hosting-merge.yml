@@ -54,8 +54,8 @@ jobs:
       - name: Build affected
         run: npm run affected:build -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT" --progress=false
 
-      - name: Deploy firebase
-        run: npx firebase-tools deploy --only hosting
+      - name: Deploy affected
+        run: npm run affected:deploy -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
 
       # - uses: FirebaseExtended/action-hosting-deploy@v0
       #   with:
