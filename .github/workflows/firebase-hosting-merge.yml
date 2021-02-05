@@ -35,27 +35,30 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: install firebase
-        run: npm i -g firebase-tools
+      - run: export GOOGLE_APPLICATION_CREDENTIALS="$secrets.FIREBASE_SERVICE_ACCOUNT_NEWPANGEA_DEV"
 
-      - name: install dependencies
-        run: npm install
-        if: steps.npm-cache.outputs.cache-hit != 'true'
+      - run: echo $GOOGLE_APPLICATION_CREDENTIALS
+      # - name: install firebase
+      #   run: npm i -g firebase-tools
 
-      - name: check affected apps
-        run: npm run affected:apps -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
+      # - name: install dependencies
+      #   run: npm install
+      #   if: steps.npm-cache.outputs.cache-hit != 'true'
 
-      - name: check affected libs
-        run: npm run affected:libs -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
+      # - name: check affected apps
+      #   run: npm run affected:apps -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
 
-      - name: Build affected
-        run: npm run affected:build -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT" --progress=false
+      # - name: check affected libs
+      #   run: npm run affected:libs -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
 
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEWPANGEA_DEV }}'
-          channelId: live
-          projectId: newpangea-dev
-        env:
-          FIREBASE_CLI_PREVIEWS: hostingchannels
+      # - name: Build affected
+      #   run: npm run affected:build -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT" --progress=false
+
+      # - uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
+      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NEWPANGEA_DEV }}'
+      #     channelId: live
+      #     projectId: newpangea-dev
+      #   env:
+      #     FIREBASE_CLI_PREVIEWS: hostingchannels
