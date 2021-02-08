@@ -1,0 +1,111 @@
+@import 'global.scss';
+
+.secuential {
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: 80% 20%;
+}
+
+.bgImg {
+  height: 100vh;
+  width: 80vw;
+}
+
+.bgWhite {
+  height: 100vh;
+  width: 80vw;
+  background-color: $buttonText;
+}
+
+.main_container {
+  height: 100vh;
+  background-color: $buttonText;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .form_card {
+    padding: 0px;
+    box-sizing: border-box;
+    margin-left: auto;
+    border-radius: 22px;
+    margin-right: 3vw;
+    .form_container {
+      border-radius: 22px;
+      width: 400px;
+      height: 622px;
+      background-color: $buttonText;
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.14);
+      padding: 0px 40px 0px 40px;
+      .forgot_password_container {
+        display: flex;
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: $primary;
+        text-decoration: underline;
+        justify-content: flex-start;
+      }
+      p.title {
+        font-family: Inter;
+        padding-top: 126px;
+        font-size: 32px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: $gray;
+      }
+      p.label {
+        width: 388px;
+        height: 34px;
+        margin: 12px 0 32px;
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: $gray;
+      }
+      .mat-form-field {
+        width: 100%;
+        &:first-of-type {
+          margin-bottom: 20px;
+        }
+      }
+    }
+
+    button.login_button {
+      background-color: $primary;
+      color: $buttonText;
+      border-radius: 26px;
+      width: 388px;
+      height: 52px;
+      margin: 40px 0 0;
+      padding: 8px 20px;
+    }
+  }
+}
+
+.login-bg {
+  height: 0px;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: $buttonText;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background: $primary;
+}
