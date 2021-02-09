@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'new-pangea-sidebar-menu',
   templateUrl: './sidebar-menu.component.html',
   styleUrls: ['./sidebar-menu.component.scss']
 })
-export class SidebarMenuComponent implements OnInit {
-
-  constructor() {}
-
-  ngOnInit(): void {
-  }
+export class SidebarMenuComponent {
 
 }

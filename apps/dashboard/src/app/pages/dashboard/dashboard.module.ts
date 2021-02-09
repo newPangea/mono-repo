@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SidebarMenuComponent } from '../../shared-components/components/sidebar-menu/sidebar-menu.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-
+import { SharedModule } from 'dashboard/app/shared/shared.module';
 
 @NgModule({
-    declarations: [SidebarMenuComponent],
-    imports: [CommonModule, DashboardRoutingModule,],
+    declarations: [],
+    imports: [CommonModule, DashboardRoutingModule, SharedModule],
 })
 
 export class AdminModule {}
