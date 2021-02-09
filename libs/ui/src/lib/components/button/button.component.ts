@@ -1,6 +1,6 @@
+/* eslint-disable @angular-eslint/component-selector */
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   ElementRef,
   ViewEncapsulation,
@@ -17,10 +17,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class ButtonComponent implements OnInit, OnChanges {
+export class ButtonComponent implements OnChanges {
   private element: HTMLButtonElement;
 
-  @Input() color: 'primary' | 'secondary' | 'alert' = 'primary';
+  @Input() color: 'primary' | 'secondary' | 'alert' | 'white' = 'primary';
 
   constructor(elementRef: ElementRef<HTMLButtonElement>) {
     this.element = elementRef.nativeElement;
@@ -37,5 +37,4 @@ export class ButtonComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit(): void {}
 }

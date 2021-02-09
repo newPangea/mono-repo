@@ -143,7 +143,10 @@
             "progress": false,
             "assets": ["apps/mobile/src/favicon.ico", "apps/mobile/src/assets"],
             "styles": ["apps/mobile/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["apps/mobile/src", "libs/styles"]
+            }
           },
           "configurations": {
             "production": {

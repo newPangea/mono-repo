@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { select, text } from '@storybook/addon-knobs';
-import { Story, Meta } from "@storybook/angular";
+import { Story, Meta } from '@storybook/angular';
 import { ButtonComponent } from './button.component';
 
 @Component({
-  selector: 'test-btn',
+  selector: 'pang-btn',
   template: `<button pangButton [color]="color">{{text}}</button>`
 })
 class TestComponent {
