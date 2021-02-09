@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@pang/ui": ["libs/ui/src/index.ts"]
+      "@pang/ui": ["libs/ui/src/index.ts"],
+      "dashboard/*": ["apps/dashboard/src/*"],
+      "@pang/mobile/*": ["apps/mobile/src/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

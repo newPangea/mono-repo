@@ -1,0 +1,66 @@
+@import 'global.scss';
+
+:host {
+  display: block;
+  background: $primary;
+}
+
+.welcome {
+  display: grid;
+  grid-template-rows: minmax(200px, auto) max-content;
+  height: 100vh;
+
+  &-word {
+    display: block;
+    height: 100%;
+    margin: auto;
+    padding-top: 60px;
+    box-sizing: border-box;
+  }
+
+  &-container {
+    padding: 0 16px;
+    display: grid;
+
+    &__title {
+      @include h1;
+      margin-bottom: 9px;
+      margin-top: 39px;
+      color: $white;
+    }
+
+    &__text {
+      @include subtitle2;
+      margin-bottom: 52px;
+      font-weight: normal;
+      color: $white;
+    }
+
+    &__division {
+      display: grid;
+      grid-template-columns: auto max-content auto;
+      align-items: center;
+      gap: 6px;
+      margin: 24px 0;
+      .line {
+        width: 100%;
+        border-bottom: solid 2px $white;
+      }
+      .text {
+        @include text(16px, $white, 500);
+      }
+    }
+
+    &__login {
+      @include body;
+      color: $white;
+      font-weight: normal;
+      text-align: center;
+      margin-bottom: 51px;
+      a {
+        font-weight: bold;
+        text-decoration: underline;
+      }
+    }
+  }
+}

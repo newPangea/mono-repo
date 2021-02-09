@@ -1,1 +1,100 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+$mobile-primary: (
+  50: #e0f6fd,
+  100: #b3e7fb,
+  200: #80d8f8,
+  300: #4dc8f5,
+  400: #26bcf2,
+  500: #00b0f0,
+  600: #00a9ee,
+  700: #00a0ec,
+  800: #0097e9,
+  900: #0087e5,
+  A100: #ffffff,
+  A200: #d9edff,
+  A400: #a6d6ff,
+  A700: #8ccaff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$mobile-accent: (
+  50: #f2f9ea,
+  100: #def1cb,
+  200: #c9e8a8,
+  300: #b3de85,
+  400: #a2d76a,
+  500: #92d050,
+  600: #8acb49,
+  700: #7fc440,
+  800: #75be37,
+  900: #63b327,
+  A100: #f7fff1,
+  A200: #d8ffbe,
+  A400: #baff8b,
+  A700: #abff72,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+// The warn palette is optional (defaults to red).
+$mobile-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$mobile-theme: mat-light-theme(
+  (
+    color: (
+      primary: $mobile-primary,
+      accent: $mobile-accent,
+      warn: $mobile-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($mobile-theme);
+@import 'global.scss';

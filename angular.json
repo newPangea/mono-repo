@@ -15,15 +15,10 @@
             "main": "apps/dashboard/src/main.ts",
             "polyfills": "apps/dashboard/src/polyfills.ts",
             "tsConfig": "apps/dashboard/tsconfig.app.json",
+            "progress": false,
             "aot": true,
-            "assets": [
-              "apps/dashboard/src/favicon.ico",
-              "apps/dashboard/src/assets"
-            ],
-            "styles": [
-              "apps/dashboard/src/styles.scss",
-              "libs/styles/global.scss"
-            ],
+            "assets": ["apps/dashboard/src/favicon.ico", "apps/dashboard/src/assets"],
+            "styles": ["apps/dashboard/src/styles.scss", "libs/styles/global.scss"],
             "stylePreprocessorOptions": {
               "includePaths": ["apps/dashboard/src", "libs/styles"]
             },
@@ -79,17 +74,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/dashboard/src/**/*.ts",
-              "apps/dashboard/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/dashboard/src/**/*.ts", "apps/dashboard/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/dashboard"
-          ],
+          "outputs": ["coverage/apps/dashboard"],
           "options": {
             "jestConfig": "apps/dashboard/jest.config.js",
             "passWithNoTests": true
@@ -130,9 +120,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/dashboard-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/dashboard-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -152,14 +140,13 @@
             "polyfills": "apps/mobile/src/polyfills.ts",
             "tsConfig": "apps/mobile/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/mobile/src/favicon.ico",
-              "apps/mobile/src/assets"
-            ],
-            "styles": [
-              "apps/mobile/src/styles.scss"
-            ],
-            "scripts": []
+            "progress": false,
+            "assets": ["apps/mobile/src/favicon.ico", "apps/mobile/src/assets"],
+            "styles": ["apps/mobile/src/styles.scss"],
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["apps/mobile/src", "libs/styles"]
+            }
           },
           "configurations": {
             "production": {
@@ -211,17 +198,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/mobile/src/**/*.ts",
-              "apps/mobile/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/mobile/src/**/*.ts", "apps/mobile/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/mobile"
-          ],
+          "outputs": ["coverage/apps/mobile"],
           "options": {
             "jestConfig": "apps/mobile/jest.config.js",
             "passWithNoTests": true
@@ -331,9 +313,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/mobile-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/mobile-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -365,17 +345,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ui/src/**/*.ts",
-              "libs/ui/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/ui"
-          ],
+          "outputs": ["coverage/libs/ui"],
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
             "passWithNoTests": true
@@ -401,6 +376,7 @@
           "options": {
             "uiFramework": "@storybook/angular",
             "outputPath": "dist/storybook/ui",
+            "quiet": true,
             "config": {
               "configFolder": "libs/ui/.storybook"
             }
