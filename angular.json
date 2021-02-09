@@ -17,19 +17,10 @@
             "tsConfig": "apps/dashboard/tsconfig.app.json",
             "progress": false,
             "aot": true,
-            "assets": [
-              "apps/dashboard/src/favicon.ico",
-              "apps/dashboard/src/assets"
-            ],
-            "styles": [
-              "apps/dashboard/src/styles.scss",
-              "libs/styles/global.scss"
-            ],
+            "assets": ["apps/dashboard/src/favicon.ico", "apps/dashboard/src/assets"],
+            "styles": ["apps/dashboard/src/styles.scss", "libs/styles/global.scss"],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "apps/dashboard/src",
-                "libs/styles"
-              ]
+              "includePaths": ["apps/dashboard/src", "libs/styles"]
             },
             "scripts": []
           },
@@ -83,17 +74,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/dashboard/src/**/*.ts",
-              "apps/dashboard/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/dashboard/src/**/*.ts", "apps/dashboard/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/dashboard"
-          ],
+          "outputs": ["coverage/apps/dashboard"],
           "options": {
             "jestConfig": "apps/dashboard/jest.config.js",
             "passWithNoTests": true
@@ -134,9 +120,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/dashboard-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/dashboard-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -157,13 +141,8 @@
             "tsConfig": "apps/mobile/tsconfig.app.json",
             "aot": true,
             "progress": false,
-            "assets": [
-              "apps/mobile/src/favicon.ico",
-              "apps/mobile/src/assets"
-            ],
-            "styles": [
-              "apps/mobile/src/styles.scss"
-            ],
+            "assets": ["apps/mobile/src/favicon.ico", "apps/mobile/src/assets"],
+            "styles": ["apps/mobile/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -216,17 +195,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/mobile/src/**/*.ts",
-              "apps/mobile/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/mobile/src/**/*.ts", "apps/mobile/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/mobile"
-          ],
+          "outputs": ["coverage/apps/mobile"],
           "options": {
             "jestConfig": "apps/mobile/jest.config.js",
             "passWithNoTests": true
@@ -336,9 +310,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/mobile-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/mobile-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -370,17 +342,12 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/ui/src/**/*.ts",
-              "libs/ui/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/ui"
-          ],
+          "outputs": ["coverage/libs/ui"],
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
             "passWithNoTests": true

@@ -4,8 +4,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SharedModule } from 'dashboard/app/shared/shared.module';
 
 @NgModule({
-    declarations: [],
-    imports: [CommonModule, DashboardRoutingModule, SharedModule],
+  declarations: [],
+  imports: [CommonModule, DashboardRoutingModule, SharedModule],
 })
-
 export class AdminModule {}
