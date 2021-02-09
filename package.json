@@ -22,7 +22,8 @@
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
-    "build:ui": "ng run ui:build-storybook"
+    "build:ui": "ng run ui:build-storybook",
+    "serve:mobile": "ng run mobile:serve --port 4201"
   },
   "private": true,
   "dependencies": {
