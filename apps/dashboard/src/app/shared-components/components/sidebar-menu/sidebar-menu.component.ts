@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
-    console.log('loading sidebar menu')
   }
 
 }

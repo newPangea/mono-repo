@@ -1,0 +1,47 @@
+@mixin text($size, $color, $weight) {
+  font-size: $size;
+  font-weight: $weight;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $color;
+}
+
+@mixin h1 {
+  @include text($h1Size, $gray, bold);
+}
+
+@mixin h2 {
+  @include text($h2Size, $gray, 500);
+}
+
+@mixin subtitle {
+  @include text($subtitleSize, $gray, bold);
+}
+
+@mixin subtitle2 {
+  @include text($subtitle2Size, $gray, bold);
+}
+
+@mixin body {
+  @include text($bodySize, $gray, 500);
+}
+
+@mixin body2 {
+  @include text($body2Size, $gray, 500);
+}
+
+@mixin caption {
+  @include text($captionSize, $gray, 500);
+}
+
+@mixin noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+  supported by Chrome, Edge, Opera and Firefox */
+}

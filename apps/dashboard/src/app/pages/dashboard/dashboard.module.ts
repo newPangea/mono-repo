@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { SidebarMenuComponent } from '../../common-components/sidebar-menu/sidebar-menu.component';
+import { SidebarMenuComponent } from '../../shared-components/components/sidebar-menu/sidebar-menu.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
 

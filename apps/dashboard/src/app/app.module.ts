@@ -10,7 +10,7 @@ import { MaterialModule } from '../../../material.module'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { SidebarMenuComponent } from './common-components/sidebar-menu/sidebar-menu.component';
+import { SidebarMenuComponent } from './shared-components/components/sidebar-menu/sidebar-menu.component';
 
 
 @NgModule({
