@@ -26,7 +26,10 @@
               "libs/styles/global.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["apps/dashboard/src", "libs/styles"]
+              "includePaths": [
+                "apps/dashboard/src",
+                "libs/styles"
+              ]
             },
             "scripts": []
           },
