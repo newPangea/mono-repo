@@ -1,1 +1,49 @@
-<p>sign-up works!</p>
+<img src="assets/img/signup.svg" class="header__image">
+
+<div class="header">
+  <a routerLink="/welcome">
+    <img src="assets/img/icon-back.svg" alt="" srcset="">
+  </a>
+  <h1 class="header__title">Sign up</h1>
+</div>
+
+
+<div class="sigUp-container">
+  <h1 class="title">Create connections</h1>
+  <p class="sigUp-container__description">
+    Check projects created by your partners round the world, Copy TBD
+  </p>
+  <form [formGroup]="signFom" class="sigUp-container__form">
+    <mat-form-field appearance="fill">
+      <mat-label>Full name</mat-label>
+      <input matInput formControlName="name" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Country of Birth</mat-label>
+      <input matInput formControlName="country" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date of Birth</mat-label>
+      <input matInput formControlName="date" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>School code</mat-label>
+      <input matInput formControlName="schoolCode" type="email">
+    </mat-form-field>
+
+    <button pang-button color="primary">Next</button>
+  </form>
+</div>

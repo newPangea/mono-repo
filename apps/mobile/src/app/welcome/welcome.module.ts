@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { UiModule } from '@pang/ui';
+
 import { WelcomeComponent } from './welcome.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { UiModule } from '@pang/ui';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -12,6 +17,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [WelcomeComponent, SignUpComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), UiModule],
+  imports: [CommonModule, RouterModule.forChild(routes), UiModule, MatIconModule, MatInputModule, ReactiveFormsModule],
 })
 export class WelcomeModule {}
