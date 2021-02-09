@@ -11,7 +11,15 @@ import { environment } from '@pang/mobile/environments/environment';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([{ path: 'welcome', loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule) }], { initialNavigation: 'enabled' }),
+    RouterModule.forRoot(
+      [
+        {
+          path: 'welcome',
+          loadChildren: () => import('./welcome/welcome.module').then((m) => m.WelcomeModule),
+        },
+      ],
+      { initialNavigation: 'enabled' },
+    ),
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.fire),
   ],
