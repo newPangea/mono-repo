@@ -37,13 +37,6 @@ export class ButtonComponent implements OnChanges {
         this.element.classList.add(att);
       }
     }
-
-    this.element.addEventListener('click', () => {
-      // console.log('click')
-      // this.ripple.launch({
-      //   centered: true
-      // })
-    })
   }
   ngOnChanges(changes: SimpleChanges): void {
     const colorChange = changes['color'];
