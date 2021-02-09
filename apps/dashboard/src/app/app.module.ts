@@ -19,7 +19,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-
 @NgModule({
   declarations: [AppComponent, LoginComponent, DashboardComponent],
   imports: [

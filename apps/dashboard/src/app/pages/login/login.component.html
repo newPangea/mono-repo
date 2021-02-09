@@ -1,61 +1,42 @@
 <div class="secuential">
-    <div class="login-bg">
-        <img class="bgImg" src='https://elycom.tn/wp-content/uploads/2021/01/Edge-Computing.jpg' alt="left-bg">
-    </div>
-    <div>
-        <!-- bg-white -->
-    </div>
+  <div class="login-bg">
+    <img class="bgImg" src="https://elycom.tn/wp-content/uploads/2021/01/Edge-Computing.jpg" alt="left-bg" />
+  </div>
+  <div>
+    <!-- bg-white -->
+  </div>
 </div>
 <div class="main_container">
-    <mat-card class="form_card">
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
-          <div class="form_container">
-            <p class="title">Welcome back!</p>
-            <p class="label">
-                To keep conected with your admin platform please login with your ameail adress and password
-            </p>
-            <mat-form-field appearance="fill">
-              <mat-label>Email</mat-label>
-              <input matInput type="email" formControlName="email" />
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Password</mat-label>
-              <input
-                matInput
-                [type]="hidePassword ? 'password' : 'text'"
-                formControlName="password"
-              />
-              <button
-                type="button"
-                mat-icon-button
-                matSuffix
-                (click)="hidePassword = !hidePassword"
-              >
-              <mat-icon class="custom_icon">{{
-                !hidePassword ? "visibility_off" : "visibility"
-              }}</mat-icon>
-
-              </button>
-            </mat-form-field>
-            <div class="forgot_password_container">
-                <p
-                  class="forgot_password_container__label"
-                  (click)="forgotPassword()"
-                >
-                  Forgot password
-                </p>
-              </div>
-              <button
-              type="submit"
-              class="login_button custom_button"
-              mat-raised-button
-              color="primary"
-              [disabled]="loginForm.invalid"
-              >
-              Login
-              <mat-progress-bar *ngIf="isLogin" mode="indeterminate"></mat-progress-bar>
-            </button>
-          </div>
-        </form>
-      </mat-card>
+  <mat-card class="form_card">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="form_container">
+        <p class="title">Welcome back!</p>
+        <p class="label">To keep conected with your admin platform please login with your ameail adress and password</p>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+          <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
+            <mat-icon class="custom_icon">{{ !hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="forgot_password_container">
+          <p class="forgot_password_container__label" (click)="forgotPassword()">Forgot password</p>
+        </div>
+        <button
+          type="submit"
+          class="login_button custom_button"
+          mat-raised-button
+          color="primary"
+          [disabled]="loginForm.invalid"
+        >
+          Login
+          <mat-progress-bar *ngIf="isLogin" mode="indeterminate"></mat-progress-bar>
+        </button>
+      </div>
+    </form>
+  </mat-card>
 </div>
