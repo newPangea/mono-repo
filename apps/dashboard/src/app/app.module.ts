@@ -6,16 +6,35 @@ import { UiModule } from '@pang/ui';
 import { LoginComponent } from './pages/login/login.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { MaterialModule } from '../../../material.module'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { SidebarMenuComponent } from './shared-components/components/sidebar-menu/sidebar-menu.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AngularFireModule } from '@angular/fire';
+import { SharedModule } from 'dashboard/app/shared/shared.module';
+
+import { environment } from 'dashboard/environments/environment';
+import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, SidebarMenuComponent],
-  imports: [BrowserModule, UiModule, AppRoutingModule, MaterialModule, BrowserAnimationsModule],
+  declarations: [AppComponent, LoginComponent, DashboardComponent],
+  imports: [
+    SharedModule,
+    BrowserModule,
+    UiModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.fire),
+    MatCardModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatIconModule,
+    MatProgressBarModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
