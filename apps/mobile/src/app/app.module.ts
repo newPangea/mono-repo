@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '@pang/mobile/environments/environment';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { environment } from '@pang/mobile/environments/environment';
     ),
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.fire),
+    IonicModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

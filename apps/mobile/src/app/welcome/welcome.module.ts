@@ -5,6 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { IonicModule } from '@ionic/angular';
+
 import { UiModule } from '@pang/ui';
 
 import { WelcomeComponent } from './welcome.component';
@@ -17,6 +19,14 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [WelcomeComponent, SignUpComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), UiModule, MatIconModule, MatInputModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    UiModule,
+    MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
+  ],
 })
 export class WelcomeModule {}

@@ -4,6 +4,9 @@
   display: block;
   background-color: $primary;
   padding-top: 198px;
+  height: 100vh;
+  overflow: auto;
+  box-sizing: border-box;
 }
 
 .header {

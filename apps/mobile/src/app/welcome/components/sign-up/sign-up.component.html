@@ -14,6 +14,7 @@
     Check projects created by your partners round the world, Copy TBD
   </p>
   <form [formGroup]="signFom" class="sigUp-container__form">
+
     <mat-form-field appearance="fill">
       <mat-label>Full name</mat-label>
       <input matInput formControlName="name" type="text">
@@ -24,10 +25,7 @@
       <input matInput formControlName="country" type="text">
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Date of Birth</mat-label>
-      <input matInput formControlName="date" type="text">
-    </mat-form-field>
+    <pang-date-picker formControlName="date"></pang-date-picker>
 
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
