@@ -5,7 +5,10 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '@pang/mobile/environments/environment';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +25,9 @@ import { environment } from '@pang/mobile/environments/environment';
     ),
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.fire),
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    IonicModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

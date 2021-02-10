@@ -6,7 +6,9 @@ import { GeneralService } from '../../services/generalService/general.service';
 import { School } from '../../../../../../utils/models/school';
 import { SchoolService } from '../../services/schoolService/school.service';
 import { Subscription } from 'rxjs';
-
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'new-pangea-sidebar-menu',
@@ -15,8 +17,10 @@ import { Subscription } from 'rxjs';
 })
 export class SidebarMenuComponent implements OnInit{
   public schoolForm: FormGroup;
+  public isLoading = false;
   public schoolSubscription: Subscription;
   public title: string;
+  public schools: School[];
   showFiller = false;
   public progress = false;
   public isPublishing = false;
@@ -38,10 +42,41 @@ export class SidebarMenuComponent implements OnInit{
   city: string;
   mapVisible = false;
 
+  //table
+  dataSource: MatTableDataSource<School>;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('epltable') epltable: ElementRef;
+
+  displayedColumns: string[] = [
+    'name',
+    'tcode',
+    'scode',
+    'pcode',
+    'acode',
+    'ecode',
+    'see',
+  ];
+
   private geoCoder: google.maps.Geocoder;
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
+
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+    this.setDataSourceAttributes();
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+    this.setDataSourceAttributes();
+  }
+
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,15 +84,23 @@ export class SidebarMenuComponent implements OnInit{
     private ngZone: NgZone,
     private generalService: GeneralService,
     private schoolsService: SchoolService
-    ){}
+    ){
+      this.dataSource = new MatTableDataSource();
+    }
 
   ngOnInit() {
+    this.isLoading = true;
     //subscribe to schools to load data table
     this.schoolSubscription = this.schoolsService.getAll().subscribe((schools) =>{
-      console.log(schools)
+      this.schools = schools
+      this.dataSource.data = schools;
+      console.log(this.dataSource)
+      this.isLoading = false;
     })
 
     //initialize map data for scenario 0
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.isPublishing = false;
     this.addres = '';
     this.title = 'Schools';
@@ -179,6 +222,10 @@ export class SidebarMenuComponent implements OnInit{
 
   toggleMap(){
     this.mapVisible = !this.mapVisible;
+  }
+
+  seeSchool(){
+    alert('Under development, please comeback soon!')
   }
 
 }

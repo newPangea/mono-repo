@@ -1,0 +1,49 @@
+@import 'global.scss';
+
+:host {
+  display: block;
+  background-color: $primary;
+  padding-top: 198px;
+  height: 100vh;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 44px 16px 0;
+  z-index: 0;
+  &__title {
+    @include h1;
+    color: $white;
+    margin-top: 12px;
+  }
+
+  &__image {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 218px;
+  }
+}
+
+.sigUp-container {
+  padding: 86px 16px 46px 16px;
+  border-radius: 13px 13px 0 0;;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #fafafa;
+  position: relative;
+  z-index: 2;
+
+  &__description {
+    @include body;
+    margin: 12px 0 20px;
+  }
+
+  &__form {
+    display: grid;
+  }
+}

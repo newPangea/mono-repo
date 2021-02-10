@@ -1,7 +1,24 @@
 .mat-form-field-appearance-fill .mat-form-field-flex {
   border-radius: 4px !important;
-  border: solid 1px $borderInput !important;
+  border: solid 1px $borderInput;
   background-color: $backgroundWhite;
+  padding-top: 8px !important;
+  .mat-form-field-infix {
+    padding-bottom: 8px;
+    padding-top: 0;
+  }
+}
+
+.mat-focused .mat-form-field-flex {
+  border-color: $primary;
+}
+
+.mat-form-field-invalid .mat-form-field-flex {
+  border-color: $alert;
+}
+
+.mat-form-field-appearance-fill.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  transform: translateY(-0.59375em) scale(0.6);
 }
 
 ::ng-deep .mat-form-field-underline {

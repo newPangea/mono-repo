@@ -9,3 +9,11 @@ body {
   margin: 0;
   font-family: 'Inter', sans-serif !important;
 }
+
+.title {
+  @include h1;
+}
+
+.body {
+  @include body;
+}

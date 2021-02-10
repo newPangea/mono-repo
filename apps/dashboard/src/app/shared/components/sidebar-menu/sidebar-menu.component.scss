@@ -140,7 +140,7 @@
 
 button.publishSchool_button {
   background-color: $primary;
-  color: $buttonText;
+  color: $white;
   border-radius: 26px;
   width: 388px;
   height: 52px;
@@ -203,4 +203,87 @@ button.publishSchool_button:disabled {
 agm-map {
   width: 100%;
   height: 340px;
+}
+
+//table
+mat-table {
+  display: inline-table;
+  width: 100%;
+  padding-bottom: 10px;
+  padding-top: 20px;
+  border-radius: 10px;
+}
+
+td.mat-cell {
+  border-bottom-style: none;
+}
+
+tr.mat-header-row {
+  height: 40px;
+}
+
+tr.mat-footer-row,
+tr.mat-row {
+  font-family: Open Sans;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.29;
+  letter-spacing: normal;
+  color: black;
+}
+
+.main_container {
+  margin-top: 24px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  max-width: 867px;
+  margin: 24px auto;
+
+  p.title {
+    font-family: Open Sans;
+    font-size: 12px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: $gray;
+    padding-left: 20px;
+    padding-top: 20px;
+  }
+}
+
+.mat-form-field {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.125;
+  font-family: Open Sans;
+}
+
+.table_container {
+  margin: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(129, 127, 127, 0.14);
+}
+
+.mat-row:nth-child(even) {
+  background-color: $even;
+}
+
+.mat-row:nth-child(odd) {
+  background-color: $odd;
+}
+
+.addres {
+  @include caption;
+  color: #3e3e3e;
+}
+
+.marker {
+  color: $primary;
+  font-size: 12px;
+  width: 14px;
+  height: 10px;
 }
