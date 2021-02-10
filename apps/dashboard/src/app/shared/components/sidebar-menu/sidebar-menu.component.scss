@@ -17,11 +17,16 @@
   box-shadow: 0 0 7px 0 rgba(208, 208, 208, 0.5);
   background-color: #ffffff;
   mat-icon {
-    padding: 18px;
-    color: $primary;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 22px;
+    margin-bottom: 22px;
+    cursor: pointer;
+    color: $divider;
+    & .active {
+      color: $primary;
+    }
   }
   .divider {
     width: 40px;
