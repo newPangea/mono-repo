@@ -1,6 +1,6 @@
 @import 'global.scss';
 
-.example-container {
+.container {
   position: absolute;
   top: 12px;
   bottom: 12px;
@@ -8,7 +8,7 @@
   right: 0;
 }
 
-.example-sidenav {
+.sidenav {
   border-radius: 9px;
   display: flex;
   align-items: center;
@@ -24,9 +24,9 @@
     margin-bottom: 22px;
     cursor: pointer;
     color: $divider;
-    & .active {
-      color: $primary;
-    }
+  }
+  .active {
+    color: $primary;
   }
   .divider {
     width: 40px;
@@ -37,4 +37,170 @@
     margin-right: auto;
     background-color: $divider;
   }
+  .sidebar-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 22px;
+    margin-bottom: 22px;
+    cursor: pointer;
+    color: $divider;
+  }
+}
+
+.secuential {
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: 80% 20%;
+}
+
+.secuential2 {
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: 50% 50%;
+  margin-bottom: 20px;
+}
+.segment-title {
+  @include h2;
+  margin-top: 30px;
+  margin-left: 34px;
+}
+
+.add-school {
+  @include body2;
+  color: $primary;
+  text-decoration: underline;
+  margin-top: 44px;
+  margin-left: auto;
+  margin-right: 34px;
+  cursor: pointer;
+}
+
+//drawer
+.container2 {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.sidenav-content2 {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidenav2 {
+  border-radius: 20px 0 0 20px;
+  padding: 20px;
+  right: 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.12);
+  border: solid 1px #ffffff;
+  background-color: #ffffff;
+  .drawer-title {
+    @include subtitle2;
+  }
+}
+
+.close-drawer {
+  color: $primary;
+  display: block;
+  margin-left: auto;
+}
+
+//form
+.form_container {
+  width: 400px;
+  .forgot_password_container {
+    display: flex;
+    @include body2;
+    color: $subText;
+    justify-content: flex-start;
+    a {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+  p.title {
+    @include subtitle2;
+    padding-top: 52px;
+    padding-bottom: 40px;
+  }
+  p.label {
+    @include body2;
+    margin-bottom: 12px;
+  }
+  .mat-form-field {
+    width: 100%;
+    &:first-of-type {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+button.publishSchool_button {
+  background-color: $primary;
+  color: $buttonText;
+  border-radius: 26px;
+  width: 388px;
+  height: 52px;
+  margin: 40px 0 0;
+  padding: 8px 20px;
+}
+
+button.publishSchool_button:disabled {
+  background-color: $subText;
+}
+
+//codes
+
+.codes {
+  margin-top: 24px;
+}
+.tCircle {
+  font-size: 12px;
+  text-align: center;
+  color: $primary;
+}
+
+.aCircle {
+  font-size: 12px;
+  text-align: center;
+  color: $admin;
+}
+
+.sCircle {
+  font-size: 12px;
+  text-align: center;
+  color: $student;
+}
+
+.eCircle {
+  font-size: 12px;
+  text-align: center;
+  color: $expert;
+}
+
+.pCircle {
+  font-size: 12px;
+  text-align: center;
+  color: $parent;
+}
+
+.roleTitle {
+  @include body;
+  color: $primary;
+  display: contents;
+}
+
+.code {
+  @include body2;
+  color: $subText;
+  margin-left: 28px;
+}
+
+//map
+agm-map {
+  width: 100%;
+  height: 340px;
 }

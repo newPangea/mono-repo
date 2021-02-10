@@ -1,12 +1,122 @@
-<mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="side" opened class="example-sidenav">
-    <mat-icon>menu</mat-icon>
-    <div class="divider"></div>
-    <mat-icon>person</mat-icon>
+<mat-drawer-container class="container2" hasBackdrop=true>
+  <mat-drawer #drawer class="sidenav2" mode="over" [(opened)]="opened" position="end" hasBackdrop="true">
+      <mat-icon  class="close-drawer" (click)="drawer.toggle()">close</mat-icon>
+      <form [formGroup]="schoolForm" (ngSubmit)="addSchool()">
+        <div class="form_container">
+          <p class="title">Add new school</p>
+          <mat-form-field appearance="fill">
+            <mat-label>School name</mat-label>
+            <input matInput type="text" formControlName="schoolName" />
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Geo location</mat-label>
+            <input 
+            matInput 
+            type="text" 
+            formControlName="geoLocation"
+            [value]="addres"
+            (keydown.enter)="$event.preventDefault()"
+            placeholder="Ingrese dirección"
+            autocorrect="off"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="off"
+            #search
+            />
+          </mat-form-field>
+          <div class="forgot_password_container">
+            <p *ngIf="!mapVisible">Don’t find the location? <a (click)="toggleMap()">Click here</a>  </p>
+            <p *ngIf="mapVisible"> <a (click)="toggleMap()">Hide map</a>  </p>
+          </div>
+          <!-- map -->
+          <agm-map *ngIf="mapVisible" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+            <agm-marker
+              [latitude]="latitude"
+              [longitude]="longitude"
+              [markerDraggable]="true"
+              (dragEnd)="markerDragEnd($event)"
+            ></agm-marker>
+          </agm-map>
+          <mat-progress-bar [mode]="'indeterminate'" *ngIf="isPublishing">
+          </mat-progress-bar>
+          <div>
+            <div class="right_container">
+              <h5>{{ addres}}</h5>
+            </div>
+          </div>
+          <!-- end map -->
+          <div class="codes">
+            <div class="secuential2">
+              <div class="teacher">
+                <mat-icon class="tCircle">circle</mat-icon>
+                <p class="roleTitle"> 
+                  Teacher code
+                </p>
+                <p class="code">{{ tCode }}</p>
+              </div>
+              <div class="admin">
+                <mat-icon class="aCircle">circle</mat-icon>
+                <p class="roleTitle"> 
+                  Admin code
+                </p>
+                <p class="code">{{ aCode }}</p>
+              </div>
+            </div>
+            <div class="secuential2">
+              <div class="student">
+                <mat-icon class="sCircle">circle</mat-icon>
+                <p class="roleTitle"> 
+                  Student code
+                </p>
+                <p class="code">{{ sCode }}</p>
+              </div>
+              <div class="expert">
+                <mat-icon class="eCircle">circle</mat-icon>
+                <p class="roleTitle"> 
+                  Expert code
+                </p>
+                <p class="code">{{ eCode }}</p>
+              </div>
+            </div>
+            <div class="secuential2">
+              <div class="parent">
+                <mat-icon class="pCircle">circle</mat-icon>
+                <p class="roleTitle"> 
+                  Parent code
+                </p>
+                <p class="code">{{ pCode }}</p>
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="publishSchool_button custom_button"
+            mat-raised-button
+            color="primary"
+            [disabled]="schoolForm.invalid"
+          >
+            Publish school
+            <mat-progress-bar *ngIf="isPublishing" mode="indeterminate"></mat-progress-bar>
+          </button>
+        </div>
+      </form>
+    </mat-drawer>
+  <mat-sidenav-container class="container">
+    <mat-sidenav #sidenav mode="side" opened class="sidenav">
+      <mat-icon class="active">menu</mat-icon>
+      <div class="divider"></div>
+    <mat-icon class="disabled">person</mat-icon>
     <mat-icon class="active">account_balance</mat-icon>
-    <mat-icon>person</mat-icon>
-    <mat-icon>person</mat-icon>
   </mat-sidenav>
-
-  <mat-sidenav-content> </mat-sidenav-content>
+  
+  <mat-sidenav-content> 
+    <div class="secuential">
+      <p class="segment-title">{{ title }}</p>
+      <p (click)="drawer.toggle()" class="add-school">+ Add school</p>
+    </div>
+    <!-- <div class="table">Table</div> -->
+    
+  </mat-sidenav-content>
 </mat-sidenav-container>
+
+</mat-drawer-container>
