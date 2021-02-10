@@ -30,10 +30,10 @@ export class DatePickerComponent implements ControlValueAccessor {
       this.dateValue = obj;
     }
   }
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (date: Date) => void): void {
     this.onChange = fn;
   }
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
