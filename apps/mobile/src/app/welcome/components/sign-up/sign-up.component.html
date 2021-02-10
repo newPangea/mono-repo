@@ -13,7 +13,7 @@
   <p class="sigUp-container__description">
     Check projects created by your partners round the world, Copy TBD
   </p>
-  <form [formGroup]="signFom" class="sigUp-container__form">
+  <form [formGroup]="signFom" (ngSubmit)="createAccount()" class="sigUp-container__form">
 
     <mat-form-field appearance="fill">
       <mat-label>Full name</mat-label>
@@ -22,26 +22,30 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Country of Birth</mat-label>
-      <input matInput formControlName="country" type="text">
+      <mat-select formControlName="country">
+        <mat-option *ngFor="let country of countries" [value]="country">
+          {{country.name}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <pang-date-picker formControlName="date"></pang-date-picker>
 
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
-      <input matInput formControlName="email" type="email">
+      <input matInput formControlName="email">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
-      <input matInput formControlName="password" type="email">
+      <input matInput formControlName="password">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>School code</mat-label>
-      <input matInput formControlName="schoolCode" type="email">
+      <input matInput formControlName="schoolCode">
     </mat-form-field>
 
-    <button pang-button color="primary">Next</button>
+    <button pang-button color="primary" [loading]="loading" [disabled]="signFom.invalid">Next</button>
   </form>
 </div>

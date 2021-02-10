@@ -1,3 +1,4 @@
+@import 'global.scss';
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -12,7 +13,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
-$mobile-primary: (
+$primary: (
   50: #e0f6fd,
   100: #b3e7fb,
   200: #80d8f8,
@@ -45,7 +46,7 @@ $mobile-primary: (
   ),
 );
 
-$mobile-accent: (
+$accent: (
   50: #f2f9ea,
   100: #def1cb,
   200: #c9e8a8,
@@ -78,6 +79,9 @@ $mobile-accent: (
   ),
 );
 
+$mobile-primary: mat-palette($primary);
+$mobile-accent: mat-palette($accent, A200, A100, A400);
+
 // The warn palette is optional (defaults to red).
 $mobile-warn: mat-palette($mat-red);
 
@@ -97,4 +101,4 @@ $mobile-theme: mat-light-theme(
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($mobile-theme);
-@import 'global.scss';
+

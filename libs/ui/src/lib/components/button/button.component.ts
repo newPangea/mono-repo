@@ -25,12 +25,16 @@ export class ButtonComponent implements OnChanges {
   element: HTMLButtonElement;
 
   @Input() color: 'primary' | 'secondary' | 'alert' | 'white' = 'primary';
+  @Input() disabled: boolean;
+  @Input() loading = false;
+
   @ViewChild(MatRipple) ripple: MatRipple;
 
   constructor(elementRef: ElementRef<HTMLButtonElement>) {
     this.element = elementRef.nativeElement;
     this.element.classList.add('btn-basic');
     this.element.classList.add(this.color);
+    this.element.disabled = this.disabled;
 
     for (const att of BUTTON_HOST_ATTRIBUTES) {
       if (this.element.hasAttribute(att)) {
@@ -45,6 +49,9 @@ export class ButtonComponent implements OnChanges {
         this.element.classList.remove(colorChange.previousValue);
       }
       this.element.classList.add(colorChange.currentValue);
+    }
+    if (changes['disabled'] || changes['loading']) {
+      this.element.disabled = this.disabled || this.loading;
     }
   }
 }

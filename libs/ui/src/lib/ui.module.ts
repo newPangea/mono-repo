@@ -6,9 +6,10 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
 import { IonicModule } from '@ionic/angular';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  imports: [CommonModule, MatRippleModule, IonicModule, MatInputModule, FormsModule],
+  imports: [CommonModule, MatRippleModule, IonicModule, MatInputModule, FormsModule, MatProgressSpinnerModule],
   declarations: [ButtonComponent, DatePickerComponent],
   providers: [DatePipe],
   exports: [ButtonComponent, DatePickerComponent],
