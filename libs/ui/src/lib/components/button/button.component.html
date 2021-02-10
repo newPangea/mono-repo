@@ -1,2 +1,3 @@
-<span><ng-content></ng-content></span>
-<span matRipple class="btn-ripley" [matRippleTrigger]="element"></span>
+<span *ngIf="!loading"><ng-content></ng-content></span>
+<span matRipple [matRippleDisabled]="disabled" class="btn-ripley" [matRippleTrigger]="element"></span>
+<mat-spinner class="spinner" *ngIf="loading" [diameter]="31" [color]="'primary'"></mat-spinner>
