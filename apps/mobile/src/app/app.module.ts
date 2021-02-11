@@ -23,8 +23,8 @@ import { IonicModule } from '@ionic/angular';
         {
           path: '',
           redirectTo: 'welcome',
-          pathMatch: 'full'
-        }
+          pathMatch: 'full',
+        },
       ],
       { initialNavigation: 'enabled' },
     ),

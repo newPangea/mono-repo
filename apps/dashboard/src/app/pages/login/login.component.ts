@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from './services/loginService/login.service';
 
 @Component({
   selector: 'new-pangea-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   public hidePassword = true;
   public isLogin = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -22,17 +23,21 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.isLogin = true;
     const { email } = this.loginForm.value;
     const { password } = this.loginForm.value;
     if ((email && email != 'admin@newpangea.com') || (password && password != '12345678')) {
       alert('Incorrect credentials');
     } else {
-      console.log('login in');
-      console.log(this.router.navigate(['/', 'dashboard']));
-      this.router.navigate(['/', 'dashboard']);
+      this.isLogin = true;
+      this.loginService.loginWithEmail(email, password).then((fireUser) => {
+        if (fireUser) {
+          this.router.navigate(['/', 'dashboard']);
+          this.isLogin = false;
+        } else {
+          alert('Incorrect credentials');
+        }
+      });
     }
-    this.isLogin = false;
   }
 
   forgotPassword(): void {

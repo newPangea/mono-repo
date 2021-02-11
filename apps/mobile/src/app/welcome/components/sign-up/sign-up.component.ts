@@ -40,7 +40,7 @@ export class SignUpComponent implements OnInit {
     // window.addEventListener('keyboardDidShow', function() {
     //   document.activeElement.scrollIntoView({behavior: 'smooth'});
     // });
-    Keyboard.setAccessoryBarVisible({isVisible: true});
+    Keyboard.setAccessoryBarVisible({ isVisible: true });
   }
 
   createAccount() {
@@ -59,13 +59,13 @@ export class SignUpComponent implements OnInit {
         return this.fireStore.firestore.collection('student').withConverter(studentConvert).add(student);
       })
       .then(() => {
-        this.router.navigate(['welcome', 'confirm'])
+        this.router.navigate(['welcome', 'confirm']);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       })
       .finally(() => {
         this.loading = false;
-      })
+      });
   }
 }

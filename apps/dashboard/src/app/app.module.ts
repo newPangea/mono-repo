@@ -18,6 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, DashboardComponent],
@@ -33,6 +35,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatInputModule,
     MatIconModule,
     MatProgressBarModule,
+    MatButtonModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
