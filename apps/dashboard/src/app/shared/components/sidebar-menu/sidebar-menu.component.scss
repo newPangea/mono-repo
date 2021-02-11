@@ -15,7 +15,7 @@
   justify-content: center;
   width: 64px;
   box-shadow: 0 0 7px 0 rgba(208, 208, 208, 0.5);
-  background-color: #ffffff;
+  background-color: $white;
   mat-icon {
     display: block;
     margin-left: auto;
@@ -95,8 +95,8 @@
   padding: 20px;
   right: 0;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.12);
-  border: solid 1px #ffffff;
-  background-color: #ffffff;
+  border: solid 1px $white;
+  background-color: $white;
   .drawer-title {
     @include subtitle2;
   }
