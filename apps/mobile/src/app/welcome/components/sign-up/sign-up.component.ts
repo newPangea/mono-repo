@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { COUNTRIES } from '@pang/const';
 import { Student, studentConvert } from '@pang/interface';
+import { Plugins } from '@capacitor/core';
+import { keyframes } from '@angular/animations';
+
+const { Keyboard } = Plugins;
 
 @Component({
   selector: 'pang-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
   readonly countries = COUNTRIES;
 
   signFom: FormGroup;
@@ -31,6 +35,12 @@ export class SignUpComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       schoolCode: ['', [Validators.required]],
     });
+  }
+  ngOnInit(): void {
+    // window.addEventListener('keyboardDidShow', function() {
+    //   document.activeElement.scrollIntoView({behavior: 'smooth'});
+    // });
+    Keyboard.setAccessoryBarVisible({isVisible: true});
   }
 
   createAccount() {

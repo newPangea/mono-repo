@@ -20,6 +20,11 @@ import { IonicModule } from '@ionic/angular';
           path: 'welcome',
           loadChildren: () => import('./welcome/welcome.module').then((m) => m.WelcomeModule),
         },
+        {
+          path: '',
+          redirectTo: 'welcome',
+          pathMatch: 'full'
+        }
       ],
       { initialNavigation: 'enabled' },
     ),
