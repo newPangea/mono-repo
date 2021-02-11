@@ -6,7 +6,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
   providedIn: 'root',
 })
 export class LoginService {
-  
   public didLogout: EventEmitter<void> = new EventEmitter();
 
   constructor(private auth: AngularFireAuth, private db: AngularFirestore) {}

@@ -19,7 +19,7 @@ export class DatePickerComponent implements ControlValueAccessor {
   isDisable: boolean;
 
   onChange: (date: Date) => void;
-  onTouch : () => void;
+  onTouch: () => void;
 
   constructor(private datePipe: DatePipe) {}
 

@@ -9,20 +9,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatButtonModule } from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
 
 @NgModule({
   declarations: [SidebarMenuComponent],
-  imports: [CommonModule, MatSidenavModule, MatIconModule, MatInputModule, ReactiveFormsModule,
+  imports: [
+    CommonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC9aRHf8SS9ZQ2kLESnX1RqJmbxFmkYZco&libraries=places',
     }),
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
-    MatProgressBarModule
+    MatProgressBarModule,
   ],
   exports: [SidebarMenuComponent],
 })

@@ -13,11 +13,7 @@ export class LoginComponent implements OnInit {
   public hidePassword = true;
   public isLogin = false;
 
-  constructor(
-    private formBuilder: FormBuilder, 
-    private router: Router,
-    private loginService: LoginService,
-    ) {}
+  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -33,16 +29,14 @@ export class LoginComponent implements OnInit {
       alert('Incorrect credentials');
     } else {
       this.isLogin = true;
-      this.loginService
-      .loginWithEmail(email, password)
-      .then((fireUser) => {
+      this.loginService.loginWithEmail(email, password).then((fireUser) => {
         if (fireUser) {
           this.router.navigate(['/', 'dashboard']);
           this.isLogin = false;
-        }else{
+        } else {
           alert('Incorrect credentials');
         }
-      })
+      });
     }
   }
 

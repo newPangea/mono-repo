@@ -1,11 +1,11 @@
 export class User {
-  static REF: string = "users";
+  static REF: string = 'users';
   key: string;
   email: string;
   role: number;
   name: string;
 
-  constructor(key:string, email: string) {
+  constructor(key: string, email: string) {
     this.key = key;
     this.email = email;
   }

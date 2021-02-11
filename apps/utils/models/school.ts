@@ -1,5 +1,5 @@
 export class School {
-  static REF: string = "schools";
+  static REF: string = 'schools';
   key: string;
   name: string;
   addres: string;
@@ -14,7 +14,7 @@ export class School {
   created_at: number;
 
   constructor(
-    key:string, 
+    key: string,
     name: string,
     addres: string,
     latitude: number,
@@ -24,7 +24,7 @@ export class School {
     scode: string,
     pcode: string,
     ecode: string,
-    ) {
+  ) {
     this.key = key;
     this.name = name;
     this.addres = addres;
