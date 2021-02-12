@@ -11,9 +11,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { SchoolsComponent } from '../dashboard/components/schools/schools.component';
 
 @NgModule({
-  declarations: [SidebarMenuComponent],
+  declarations: [SidebarMenuComponent, SchoolsComponent],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -28,6 +29,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatButtonModule,
     MatProgressBarModule,
   ],
-  exports: [SidebarMenuComponent],
+  exports: [SidebarMenuComponent, SchoolsComponent],
 })
 export class SharedModule {}

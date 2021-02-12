@@ -27,14 +27,13 @@
           <p class="forgot_password_container__label" (click)="forgotPassword()">Forgot password</p>
         </div>
         <button
-          type="submit"
-          class="login_button custom_button"
-          mat-raised-button
+          pang-button
+          class="login_button"
           color="primary"
           [disabled]="loginForm.invalid"
+          [loading]="isLogin"
         >
           Login
-          <mat-progress-bar *ngIf="isLogin" mode="indeterminate"></mat-progress-bar>
         </button>
       </div>
     </form>
