@@ -1,0 +1,23 @@
+@import 'global.scss';
+
+.digits-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  align-items: center;
+  column-gap: 11px;
+  &__digit {
+    height: 59px;
+    border-radius: 11px;
+    border: solid 1px $gray2;
+    background-color: $white;
+    font-family: Inter;
+    font-size: 28px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: $gray;
+    text-align: center;
+  }
+}
