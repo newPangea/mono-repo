@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { COUNTRIES } from '@pang/const';
 import { Student, studentConvert } from '@pang/interface';
 import { Plugins } from '@capacitor/core';
-import { keyframes } from '@angular/animations';
 import { SchoolService } from '@pang/services'
 import { Subscription } from 'rxjs';
 
@@ -77,7 +76,9 @@ public schoolsubscription: Subscription;
     this.loading = true;
     const { email, password, schoolCode,...rest } = this.signFom.value;
     //checking schoolCode here with schoolService
-    this.schoolsubscription = this.schoolService.findSchoolCode(schoolCode).subscribe((school) => {
+    const scode = 'S'+schoolCode.substring(1) 
+    this.schoolService.findSchoolCode(scode).subscribe((school) => {
+      console.log(school)
       if(school.length > 0){
         //match so login
         this.fireAuth

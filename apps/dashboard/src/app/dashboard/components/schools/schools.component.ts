@@ -208,4 +208,10 @@ export class SchoolsComponent implements OnInit {
   seeSchool() {
     alert('Under development, please comeback soon!');
   }
+
+  ngOnDestroy(){
+    if(this.schoolSubscription){
+      this.schoolSubscription.unsubscribe();
+    }
+  }
 }
