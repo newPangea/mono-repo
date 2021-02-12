@@ -6,8 +6,11 @@ import { Router } from '@angular/router';
 import { COUNTRIES } from '@pang/const';
 import { Student, studentConvert } from '@pang/interface';
 import { Plugins } from '@capacitor/core';
+<<<<<<< HEAD
 import { SchoolService } from '@pang/services'
 import { Subscription } from 'rxjs';
+=======
+>>>>>>> 1debee3e11961caf7c862ed764ff3b3902521f8a
 
 const { Keyboard } = Plugins;
 
@@ -46,11 +49,12 @@ public schoolsubscription: Subscription;
       ]],
     });
   }
+
   ngOnInit(): void {
-    // window.addEventListener('keyboardDidShow', function() {
-    //   document.activeElement.scrollIntoView({behavior: 'smooth'});
-    // });
-    Keyboard.setAccessoryBarVisible({ isVisible: true });
+    Keyboard.addListener('keyboardDidShow', () => {
+      document.activeElement.scrollIntoView({behavior: 'smooth', block: 'center'});
+    })
+    Keyboard.setAccessoryBarVisible({isVisible: true});
   }
 
   getErrorMessageByField(field: string): string {
