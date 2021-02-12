@@ -25,12 +25,13 @@ import { ToggleComponent } from './components/toggle/toggle.component';
 const routes: Routes = [
   { path: '', component: WelcomeComponent, canActivate: [IsNewUserGuard] },
   { path: 'sign-up', component: SignUpComponent, canActivate: [IsNewUserGuard] },
+  { path: 'sign-in', component: SignUpComponent, canActivate: [IsNewUserGuard] },
   { path: 'confirm', component: ConfirmComponent },
   { path: 'success-sign-up', component: SuccessSignUpComponent, canActivate: [IsUserCompleteGuard] },
 ];
 
 @NgModule({
-  declarations: [WelcomeComponent, SignUpComponent, ConfirmComponent, SignInComponent, ToggleComponent, SuccessSignUpComponent],
+  declarations: [WelcomeComponent, SignUpComponent, ConfirmComponent, SuccessSignUpComponent, SignInComponent, ToggleComponent],
   imports: [
     CommonModule,
     IonicModule,
