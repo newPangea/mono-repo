@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Preference } from '@pang/interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'new-pangea-preferences',
@@ -9,6 +10,7 @@ import { Preference } from '@pang/interface';
   styleUrls: ['./preferences.component.scss'],
 })
 export class PreferencesComponent implements OnInit {
+  preferences$: Observable<Preference[]>;
   preferenceForm: FormGroup;
   loading = false;
   constructor(private fireStore: AngularFirestore, formBuilder: FormBuilder) {
@@ -17,12 +19,38 @@ export class PreferencesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
-
-  createPreference() {
-    this.loading = true;
-    this;
+  ngOnInit(): void {
+    this.preferences$ = this.getAllPreferences();
   }
 
-  private addPreference(preference: Preference) {}
+  createPreference(formGroupDirective: FormGroupDirective) {
+    this.loading = true;
+    const { name } = this.preferenceForm.value;
+    const preference: Preference = {
+      key: this.fireStore.createId(),
+      name,
+      createdAt: new Date().getTime(),
+    };
+    this.addPreference(preference)
+      .then(() => {
+        formGroupDirective.resetForm();
+        this.loading = false;
+      })
+      .catch(() => {
+        this.loading = false;
+      });
+  }
+
+  private addPreference(preference: Preference) {
+    return this.fireStore
+      .collection('preferences')
+      .doc(preference.key)
+      .set({ ...preference });
+  }
+
+  private getAllPreferences() {
+    return this.fireStore
+      .collection<Preference>('preferences', (ref) => ref.orderBy('name', 'asc'))
+      .valueChanges();
+  }
 }

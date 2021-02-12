@@ -26,3 +26,34 @@
     }
   }
 }
+.striped-table {
+  width: 442px;
+  max-height: 660px;
+  padding: 34px 20px 0px 0px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 rgba(129, 127, 127, 0.14);
+  overflow-y: auto;
+  &__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 51px;
+    border-radius: 4px;
+    padding: 17px 23px;
+    box-sizing: border-box;
+    &:nth-child(odd) {
+      background-color: rgba(235, 236, 239, 0.5);
+    }
+    &__label {
+      font-family: Inter;
+      font-size: 14px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: $gray;
+      margin: 0;
+    }
+  }
+}
