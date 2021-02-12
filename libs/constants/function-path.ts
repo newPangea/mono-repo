@@ -1,3 +1,4 @@
 export const FUNCTION = {
-  generateCode: 'codeGenerator'
+  generateCode: 'codeGenerator',
+  confirmCode: 'codeVerification'
 }

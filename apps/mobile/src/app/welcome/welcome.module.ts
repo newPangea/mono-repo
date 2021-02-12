@@ -6,16 +6,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { UiModule } from '@pang/ui';
+import { CoreModule } from '@pang/core';
 
 import { WelcomeComponent } from './welcome.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
-import { CoreModule } from '@pang/core';
+
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -36,6 +37,7 @@ const routes: Routes = [
     MatSelectModule,
     CoreModule,
     MatSnackBarModule,
+    FormsModule,
   ],
 })
 export class WelcomeModule {}

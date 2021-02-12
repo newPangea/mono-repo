@@ -20,7 +20,7 @@ export class StudentService {
     const { uid } = dataUser.user;
     student.uid = uid;
     student.validateCode = false;
-    await this.db.firestore.collection(FIRESTORE_COLLECTION.student).withConverter(studentConvert).add(student);
+    await this.db.firestore.collection(FIRESTORE_COLLECTION.student).withConverter(studentConvert).doc(uid).set(student);
     return this.messageService.sendConfirmationCode(student.email).toPromise();
   }
 }

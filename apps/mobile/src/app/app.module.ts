@@ -21,6 +21,10 @@ import { IonicModule } from '@ionic/angular';
           loadChildren: () => import('./welcome/welcome.module').then((m) => m.WelcomeModule),
         },
         {
+          path: 'preferences',
+          loadChildren: () => import('./preference/preference.module').then((m) => m.PreferenceModule),
+        },
+        {
           path: '',
           redirectTo: 'welcome',
           pathMatch: 'full',

@@ -1,1 +1,18 @@
-<p>confirm works!</p>
+<img src="assets/img/signup.svg" class="header__image" />
+
+<div class="confirm">
+  <h2 class="subtitle">Confirmation</h2>
+  <p class="confirm__description">We have already sent you to your email a code to confirm you account</p>
+  <pang-phone-code [(ngModel)]="code"></pang-phone-code>
+  <p class="confirm__code">Don’t receive a code? <span class="link">Send again</span></p>
+  <button
+    pang-flat-button
+    color="primary"
+    [disabled]="code.length < 5"
+    class="button"
+    [loading]="load"
+    (click)="confirmCode()"
+  >
+    Continue
+  </button>
+</div>

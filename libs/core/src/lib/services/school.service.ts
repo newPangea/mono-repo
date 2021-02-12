@@ -3,7 +3,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { School } from '@pang/models';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SchoolService {
   public didLogout: EventEmitter<void> = new EventEmitter();
 
