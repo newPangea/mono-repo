@@ -21,7 +21,7 @@
       "@pang/const": ["libs/constants/index.ts"],
       "@pang/interface": ["libs/interfaces/index.ts"],
       "@pang/models": ["libs/models/index.ts"],
-      "@pang/services": ["libs/services/index.ts"]
+      "@pang/core": ["libs/core/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

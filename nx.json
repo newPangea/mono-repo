@@ -1,14 +1,9 @@
 {
   "npmScope": "pang",
-  "affected": {
-    "defaultBase": "dev"
-  },
+  "affected": { "defaultBase": "dev" },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -17,38 +12,15 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e",
-          "build-storybook"
-        ]
-      }
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e", "build-storybook"] }
     }
   },
   "projects": {
-    "dashboard": {
-      "tags": []
-    },
-    "dashboard-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "dashboard"
-      ]
-    },
-    "mobile": {
-      "tags": []
-    },
-    "mobile-e2e": {
-      "tags": [],
-      "implicitDependencies": [
-        "mobile"
-      ]
-    },
-    "ui": {
-      "tags": []
-    }
+    "dashboard": { "tags": [] },
+    "dashboard-e2e": { "tags": [], "implicitDependencies": ["dashboard"] },
+    "mobile": { "tags": [] },
+    "mobile-e2e": { "tags": [], "implicitDependencies": ["mobile"] },
+    "ui": { "tags": [] },
+    "core": { "tags": [] }
   }
 }

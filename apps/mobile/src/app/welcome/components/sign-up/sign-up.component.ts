@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { COUNTRIES } from '@pang/const';
-import { Student, studentConvert } from '@pang/interface';
+import { Student } from '@pang/interface';
 import { Plugins } from '@capacitor/core';
-import { SchoolService } from '@pang/services';
+import { SchoolService, StudentService } from '@pang/core';
+import { take } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const { Keyboard } = Plugins;
 
@@ -22,10 +22,10 @@ export class SignUpComponent implements OnInit {
   loading = false;
   constructor(
     formBuild: FormBuilder,
-    private fireAuth: AngularFireAuth,
-    private fireStore: AngularFirestore,
     private router: Router,
     private schoolService: SchoolService,
+    private snackBar: MatSnackBar,
+    private studentService: StudentService,
   ) {
     this.signFom = formBuild.group({
       name: ['', Validators.required],
@@ -44,7 +44,7 @@ export class SignUpComponent implements OnInit {
     Keyboard.addListener('keyboardDidShow', () => {
       document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
-    Keyboard.setAccessoryBarVisible({ isVisible: true });
+    Keyboard.setAccessoryBarVisible({ isVisible: true })
   }
 
   getErrorMessageByField(field: string): string {
@@ -61,38 +61,41 @@ export class SignUpComponent implements OnInit {
 
   createAccount() {
     this.loading = true;
-    const { email, password, schoolCode, ...rest } = this.signFom.value;
-    //checking schoolCode here with schoolService
-    const scode = 'S' + schoolCode.substring(1);
-    this.schoolService.findSchoolCode(scode).subscribe((school) => {
-      console.log(school);
-      if (school.length > 0) {
-        //match so login
-        this.fireAuth
-          .createUserWithEmailAndPassword(email, password)
-          .then((data) => {
-            const { uid } = data.user;
-            const student: Student = {
-              uid,
-              email,
-              validateCode: false,
-              ...rest,
-            };
-            return this.fireStore.firestore.collection('student').withConverter(studentConvert).add(student);
-          })
-          .then(() => {
-            this.router.navigate(['welcome', 'confirm']);
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-          .finally(() => {
-            this.loading = false;
-          });
-      } else {
-        alert('The code submited is invalid');
-        this.loading = false;
-      }
-    });
+    const { email, password, schoolCode, date, ...rest } = this.signFom.value;
+    const years13 = 410240376000;
+    const differenceTime = Date.now() - (date as Date).getTime();
+    if (differenceTime < years13) {
+      this.loading = false;
+      this.snackBar.open('you must be over 13 years old', 'close', { duration: 2000 });
+      return;
+    }
+    this.schoolService
+      .findSchoolCode(schoolCode)
+      .pipe(take(1))
+      .subscribe((school) => {
+        if (school.length > 0) {
+          const student: Student = {
+            uid: null,
+            email,
+            validateCode: false,
+            date,
+            ...rest,
+          };
+          this.studentService
+            .createStudent(student, password)
+            .then(() => {
+              return this.router.navigate(['welcome', 'confirm']);
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+            .finally(() => {
+              this.loading = false;
+            });
+        } else {
+          this.snackBar.open('The code submitted is invalid', 'close', { duration: 2000 });
+          this.loading = false;
+        }
+      });
   }
 }
