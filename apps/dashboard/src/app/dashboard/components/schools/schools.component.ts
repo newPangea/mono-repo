@@ -2,13 +2,13 @@
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
-import { School } from '../../../../../../utils/models/school';
+import { School } from '@pang/models';
 import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { GeneralService } from 'dashboard/app/shared/services/generalService/general.service';
-import { SchoolService } from 'dashboard/app/shared/services/schoolService/school.service';
+import { SchoolService } from '@pang/services';
 
 @Component({
   selector: 'new-pangea-schools',

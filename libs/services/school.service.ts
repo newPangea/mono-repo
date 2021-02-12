@@ -33,5 +33,5 @@ export class SchoolService {
       )
       .valueChanges();
   }
-  }
+
 }

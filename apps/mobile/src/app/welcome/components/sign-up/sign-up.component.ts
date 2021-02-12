@@ -8,6 +8,7 @@ import { Student, studentConvert } from '@pang/interface';
 import { Plugins } from '@capacitor/core';
 import { keyframes } from '@angular/animations';
 import { SchoolService } from '@pang/services'
+import { Subscription } from 'rxjs';
 
 const { Keyboard } = Plugins;
 
@@ -18,6 +19,8 @@ const { Keyboard } = Plugins;
 })
 export class SignUpComponent implements OnInit {
   readonly countries = COUNTRIES;
+
+public schoolsubscription: Subscription;
 
   signFom: FormGroup;
   loading = false;
@@ -74,8 +77,10 @@ export class SignUpComponent implements OnInit {
     this.loading = true;
     const { email, password, schoolCode,...rest } = this.signFom.value;
     //checking schoolCode here with schoolService
-    
-    this.fireAuth
+    this.schoolsubscription = this.schoolService.findSchoolCode(schoolCode).subscribe((school) => {
+      if(school){
+        //match so login
+        this.fireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((data) => {
         const { uid } = data.user;
@@ -96,5 +101,10 @@ export class SignUpComponent implements OnInit {
       .finally(() => {
         this.loading = false;
       });
+      }else{
+        alert('The code submited is invalid')
+      }
+    })
+    
   }
 }
