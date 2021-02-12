@@ -19,6 +19,8 @@ import { ConfirmComponent } from './components/confirm/confirm.component';
 import { IsNewUserGuard } from './guards/is-new-user.guard';
 import { SuccessSignUpComponent } from './components/success-sign-up/success-sign-up.component';
 import { IsUserCompleteGuard } from '../guards/is-user-complete.guard';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { ToggleComponent } from './components/toggle/toggle.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent, canActivate: [IsNewUserGuard] },
@@ -28,7 +30,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [WelcomeComponent, SignUpComponent, ConfirmComponent, SuccessSignUpComponent],
+  declarations: [WelcomeComponent, SignUpComponent, ConfirmComponent, SignInComponent, ToggleComponent, SuccessSignUpComponent],
   imports: [
     CommonModule,
     IonicModule,

@@ -8,45 +8,55 @@
 </div>
 
 <div class="sigUp-container">
-  <h1 class="title">Create connections</h1>
-  <p class="sigUp-container__description">Check projects created by your partners round the world, Copy TBD</p>
-  <form [formGroup]="signFom" (ngSubmit)="createAccount()" class="sigUp-container__form">
-    <mat-form-field appearance="fill">
-      <mat-label>Full name</mat-label>
-      <input matInput formControlName="name" type="text" />
-      <mat-error *ngIf="signFom.controls['name'].invalid">{{ getErrorMessageByField('name') }}</mat-error>
-    </mat-form-field>
+  <ng-container [ngSwitch]="currentPage">
+    <ng-container *ngSwitchCase="SIGN_IN_TAB_ID"> <pang-sign-in></pang-sign-in> </ng-container>
+    <ng-container *ngSwitchCase="SIGN_UP_TAB_ID">
+      <h1 class="title">Create connections</h1>
+      <p class="sigUp-container__description">Check projects created by your partners round the world, Copy TBD</p>
+      <form [formGroup]="signFom" (ngSubmit)="createAccount()" class="sigUp-container__form">
+        <mat-form-field appearance="fill">
+          <mat-label>Full name</mat-label>
+          <input matInput formControlName="name" type="text" />
+          <mat-error *ngIf="signFom.controls['name'].invalid">{{ getErrorMessageByField('name') }}</mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Country of Birth</mat-label>
-      <mat-select formControlName="country">
-        <mat-option *ngFor="let country of countries" [value]="country">
-          {{ country.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="signFom.controls['country'].invalid">{{ getErrorMessageByField('country') }}</mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Country of Birth</mat-label>
+          <mat-select formControlName="country">
+            <mat-option *ngFor="let country of countries" [value]="country">
+              {{ country.name }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="signFom.controls['country'].invalid">{{ getErrorMessageByField('country') }}</mat-error>
+        </mat-form-field>
 
-    <pang-date-picker formControlName="date"></pang-date-picker>
+        <pang-date-picker formControlName="date"></pang-date-picker>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" type="email" />
-      <mat-error *ngIf="signFom.controls['email'].invalid">{{ getErrorMessageByField('email') }}</mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" />
+          <mat-error *ngIf="signFom.controls['email'].invalid">{{ getErrorMessageByField('email') }}</mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Password</mat-label>
-      <input matInput formControlName="password" />
-      <mat-error *ngIf="signFom.controls['password'].invalid">{{ getErrorMessageByField('password') }}</mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" />
+          <mat-error *ngIf="signFom.controls['password'].invalid">{{ getErrorMessageByField('password') }}</mat-error>
+        </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>School code</mat-label>
-      <input matInput formControlName="schoolCode" />
-      <mat-error *ngIf="signFom.controls['schoolCode'].invalid">{{ getErrorMessageByField('schoolCode') }}</mat-error>
-    </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>School code</mat-label>
+          <input matInput formControlName="schoolCode" />
+          <mat-error *ngIf="signFom.controls['schoolCode'].invalid">{{
+            getErrorMessageByField('schoolCode')
+          }}</mat-error>
+        </mat-form-field>
 
-    <button pang-button color="primary" [loading]="loading" [disabled]="signFom.invalid">Next</button>
-  </form>
+        <button pang-button color="primary" [loading]="loading" [disabled]="signFom.invalid">Next</button>
+      </form>
+    </ng-container>
+  </ng-container>
+  <div class="toggle-container">
+    <pang-toggle [tabs]="SIGN_TABS" (selectedTab)="currentPage = $event"></pang-toggle>
+  </div>
 </div>
