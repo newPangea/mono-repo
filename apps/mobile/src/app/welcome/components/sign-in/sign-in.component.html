@@ -1,2 +1,21 @@
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur sequi, adipisci odit mollitia modi expedita,
-alias earum iusto dignissimos vero, omnis unde? Iste magnam minima, ab exercitationem voluptas consequatur vel.
+<h1 class="title">Welcome back</h1>
+<p class="description">Hello there, login to continue</p>
+<form [formGroup]="signFom" (ngSubmit)="signIn()" class="signIn-form">
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" type="email" />
+    <mat-error *ngIf="signFom.controls['email'].invalid">{{ getErrorMessageByField('email') }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput formControlName="password" />
+    <mat-error *ngIf="signFom.controls['password'].invalid">{{ getErrorMessageByField('password') }}</mat-error>
+  </mat-form-field>
+  <div class="forgot-password-container">
+    <p class="forgot-password-container__label">Forgot password?</p>
+  </div>
+  <button class="submit-button" pang-button color="primary" [loading]="loading" [disabled]="signFom.invalid">
+    Login
+  </button>
+</form>

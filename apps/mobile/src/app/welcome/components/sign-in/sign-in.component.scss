@@ -1,0 +1,30 @@
+@import 'global.scss';
+
+.description {
+  margin-top: 12px;
+  margin-bottom: 36px;
+}
+.signIn-form {
+  display: grid;
+}
+.forgot-password-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 35px;
+  &__label {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: $primary;
+    text-decoration: underline;
+    margin: 0;
+  }
+}
+.submit-button {
+  margin-bottom: 40px;
+}
