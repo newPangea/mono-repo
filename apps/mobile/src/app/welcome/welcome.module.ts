@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -14,6 +15,7 @@ import { UiModule } from '@pang/ui';
 import { WelcomeComponent } from './welcome.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
+import { CoreModule } from '@pang/core';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -32,6 +34,8 @@ const routes: Routes = [
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
+    CoreModule,
+    MatSnackBarModule,
   ],
 })
 export class WelcomeModule {}
