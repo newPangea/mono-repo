@@ -7,6 +7,7 @@ import { COUNTRIES } from '@pang/const';
 import { Student, studentConvert } from '@pang/interface';
 import { Plugins } from '@capacitor/core';
 import { keyframes } from '@angular/animations';
+import { SchoolService } from '@pang/services'
 
 const { Keyboard } = Plugins;
 
@@ -20,20 +21,27 @@ export class SignUpComponent implements OnInit {
 
   signFom: FormGroup;
   loading = false;
-
   constructor(
     formBuild: FormBuilder,
     private fireAuth: AngularFireAuth,
     private fireStore: AngularFirestore,
     private router: Router,
+    private schoolService: SchoolService,
   ) {
     this.signFom = formBuild.group({
       name: ['', Validators.required],
       country: ['', Validators.required],
       date: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [
+        Validators.required, 
+        Validators.email,
+        Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}'),
+      ]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      schoolCode: ['', [Validators.required]],
+      schoolCode: ['', [
+        Validators.required,
+        Validators.pattern('[a-zA-Z]{1}[0-9]{8}'),
+      ]],
     });
   }
   ngOnInit(): void {
@@ -43,9 +51,30 @@ export class SignUpComponent implements OnInit {
     Keyboard.setAccessoryBarVisible({ isVisible: true });
   }
 
+  getErrorMessageByField(field: string): string {
+    if (this.signFom.controls[field].hasError('required')) {
+      return 'This field is required';
+    } else if (
+      this.signFom.controls[field].hasError('pattern') &&
+      field == 'email'
+    ) {
+      return 'Incorrect format, must be a valid email';
+    } else if (
+      this.signFom.controls[field].hasError('pattern') &&
+      field == 'schoolCode'
+    ) {
+      return 'Incorrect format, must be one letter and eight numbers';
+    } else {
+      if (field != 'password') return 'El campo no es válido';
+    }
+  }
+
+
   createAccount() {
     this.loading = true;
-    const { email, password, ...rest } = this.signFom.value;
+    const { email, password, schoolCode,...rest } = this.signFom.value;
+    //checking schoolCode here with schoolService
+    
     this.fireAuth
       .createUserWithEmailAndPassword(email, password)
       .then((data) => {

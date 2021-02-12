@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { GeneralService } from '../../services/generalService/general.service';
 import { School } from '../../../../../../utils/models/school';
-import { SchoolService } from '../../services/schoolService/school.service';
+import { SchoolService } from '@pang/services';
 import { Subscription } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
