@@ -1,4 +1,3 @@
-/// <reference types="@types/googlemaps" />
 import { Component } from '@angular/core';
 
 @Component({

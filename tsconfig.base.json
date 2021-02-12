@@ -19,7 +19,9 @@
       "dashboard/*": ["apps/dashboard/src/*"],
       "@pang/mobile/*": ["apps/mobile/src/*"],
       "@pang/const": ["libs/constants/index.ts"],
-      "@pang/interface": ["libs/interfaces/index.ts"]
+      "@pang/interface": ["libs/interfaces/index.ts"],
+      "@pang/models": ["libs/models/index.ts"],
+      "@pang/services": ["libs/services/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
