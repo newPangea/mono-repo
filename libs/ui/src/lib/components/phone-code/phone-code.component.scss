@@ -19,5 +19,8 @@
     letter-spacing: normal;
     color: $gray;
     text-align: center;
+    &--filled {
+      background-color: $gray3;
+    }
   }
 }

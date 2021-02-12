@@ -30,31 +30,31 @@ export class PhoneCodeComponent implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.codeForm.controls['digit1'].valueChanges.pipe(filter(this.isValidDigit)).subscribe(() => {
+    this.codeForm.controls['digit1'].valueChanges.pipe(filter(this.isValidInput)).subscribe(() => {
       this.digit2.nativeElement.focus();
     });
-    this.codeForm.controls['digit2'].valueChanges.pipe(filter(this.isValidDigit)).subscribe(() => {
+    this.codeForm.controls['digit2'].valueChanges.pipe(filter(this.isValidInput)).subscribe(() => {
       this.digit3.nativeElement.focus();
     });
-    this.codeForm.controls['digit3'].valueChanges.pipe(filter(this.isValidDigit)).subscribe(() => {
+    this.codeForm.controls['digit3'].valueChanges.pipe(filter(this.isValidInput)).subscribe(() => {
       this.digit4.nativeElement.focus();
     });
-    this.codeForm.controls['digit4'].valueChanges.pipe(filter(this.isValidDigit)).subscribe(() => {
+    this.codeForm.controls['digit4'].valueChanges.pipe(filter(this.isValidInput)).subscribe(() => {
       this.digit5.nativeElement.focus();
     });
     this.codeForm.controls['digit5'].valueChanges
-      .pipe(filter(this.isValidDigit), debounceTime(this.DELAY_LAST_DIGIT))
+      .pipe(filter(this.isValidInput), debounceTime(this.DELAY_LAST_DIGIT))
       .subscribe(() => {
         this.digit5.nativeElement.blur();
         this.value.emit(this.getValue());
       });
   }
 
-  private isValidDigit(value: number): boolean {
-    return value != null;
+  public isValidInput(value: number | string): boolean {
+    return value != null && value != '' && 0 <= value && value <= 9;
   }
 
-  private getValue(): number {
+  public getValue(): number {
     const { digit1, digit2, digit3, digit4, digit5 } = this.codeForm.value;
     const value = Number(`${digit1}${digit2}${digit3}${digit4}${digit5}`);
     return isNaN(value) ? null : value;
