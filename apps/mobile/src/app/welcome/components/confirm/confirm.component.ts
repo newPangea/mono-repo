@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { MessageService } from '@pang/core';
+import { MessageService, StudentService } from '@pang/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'pang-confirm',
@@ -12,11 +13,17 @@ export class ConfirmComponent {
   code = '';
   load = false;
 
-  constructor(private messageService: MessageService, private snackBar: MatSnackBar, private route: Router) {}
+  constructor(
+    private studentService: StudentService,
+    private snackBar: MatSnackBar,
+    private route: Router,
+    private auth: AngularFireAuth,
+    private messageService: MessageService,
+  ) {}
 
   confirmCode() {
     this.load = true;
-    this.messageService.confirmCode(this.code).subscribe(
+    this.studentService.validateCode(this.code).subscribe(
       (data) => {
         this.load = false;
         if (!data.valid) {
@@ -31,5 +38,11 @@ export class ConfirmComponent {
         this.snackBar.open('We can\'t validate your code', 'close', { duration: 2000 });
       },
     );
+  }
+
+  async generateCode() {
+    const user = await this.auth.currentUser;
+    this.messageService.sendConfirmationCode(user.email).subscribe();
+    this.snackBar.open('New code was generated', 'close', { duration: 2000 });
   }
 }

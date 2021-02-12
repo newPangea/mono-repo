@@ -9,6 +9,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '@pang/mobile/environments/environment';
 import { IonicModule } from '@ionic/angular';
+import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { IonicModule } from '@ionic/angular';
         {
           path: 'preferences',
           loadChildren: () => import('./preference/preference.module').then((m) => m.PreferenceModule),
+          canActivate: [IsUserCompleteGuard]
         },
         {
           path: '',
