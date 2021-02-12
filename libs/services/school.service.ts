@@ -29,7 +29,6 @@ export class SchoolService {
       .collection<School>(School.REF, (ref) =>
         ref
         .where("scode", "==", code)
-        .orderBy("date", "desc")
       )
       .valueChanges();
   }

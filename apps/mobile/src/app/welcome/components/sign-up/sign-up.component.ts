@@ -78,7 +78,7 @@ public schoolsubscription: Subscription;
     const { email, password, schoolCode,...rest } = this.signFom.value;
     //checking schoolCode here with schoolService
     this.schoolsubscription = this.schoolService.findSchoolCode(schoolCode).subscribe((school) => {
-      if(school){
+      if(school.length > 0){
         //match so login
         this.fireAuth
       .createUserWithEmailAndPassword(email, password)
@@ -103,6 +103,7 @@ public schoolsubscription: Subscription;
       });
       }else{
         alert('The code submited is invalid')
+        this.loading = false;
       }
     })
     
