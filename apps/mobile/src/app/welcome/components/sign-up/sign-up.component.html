@@ -14,9 +14,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Full name</mat-label>
       <input matInput formControlName="name" type="text" />
-      <mat-error *ngIf="signFom.controls['name'].invalid">{{
-        getErrorMessageByField("name")
-      }}</mat-error>
+      <mat-error *ngIf="signFom.controls['name'].invalid">{{ getErrorMessageByField('name') }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -26,9 +24,7 @@
           {{ country.name }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="signFom.controls['country'].invalid">{{
-        getErrorMessageByField("country")
-      }}</mat-error>
+      <mat-error *ngIf="signFom.controls['country'].invalid">{{ getErrorMessageByField('country') }}</mat-error>
     </mat-form-field>
 
     <pang-date-picker formControlName="date"></pang-date-picker>
@@ -36,25 +32,19 @@
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" type="email" />
-      <mat-error *ngIf="signFom.controls['email'].invalid">{{
-        getErrorMessageByField("email")
-      }}</mat-error>
+      <mat-error *ngIf="signFom.controls['email'].invalid">{{ getErrorMessageByField('email') }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
       <input matInput formControlName="password" />
-      <mat-error *ngIf="signFom.controls['password'].invalid">{{
-        getErrorMessageByField("password")
-      }}</mat-error>
+      <mat-error *ngIf="signFom.controls['password'].invalid">{{ getErrorMessageByField('password') }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>School code</mat-label>
       <input matInput formControlName="schoolCode" />
-      <mat-error *ngIf="signFom.controls['schoolCode'].invalid">{{
-        getErrorMessageByField("schoolCode")
-      }}</mat-error>
+      <mat-error *ngIf="signFom.controls['schoolCode'].invalid">{{ getErrorMessageByField('schoolCode') }}</mat-error>
     </mat-form-field>
 
     <button pang-button color="primary" [loading]="loading" [disabled]="signFom.invalid">Next</button>

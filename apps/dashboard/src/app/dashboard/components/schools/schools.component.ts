@@ -209,8 +209,8 @@ export class SchoolsComponent implements OnInit {
     alert('Under development, please comeback soon!');
   }
 
-  ngOnDestroy(){
-    if(this.schoolSubscription){
+  ngOnDestroy() {
+    if (this.schoolSubscription) {
       this.schoolSubscription.unsubscribe();
     }
   }

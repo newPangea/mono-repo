@@ -3,11 +3,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { School } from '@pang/models';
 
-
 @Injectable({
   providedIn: 'root',
 })
-
 export class SchoolService {
   public didLogout: EventEmitter<void> = new EventEmitter();
 
@@ -23,14 +21,9 @@ export class SchoolService {
       .valueChanges();
   }
 
-
   findSchoolCode(code: string) {
     return this.db
-      .collection<School>(School.REF, (ref) =>
-        ref
-        .where("scode", "==", code)
-      )
+      .collection<School>(School.REF, (ref) => ref.where('scode', '==', code))
       .valueChanges();
   }
-
 }
