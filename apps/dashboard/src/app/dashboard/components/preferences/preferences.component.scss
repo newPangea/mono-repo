@@ -1,0 +1,28 @@
+@import 'global.scss';
+
+.wrapper-container {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  column-gap: 71px;
+  align-items: flex-start;
+  padding: 48px 34px;
+  .form-container {
+    max-width: 291px;
+    &__label {
+      margin-top: 17px;
+      margin-bottom: 16px;
+      font-family: Inter;
+      font-size: 14px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: $gray;
+    }
+    mat-form-field,
+    .submit-button {
+      width: 100%;
+    }
+  }
+}
