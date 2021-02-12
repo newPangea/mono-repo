@@ -16,16 +16,17 @@ import { CoreModule } from '@pang/core';
 import { WelcomeComponent } from './welcome.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
-
+import { SuccessSignUpComponent } from './components/success-sign-up/success-sign-up.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'confirm', component: ConfirmComponent },
+  { path: 'success-sign-up', component: SuccessSignUpComponent },
 ];
 
 @NgModule({
-  declarations: [WelcomeComponent, SignUpComponent, ConfirmComponent],
+  declarations: [WelcomeComponent, SignUpComponent, ConfirmComponent, SuccessSignUpComponent],
   imports: [
     CommonModule,
     IonicModule,
