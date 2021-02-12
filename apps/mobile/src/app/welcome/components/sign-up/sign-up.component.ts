@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { COUNTRIES } from '@pang/const';
 import { Student, studentConvert } from '@pang/interface';
 import { Plugins } from '@capacitor/core';
-import { keyframes } from '@angular/animations';
 
 const { Keyboard } = Plugins;
 
@@ -36,11 +35,12 @@ export class SignUpComponent implements OnInit {
       schoolCode: ['', [Validators.required]],
     });
   }
+
   ngOnInit(): void {
-    // window.addEventListener('keyboardDidShow', function() {
-    //   document.activeElement.scrollIntoView({behavior: 'smooth'});
-    // });
-    Keyboard.setAccessoryBarVisible({ isVisible: true });
+    Keyboard.addListener('keyboardDidShow', () => {
+      document.activeElement.scrollIntoView({behavior: 'smooth', block: 'center'});
+    })
+    Keyboard.setAccessoryBarVisible({isVisible: true});
   }
 
   createAccount() {
