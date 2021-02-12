@@ -15,5 +15,22 @@ export const codeGenerator = functions.https.onCall((data, context) => {
     .verifications.create({
       to: email,
       channel: 'email',
-    });
+    })
+    .then(() => ({
+      complete: true,
+    }));
 });
+
+// export const codeGenerator = functions.https.onRequest((req, resp) => {
+//   const { email } = req.body;
+//   const client = twilio(accountSid, authToken);
+//   client.verify
+//     .services('VA1de4266d320cb443769d443a8f617452')
+//     .verifications.create({
+//       to: email,
+//       channel: 'email',
+//     })
+//     .then((data) => {
+//       resp.json(data);
+//     });
+// });
