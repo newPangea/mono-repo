@@ -1,0 +1,49 @@
+@import 'global.scss';
+
+:host {
+  display: block;
+  background-color: $primary;
+  padding-top: 198px;
+  overflow: auto;
+  box-sizing: border-box;
+  height: 100vh;
+}
+
+.header {
+  &__image {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 218px;
+  }
+}
+
+.confirm {
+  padding: 41px 16px;
+  border-radius: 13px 13px 0 0;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #fafafa;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  min-height: 100%;
+
+  &__description {
+    @include body2;
+    margin: 8px 0 28px;
+  }
+
+  &__code {
+    @include body;
+    margin: 20px 0 28px;
+    .link {
+      color: $primary;
+      text-decoration: underline;
+    }
+  }
+
+  .button {
+    display: block;
+    margin-left: auto;
+  }
+}

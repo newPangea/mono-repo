@@ -14,6 +14,10 @@ body {
   @include h1;
 }
 
+.subtitle {
+  @include subtitle;
+}
+
 .body {
   @include body;
 }

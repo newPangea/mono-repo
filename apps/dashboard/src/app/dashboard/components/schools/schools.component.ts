@@ -1,5 +1,5 @@
 /// <reference types="@types/googlemaps" />
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { School } from '@pang/models';
@@ -8,14 +8,14 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { GeneralService } from 'dashboard/app/shared/services/generalService/general.service';
-import { SchoolService } from '@pang/services';
+import { SchoolService } from '@pang/core';
 
 @Component({
   selector: 'new-pangea-schools',
   templateUrl: './schools.component.html',
   styleUrls: ['./schools.component.scss'],
 })
-export class SchoolsComponent implements OnInit {
+export class SchoolsComponent implements OnInit, OnDestroy {
   public schoolForm: FormGroup;
   public isLoading = false;
   public schoolSubscription: Subscription;
