@@ -1,0 +1,39 @@
+<div class="wrapper-container">
+  <button mat-icon-button class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="user-image-container" [style.background-image]="'url(' + 'assets/images/login-bg.png' + ')'">
+    <div class="gradient">&nbsp;</div>
+  </div>
+  <div class="user-info-container">
+    <div class="user-info-container__header">
+      <p class="user-info-container__header__username">Mark Mullins</p>
+      <pang-new-pangea-label badgeColor="green" badgeLabel="Student"></pang-new-pangea-label>
+    </div>
+    <div class="user-info-container__data">
+      <div class="data-item-container">
+        <mat-icon class="data-item-container__icon" svgIcon="new-pangea-pin"></mat-icon>
+        <p class="data-item-container__label">United States | Florida</p>
+      </div>
+      <div class="data-item-container">
+        <mat-icon class="data-item-container__icon" svgIcon="new-pangea-school"></mat-icon>
+        <p class="data-item-container__label">Florida university</p>
+      </div>
+      <div class="data-item-container">
+        <mat-icon class="data-item-container__icon" svgIcon="new-pangea-mail"></mat-icon>
+        <p class="data-item-container__label">Mark.m93@schoolflorida.com</p>
+      </div>
+    </div>
+    <div class="user-info-container__about">
+      <p class="user-info-container__about__title">About Mark</p>
+      <p class="user-info-container__about__description">
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum
+        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+        nec,
+      </p>
+    </div>
+    <div class="user-info-container__activate-container">
+      <mat-slide-toggle>Desactivate user</mat-slide-toggle>
+    </div>
+  </div>
+</div>

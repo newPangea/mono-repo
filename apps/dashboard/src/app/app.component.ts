@@ -7,6 +7,7 @@ const iconSchoolActive = '../assets/icons/icon-school-active.svg';
 const iconTeam = '../assets/icons/icon-team.svg';
 const iconConnection = '../assets/icons/icon-connections.svg';
 const iconFilter = '../assets/icons/icon-filter.svg';
+const iconMail = '../assets/icons/icon-mail.svg';
 
 @Component({
   selector: 'new-pangea-root',
@@ -32,5 +33,6 @@ export class AppComponent {
       this.domSanitizer.bypassSecurityTrustResourceUrl(iconConnection),
     );
     this.matIconRegistry.addSvgIcon('new-pangea-filter', this.domSanitizer.bypassSecurityTrustResourceUrl(iconFilter));
+    this.matIconRegistry.addSvgIcon('new-pangea-mail', this.domSanitizer.bypassSecurityTrustResourceUrl(iconMail));
   }
 }

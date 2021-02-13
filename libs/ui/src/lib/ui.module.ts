@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PhoneCodeComponent } from './components/phone-code/phone-code.component';
 import { AvatarWithLabelComponent } from './avatar-with-label/avatar-with-label.component';
+import { NewPangeaLabelComponent } from './new-pangea-label/new-pangea-label.component';
 
 @NgModule({
   imports: [
@@ -20,8 +21,8 @@ import { AvatarWithLabelComponent } from './avatar-with-label/avatar-with-label.
     MatProgressSpinnerModule,
     ReactiveFormsModule,
   ],
-  declarations: [ButtonComponent, DatePickerComponent, PhoneCodeComponent, AvatarWithLabelComponent],
+  declarations: [ButtonComponent, DatePickerComponent, PhoneCodeComponent, AvatarWithLabelComponent, NewPangeaLabelComponent],
   providers: [DatePipe],
-  exports: [ButtonComponent, DatePickerComponent, PhoneCodeComponent, AvatarWithLabelComponent],
+  exports: [ButtonComponent, DatePickerComponent, PhoneCodeComponent, AvatarWithLabelComponent, NewPangeaLabelComponent],
 })
 export class UiModule {}

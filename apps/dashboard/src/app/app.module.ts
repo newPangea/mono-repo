@@ -23,9 +23,11 @@ import { MatTableModule } from '@angular/material/table';
 import { UsersComponent } from './dashboard/components/users/users.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { UserComponent } from './dashboard/components/user/user.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, UsersComponent],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, UsersComponent, UserComponent],
   imports: [
     SharedModule,
     BrowserModule,
@@ -41,6 +43,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSlideToggleModule,
     HttpClientModule,
   ],
   providers: [],
