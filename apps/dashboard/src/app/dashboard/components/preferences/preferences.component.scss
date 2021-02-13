@@ -11,14 +11,7 @@
     &__label {
       margin-top: 17px;
       margin-bottom: 16px;
-      font-family: Inter;
-      font-size: 14px;
-      font-weight: 500;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      color: $gray;
+      @include text(14px, $gray, 500);
     }
     mat-form-field,
     .submit-button {
@@ -45,14 +38,7 @@
       background-color: rgba(235, 236, 239, 0.5);
     }
     &__label {
-      font-family: Inter;
-      font-size: 14px;
-      font-weight: 500;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      color: $gray;
+      @include text(14px, $gray, 500);
       margin: 0;
     }
   }

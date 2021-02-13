@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { FIRESTORE_COLLECTION } from '@pang/const';
 import { Preference } from '@pang/interface';
 import { Observable } from 'rxjs';
 
@@ -43,14 +44,14 @@ export class PreferencesComponent implements OnInit {
 
   private addPreference(preference: Preference) {
     return this.fireStore
-      .collection('preferences')
+      .collection(FIRESTORE_COLLECTION.preference)
       .doc(preference.key)
       .set({ ...preference });
   }
 
   private getAllPreferences() {
     return this.fireStore
-      .collection<Preference>('preferences', (ref) => ref.orderBy('name', 'asc'))
+      .collection<Preference>(FIRESTORE_COLLECTION.preference, (ref) => ref.orderBy('name', 'asc'))
       .valueChanges();
   }
 }
