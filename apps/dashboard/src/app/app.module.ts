@@ -21,6 +21,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { UsersComponent } from './dashboard/components/users/users.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, DashboardComponent, UsersComponent],
@@ -38,6 +40,8 @@ import { UsersComponent } from './dashboard/components/users/users.component';
     MatProgressBarModule,
     MatButtonModule,
     MatTableModule,
+    MatPaginatorModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./avatar-with-label.component.scss'],
 })
 export class AvatarWithLabelComponent implements OnInit {
-  @Input() userAvatar: string;
+  @Input() userAvatar: string = 'assets/images/logo-1.png'; // TO DO: USE CONSTANT
   @Input() badgeLabel: string;
   @Input() badgeColor: string;
 
