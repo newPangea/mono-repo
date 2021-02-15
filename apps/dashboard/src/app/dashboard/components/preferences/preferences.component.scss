@@ -1,0 +1,45 @@
+@import 'global.scss';
+
+.wrapper-container {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  column-gap: 71px;
+  align-items: flex-start;
+  padding: 48px 34px;
+  .form-container {
+    max-width: 291px;
+    &__label {
+      margin-top: 17px;
+      margin-bottom: 16px;
+      @include text(14px, $gray, 500);
+    }
+    mat-form-field,
+    .submit-button {
+      width: 100%;
+    }
+  }
+}
+.striped-table {
+  width: 442px;
+  max-height: 660px;
+  padding: 34px 20px 0px 0px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px 0 rgba(129, 127, 127, 0.14);
+  overflow-y: auto;
+  &__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 51px;
+    border-radius: 4px;
+    padding: 17px 23px;
+    box-sizing: border-box;
+    &:nth-child(odd) {
+      background-color: rgba(235, 236, 239, 0.5);
+    }
+    &__label {
+      @include text(14px, $gray, 500);
+      margin: 0;
+    }
+  }
+}
