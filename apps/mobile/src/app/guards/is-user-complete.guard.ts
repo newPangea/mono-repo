@@ -21,7 +21,7 @@ export class IsUserCompleteGuard implements CanActivate {
       switchMap((user) => {
         if (user) {
           return this.db
-            .doc<User>(`${FIRESTORE_COLLECTION.student}/${user.uid}`)
+            .doc<User>(`${FIRESTORE_COLLECTION.user}/${user.uid}`)
             .valueChanges()
             .pipe(
               take(1),

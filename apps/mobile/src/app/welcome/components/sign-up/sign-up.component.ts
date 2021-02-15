@@ -44,7 +44,7 @@ export class SignUpComponent implements OnInit {
     Keyboard.addListener('keyboardDidShow', () => {
       document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
-    Keyboard.setAccessoryBarVisible({ isVisible: true })
+    Keyboard.setAccessoryBarVisible({ isVisible: true });
   }
 
   getErrorMessageByField(field: string): string {

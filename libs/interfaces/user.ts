@@ -12,7 +12,7 @@ export interface User {
   code: string;
 }
 
-export const studentConvert = {
+export const userConvert = {
   toFirestore({ date, ...rest }: User): firebase.default.firestore.DocumentData {
     return { ...rest, date: date.toString() };
   },
