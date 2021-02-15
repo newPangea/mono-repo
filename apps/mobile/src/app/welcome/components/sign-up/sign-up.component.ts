@@ -85,7 +85,7 @@ export class SignUpComponent implements OnInit {
   }
 
   goToLogin() {
-    this.router.navigate(['welcome', 'sign-in'])
+    this.router.navigate(['welcome', 'sign-in']);
   }
 
   createAccount() {

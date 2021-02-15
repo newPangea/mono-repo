@@ -13,10 +13,7 @@ const { Keyboard, Device } = Plugins;
 export class SignInComponent implements OnInit {
   signFom: FormGroup;
   loading = false;
-  constructor(
-    formBuild: FormBuilder,
-    private fireAuth: AngularFireAuth,
-  ) {
+  constructor(formBuild: FormBuilder, private fireAuth: AngularFireAuth) {
     this.signFom = formBuild.group({
       email: [
         '',
@@ -42,10 +39,10 @@ export class SignInComponent implements OnInit {
     const { email, password } = this.signFom.value;
     this.fireAuth
       .signInWithEmailAndPassword(email, password)
-      .then((firebaseUser) => {
+      .then(() => {
         this.loading = false;
       })
-      .catch((err) => {
+      .catch(() => {
         this.loading = false;
       });
   }

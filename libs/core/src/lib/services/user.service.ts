@@ -24,11 +24,7 @@ export class UserService {
     const { uid } = dataUser.user;
     user.uid = uid;
     user.validateCode = false;
-    await this.db.firestore
-      .collection(FIRESTORE_COLLECTION.user)
-      .withConverter(userConvert)
-      .doc(uid)
-      .set(user);
+    await this.db.firestore.collection(FIRESTORE_COLLECTION.user).withConverter(userConvert).doc(uid).set(user);
     return this.messageService.sendConfirmationCode(user.email).toPromise();
   }
 

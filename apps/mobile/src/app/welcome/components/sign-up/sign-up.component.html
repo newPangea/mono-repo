@@ -6,8 +6,7 @@
     <h1 class="header__title">Sign up</h1>
   </div>
 
-
-  <div marcoBody >
+  <div marcoBody>
     <h1 class="title">Create connections</h1>
     <p class="sigUp-container__description">Check projects created by your partners round the world, Copy TBD</p>
     <form [formGroup]="signFom" (ngSubmit)="createAccount()" class="sigUp-container__form">
@@ -50,11 +49,7 @@
       <button pang-button color="primary" [loading]="loading" [disabled]="signFom.invalid">Next</button>
     </form>
     <div class="toggle-container">
-      <pang-toggle [tabs]="SIGN_TABS" (selectedTab)="goToLogin()" [currentTab]='currentPage'></pang-toggle>
+      <pang-toggle [tabs]="SIGN_TABS" (selectedTab)="goToLogin()" [currentTab]="currentPage"></pang-toggle>
     </div>
   </div>
-
 </pang-welcome-container>
-
-
-

@@ -11,8 +11,6 @@ export class ToggleComponent implements OnInit {
   @Input() currentTab: number;
   @Output() selectedTab: EventEmitter<number> = new EventEmitter();
 
-  constructor() {}
-
   ngOnInit(): void {
     if (!this.currentTab) {
       this.currentTab = this.tabs.length ? this.tabs[0].id : null;
