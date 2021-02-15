@@ -5,7 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { map, switchMap, take } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FIRESTORE_COLLECTION } from '@pang/const';
-import { Student } from '@pang/interface';
+import { User } from '@pang/interface';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class IsNewUserGuard implements CanActivate {
       switchMap((user) => {
         if (user) {
           return this.db
-            .doc<Student>(`${FIRESTORE_COLLECTION.student}/${user.uid}`)
+            .doc<User>(`${FIRESTORE_COLLECTION.student}/${user.uid}`)
             .valueChanges()
             .pipe(
               take(1),

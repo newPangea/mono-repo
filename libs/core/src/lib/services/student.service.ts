@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Student, studentConvert } from '@pang/interface';
+import { User, studentConvert } from '@pang/interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FIRESTORE_COLLECTION } from '@pang/const';
@@ -17,9 +17,9 @@ export class StudentService {
     private messageService: MessageService,
   ) {}
 
-  private readonly studentCollection = this.db.collection<Student>(FIRESTORE_COLLECTION.student);
+  private readonly studentCollection = this.db.collection<User>(FIRESTORE_COLLECTION.student);
 
-  async createStudent(student: Student, password: string) {
+  async createStudent(student: User, password: string) {
     const dataUser = await this.fireAuth.createUserWithEmailAndPassword(student.email, password);
     const { uid } = dataUser.user;
     student.uid = uid;
