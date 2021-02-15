@@ -1,0 +1,10 @@
+<div class="toggle-container">
+  <div
+    class="toggle-container__item"
+    [class.toggle-container__item--selected]="currentTab === tab.id"
+    *ngFor="let tab of tabs"
+    (click)="selectTab(tab.id)"
+  >
+    <p class="toggle-container__item__label">{{ tab.label }}</p>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { COUNTRIES } from '@pang/const';
@@ -7,8 +9,9 @@ import { Plugins } from '@capacitor/core';
 import { SchoolService, UserService } from '@pang/core';
 import { take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToggleComponentTab } from '../toggle/toggle.component'; // TO DO: REMOVE THIS
 
-const { Keyboard } = Plugins;
+const { Keyboard, Device } = Plugins;
 
 @Component({
   selector: 'pang-sign-up',
@@ -16,12 +19,28 @@ const { Keyboard } = Plugins;
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
+  readonly SIGN_IN_TAB_ID = 1;
+  readonly SIGN_UP_TAB_ID = 2;
+  readonly SIGN_TABS: ToggleComponentTab[] = [
+    {
+      label: 'Login',
+      id: this.SIGN_IN_TAB_ID,
+    },
+    {
+      label: 'Sign up',
+      id: this.SIGN_UP_TAB_ID,
+    },
+  ];
+  currentPage = this.SIGN_IN_TAB_ID;
+
   readonly countries = COUNTRIES;
 
   signFom: FormGroup;
   loading = false;
   constructor(
     formBuild: FormBuilder,
+    private fireAuth: AngularFireAuth,
+    private fireStore: AngularFirestore,
     private router: Router,
     private schoolService: SchoolService,
     private snackBar: MatSnackBar,
@@ -41,10 +60,14 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    Keyboard.addListener('keyboardDidShow', () => {
-      document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    Device.getInfo().then((data) => {
+      if (data.platform !== 'web') {
+        Keyboard.addListener('keyboardDidShow', () => {
+          document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        Keyboard.setAccessoryBarVisible({ isVisible: true });
+      }
     });
-    Keyboard.setAccessoryBarVisible({ isVisible: true });
   }
 
   getErrorMessageByField(field: string): string {
@@ -59,6 +82,10 @@ export class SignUpComponent implements OnInit {
     } else {
       if (field != 'password') return 'El campo no es válido';
     }
+  }
+
+  goToLogin() {
+    this.router.navigate(['welcome', 'sign-in']);
   }
 
   createAccount() {
@@ -87,7 +114,7 @@ export class SignUpComponent implements OnInit {
             ...rest,
           };
           this.userService
-            .createStudent(user, password)
+            .createUser(user, password)
             .then(() => {
               return this.router.navigate(['welcome', 'confirm']);
             })
