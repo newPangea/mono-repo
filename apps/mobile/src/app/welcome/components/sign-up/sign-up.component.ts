@@ -54,6 +54,8 @@ export class SignUpComponent implements OnInit {
       return 'Incorrect format, must be a valid email';
     } else if (this.signFom.controls[field].hasError('pattern') && field == 'schoolCode') {
       return 'Incorrect format, must be one letter and eight numbers';
+    } else if (this.signFom.controls[field].hasError('minlength') && field == 'password') {
+      return 'Password must be at least 6 characters long';
     } else {
       if (field != 'password') return 'El campo no es válido';
     }
@@ -74,6 +76,7 @@ export class SignUpComponent implements OnInit {
       .findSchoolCode(code)
       .pipe(take(1))
       .subscribe((school) => {
+        console.log(school);
         if (school.length > 0) {
           const user: User = {
             uid: null,
@@ -91,6 +94,9 @@ export class SignUpComponent implements OnInit {
             })
             .catch((error) => {
               console.log(error);
+              if (error.code == 'auth/email-already-in-use') {
+                this.snackBar.open('Email already in use', 'close', { duration: 2000 });
+              }
             })
             .finally(() => {
               this.loading = false;
