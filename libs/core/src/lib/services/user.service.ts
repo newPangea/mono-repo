@@ -19,7 +19,7 @@ export class UserService {
 
   private readonly studentCollection = this.db.collection<User>(FIRESTORE_COLLECTION.user);
 
-  async createStudent(student: User, password: string) {
+  async createStudent(student: Student, password: string) {
     const dataUser = await this.fireAuth.createUserWithEmailAndPassword(student.email, password);
     const { uid } = dataUser.user;
     student.uid = uid;
