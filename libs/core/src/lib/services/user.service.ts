@@ -19,17 +19,17 @@ export class UserService {
 
   private readonly studentCollection = this.db.collection<User>(FIRESTORE_COLLECTION.user);
 
-  async createStudent(student: Student, password: string) {
-    const dataUser = await this.fireAuth.createUserWithEmailAndPassword(student.email, password);
+  async createUser(user: User, password: string) {
+    const dataUser = await this.fireAuth.createUserWithEmailAndPassword(user.email, password);
     const { uid } = dataUser.user;
-    student.uid = uid;
-    student.validateCode = false;
+    user.uid = uid;
+    user.validateCode = false;
     await this.db.firestore
       .collection(FIRESTORE_COLLECTION.user)
       .withConverter(userConvert)
       .doc(uid)
-      .set(student);
-    return this.messageService.sendConfirmationCode(student.email).toPromise();
+      .set(user);
+    return this.messageService.sendConfirmationCode(user.email).toPromise();
   }
 
   validateCode(code: string) {

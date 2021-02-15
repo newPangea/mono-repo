@@ -114,7 +114,7 @@ export class SignUpComponent implements OnInit {
             ...rest,
           };
           this.userService
-            .createStudent(user, password)
+            .createUser(user, password)
             .then(() => {
               return this.router.navigate(['welcome', 'confirm']);
             })
