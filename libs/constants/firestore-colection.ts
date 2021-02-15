@@ -1,4 +1,5 @@
 export const FIRESTORE_COLLECTION = {
   student: 'student',
-  preference: 'preferences'
-}
+  preference: 'preferences',
+  user: 'user',
+};

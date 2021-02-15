@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { COUNTRIES } from '@pang/const';
-import { Student } from '@pang/interface';
+import { User } from '@pang/interface';
 import { Plugins } from '@capacitor/core';
-import { SchoolService, StudentService } from '@pang/core';
+import { SchoolService, UserService } from '@pang/core';
 import { take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -25,7 +25,7 @@ export class SignUpComponent implements OnInit {
     private router: Router,
     private schoolService: SchoolService,
     private snackBar: MatSnackBar,
-    private studentService: StudentService,
+    private userService: UserService,
   ) {
     this.signFom = formBuild.group({
       name: ['', Validators.required],
@@ -44,7 +44,7 @@ export class SignUpComponent implements OnInit {
     Keyboard.addListener('keyboardDidShow', () => {
       document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
-    Keyboard.setAccessoryBarVisible({ isVisible: true })
+    Keyboard.setAccessoryBarVisible({ isVisible: true });
   }
 
   getErrorMessageByField(field: string): string {
@@ -54,6 +54,8 @@ export class SignUpComponent implements OnInit {
       return 'Incorrect format, must be a valid email';
     } else if (this.signFom.controls[field].hasError('pattern') && field == 'schoolCode') {
       return 'Incorrect format, must be one letter and eight numbers';
+    } else if (this.signFom.controls[field].hasError('minlength') && field == 'password') {
+      return 'Password must be at least 6 characters long';
     } else {
       if (field != 'password') return 'El campo no es válido';
     }
@@ -64,30 +66,35 @@ export class SignUpComponent implements OnInit {
     const { email, password, schoolCode, date, ...rest } = this.signFom.value;
     const years13 = 410240376000;
     const differenceTime = Date.now() - (date as Date).getTime();
+    const code = 'S' + schoolCode.substr(1);
     if (differenceTime < years13) {
       this.loading = false;
       this.snackBar.open('you must be over 13 years old', 'close', { duration: 2000 });
       return;
     }
     this.schoolService
-      .findSchoolCode(schoolCode)
+      .findSchoolCode(code)
       .pipe(take(1))
       .subscribe((school) => {
         if (school.length > 0) {
-          const student: Student = {
+          const user: User = {
             uid: null,
             email,
             validateCode: false,
             date,
+            schoolCode: code,
+            code: schoolCode,
             ...rest,
           };
-          this.studentService
-            .createStudent(student, password)
+          this.userService
+            .createStudent(user, password)
             .then(() => {
               return this.router.navigate(['welcome', 'confirm']);
             })
             .catch((error) => {
-              console.log(error);
+              if (error.code == 'auth/email-already-in-use') {
+                this.snackBar.open('Email already in use', 'close', { duration: 2000 });
+              }
             })
             .finally(() => {
               this.loading = false;

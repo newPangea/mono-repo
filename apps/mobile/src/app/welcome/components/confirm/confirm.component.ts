@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageService, StudentService } from '@pang/core';
+import { MessageService, UserService } from '@pang/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -14,7 +14,7 @@ export class ConfirmComponent {
   load = false;
 
   constructor(
-    private studentService: StudentService,
+    private userService: UserService,
     private snackBar: MatSnackBar,
     private route: Router,
     private auth: AngularFireAuth,
@@ -23,7 +23,7 @@ export class ConfirmComponent {
 
   confirmCode() {
     this.load = true;
-    this.studentService.validateCode(this.code).subscribe(
+    this.userService.validateCode(this.code).subscribe(
       (data) => {
         this.load = false;
         if (!data.valid) {

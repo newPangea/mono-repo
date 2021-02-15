@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map, switchMap, take } from 'rxjs/operators';
-import { Student } from '@pang/interface';
+import { User } from '@pang/interface';
 import { FIRESTORE_COLLECTION } from '@pang/const';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class IsUserCompleteGuard implements CanActivate {
       switchMap((user) => {
         if (user) {
           return this.db
-            .doc<Student>(`${FIRESTORE_COLLECTION.student}/${user.uid}`)
+            .doc<User>(`${FIRESTORE_COLLECTION.user}/${user.uid}`)
             .valueChanges()
             .pipe(
               take(1),

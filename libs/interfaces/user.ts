@@ -1,7 +1,7 @@
 import { Country } from './';
 import * as firebase from 'firebase/app';
 
-export interface Student {
+export interface User {
   uid: string;
   name: string;
   country: Country;
@@ -9,16 +9,17 @@ export interface Student {
   email: string;
   schoolCode: string;
   validateCode: boolean;
+  code: string;
 }
 
-export const studentConvert = {
-  toFirestore({ date, ...rest }: Student): firebase.default.firestore.DocumentData {
+export const userConvert = {
+  toFirestore({ date, ...rest }: User): firebase.default.firestore.DocumentData {
     return { ...rest, date: date.toString() };
   },
   fromFirestore(
-    snapshot: firebase.default.firestore.QueryDocumentSnapshot<Student>,
+    snapshot: firebase.default.firestore.QueryDocumentSnapshot<User>,
     options: firebase.default.firestore.SnapshotOptions,
-  ): Student {
+  ): User {
     const data = snapshot.data(options)!;
     return { ...data, date: new Date(data.date) };
   },
