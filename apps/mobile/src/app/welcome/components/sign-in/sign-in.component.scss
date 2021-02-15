@@ -1,4 +1,10 @@
-@import 'global.scss';
+@import "global";
+
+.header-title {
+  @include h1;
+  color: $white;
+  margin-top: 12px;
+}
 
 .description {
   margin-top: 12px;
@@ -13,14 +19,7 @@
   align-items: center;
   margin-bottom: 35px;
   &__label {
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: $primary;
+    @include text($bodySize, $primary, 500);
     text-decoration: underline;
     margin: 0;
   }

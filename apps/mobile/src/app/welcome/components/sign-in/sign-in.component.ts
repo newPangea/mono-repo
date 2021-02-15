@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Plugins } from '@capacitor/core';
 
-const { Keyboard } = Plugins;
+const { Keyboard, Device } = Plugins;
 
 @Component({
   selector: 'pang-sign-in',
@@ -27,10 +27,14 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    Keyboard.addListener('keyboardDidShow', () => {
-      document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    Device.getInfo().then((data) => {
+      if (data.platform !== 'web') {
+        Keyboard.addListener('keyboardDidShow', () => {
+          document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        Keyboard.setAccessoryBarVisible({ isVisible: true });
+      }
     });
-    Keyboard.setAccessoryBarVisible({ isVisible: true });
   }
 
   signIn(): void {

@@ -11,8 +11,7 @@ import { take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToggleComponentTab } from '../toggle/toggle.component'; // TO DO: REMOVE THIS
 
-
-const { Keyboard } = Plugins;
+const { Keyboard, Device } = Plugins;
 
 @Component({
   selector: 'pang-sign-up',
@@ -32,7 +31,7 @@ export class SignUpComponent implements OnInit {
       id: this.SIGN_UP_TAB_ID,
     },
   ];
-  public currentPage: number = this.SIGN_IN_TAB_ID;
+  currentPage = this.SIGN_IN_TAB_ID;
 
   readonly countries = COUNTRIES;
 
@@ -61,10 +60,14 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    Keyboard.addListener('keyboardDidShow', () => {
-      document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    Device.getInfo().then((data) => {
+      if (data.platform !== 'web') {
+        Keyboard.addListener('keyboardDidShow', () => {
+          document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        Keyboard.setAccessoryBarVisible({ isVisible: true });
+      }
     });
-    Keyboard.setAccessoryBarVisible({ isVisible: true });
   }
 
   getErrorMessageByField(field: string): string {
@@ -79,6 +82,10 @@ export class SignUpComponent implements OnInit {
     } else {
       if (field != 'password') return 'El campo no es válido';
     }
+  }
+
+  goToLogin() {
+    this.router.navigate(['welcome', 'sign-in'])
   }
 
   createAccount() {
