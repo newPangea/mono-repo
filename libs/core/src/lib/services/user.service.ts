@@ -10,7 +10,7 @@ import { map, switchMap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class StudentService {
+export class UserService {
   constructor(
     private fireAuth: AngularFireAuth,
     private db: AngularFirestore,

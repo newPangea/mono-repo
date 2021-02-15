@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { COUNTRIES } from '@pang/const';
 import { User } from '@pang/interface';
 import { Plugins } from '@capacitor/core';
-import { SchoolService, StudentService } from '@pang/core';
+import { SchoolService, UserService } from '@pang/core';
 import { take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -25,7 +25,7 @@ export class SignUpComponent implements OnInit {
     private router: Router,
     private schoolService: SchoolService,
     private snackBar: MatSnackBar,
-    private studentService: StudentService,
+    private userService: UserService,
   ) {
     this.signFom = formBuild.group({
       name: ['', Validators.required],
@@ -84,7 +84,7 @@ export class SignUpComponent implements OnInit {
             code: schoolCode,
             ...rest,
           };
-          this.studentService
+          this.userService
             .createStudent(user, password)
             .then(() => {
               return this.router.navigate(['welcome', 'confirm']);
