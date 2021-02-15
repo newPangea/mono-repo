@@ -76,7 +76,6 @@ export class SignUpComponent implements OnInit {
       .findSchoolCode(code)
       .pipe(take(1))
       .subscribe((school) => {
-        console.log(school);
         if (school.length > 0) {
           const user: User = {
             uid: null,
@@ -93,7 +92,6 @@ export class SignUpComponent implements OnInit {
               return this.router.navigate(['welcome', 'confirm']);
             })
             .catch((error) => {
-              console.log(error);
               if (error.code == 'auth/email-already-in-use') {
                 this.snackBar.open('Email already in use', 'close', { duration: 2000 });
               }
