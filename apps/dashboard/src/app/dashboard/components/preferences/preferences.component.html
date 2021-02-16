@@ -1,26 +1,34 @@
-<div class="wrapper-container">
-  <div class="form-container">
-    <h1>Preferences</h1>
-    <p class="form-container__label">
-      Create a different topics of knowledge, for users can select the most important and interest for each
-    </p>
-    <form #formElement="ngForm" [formGroup]="preferenceForm" (ngSubmit)="createPreference(formElement)">
-      <mat-form-field appearance="fill">
-        <mat-label>Add new preference</mat-label>
-        <input matInput formControlName="name" type="text" />
-      </mat-form-field>
-      <button class="submit-button" pang-button color="primary" [loading]="loading" [disabled]="preferenceForm.invalid">
-        Publish preference
-      </button>
-    </form>
-  </div>
-  <div class="list-container">
-    <div class="striped-table">
-      <div class="striped-table__item" *ngFor="let preference of preferences$ | async">
-        <p class="striped-table__item__label">
-          {{ preference?.name }}
-        </p>
+<new-pangea-sidebar-menu>
+  <div marcoBody class="wrapper-container">
+    <div class="form-container">
+      <h1>Preferences</h1>
+      <p class="form-container__label">
+        Create a different topics of knowledge, for users can select the most important and interest for each
+      </p>
+      <form #formElement="ngForm" [formGroup]="preferenceForm" (ngSubmit)="createPreference(formElement)">
+        <mat-form-field appearance="fill">
+          <mat-label>Add new preference</mat-label>
+          <input matInput formControlName="name" type="text" />
+        </mat-form-field>
+        <button
+          class="submit-button"
+          pang-button
+          color="primary"
+          [loading]="loading"
+          [disabled]="preferenceForm.invalid"
+        >
+          Publish preference
+        </button>
+      </form>
+    </div>
+    <div class="list-container">
+      <div class="striped-table">
+        <div class="striped-table__item" *ngFor="let preference of preferences$ | async">
+          <p class="striped-table__item__label">
+            {{ preference?.name }}
+          </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</new-pangea-sidebar-menu>

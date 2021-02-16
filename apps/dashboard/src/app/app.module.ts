@@ -8,7 +8,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { AngularFireModule } from '@angular/fire';
 import { SharedModule } from 'dashboard/app/shared/shared.module';
 
@@ -22,7 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     SharedModule,
     BrowserModule,

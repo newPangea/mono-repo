@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { GeneralService } from 'dashboard/app/shared/services/generalService/general.service';
 import { SchoolService } from '@pang/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'new-pangea-schools',
@@ -25,6 +26,8 @@ export class SchoolsComponent implements OnInit, OnDestroy {
   public progress = false;
   public isPublishing = false;
   opened = false;
+  updating = false;
+  public school: School;
 
   //codes
   public tCode: string;
@@ -76,12 +79,14 @@ export class SchoolsComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private generalService: GeneralService,
     private schoolsService: SchoolService,
+    private snackBar: MatSnackBar,
   ) {
     this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit() {
     this.isLoading = true;
+    this.updating = false;
     //subscribe to schools to load data table
     this.schoolSubscription = this.schoolsService.getAll().subscribe((schools) => {
       this.schools = schools;
@@ -96,7 +101,6 @@ export class SchoolsComponent implements OnInit, OnDestroy {
     this.isPublishing = false;
     this.addres = '';
     this.title = 'Schools';
-    this.generateCodes();
     this.schoolForm = this.formBuilder.group({
       schoolName: ['', [Validators.required]],
       geoLocation: ['', [Validators.required]],
@@ -162,17 +166,11 @@ export class SchoolsComponent implements OnInit, OnDestroy {
     for (let i = 0; i < 8; i++) {
       this.code += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-    console.log(this.code);
     this.tCode = 'T' + this.code;
     this.sCode = 'S' + this.code;
     this.pCode = 'P' + this.code;
     this.aCode = 'A' + this.code;
     this.eCode = 'E' + this.code;
-    console.log(this.tCode);
-    console.log(this.sCode);
-    console.log(this.pCode);
-    console.log(this.aCode);
-    console.log(this.eCode);
   }
 
   addSchool() {
@@ -195,7 +193,6 @@ export class SchoolsComponent implements OnInit, OnDestroy {
     //remove data from drawer
     this.schoolForm.controls['schoolName'].setValue(null);
     this.schoolForm.controls['geoLocation'].setValue(null);
-    this.generateCodes();
     this.isPublishing = false;
     this.opened = false;
     this.ngOnInit();
@@ -205,8 +202,62 @@ export class SchoolsComponent implements OnInit, OnDestroy {
     this.mapVisible = !this.mapVisible;
   }
 
-  seeSchool() {
-    alert('Under development, please comeback soon!');
+  seeSchool(key: string) {
+    this.mapVisible = false;
+
+    this.school = null;
+    if (key) {
+      this.opened = true;
+      this.updating = true;
+      this.dataSource.data.forEach((element) => {
+        if (element.key == key) {
+          this.school = element;
+          this.schoolForm.controls['schoolName'].setValue(this.school.name);
+          this.schoolForm.controls['geoLocation'].setValue(this.school.addres);
+          this.tCode = this.school.tcode;
+          this.sCode = this.school.scode;
+          this.pCode = this.school.pcode;
+          this.aCode = this.school.acode;
+          this.eCode = this.school.ecode;
+          this.latitude = this.school.latitude;
+          this.longitude = this.school.longitude;
+        }
+      });
+    }
+  }
+
+  restartDrawer() {
+    this.opened = true;
+    this.mapVisible = false;
+    this.schoolForm.controls['schoolName'].setValue(null);
+    this.schoolForm.controls['geoLocation'].setValue(null);
+    this.latitude = 32.7068176;
+    this.longitude = -117.190456;
+    this.generateCodes();
+  }
+
+  update() {
+    this.isPublishing = true;
+    const { schoolName } = this.schoolForm.value;
+    const data = {
+      name: schoolName,
+      addres: this.addres,
+      latitude: this.latitude,
+      longitude: this.longitude,
+      acode: this.aCode,
+      pcode: this.tCode,
+      tcode: this.sCode,
+      scode: this.pCode,
+      ecode: this.eCode,
+    };
+
+    this.schoolsService.updateSchool(this.school.key, data);
+    this.snackBar.open('School updated!', 'close', { duration: 2000 });
+    //remove data from drawer
+    this.schoolForm.controls['schoolName'].setValue(null);
+    this.schoolForm.controls['geoLocation'].setValue(null);
+    this.isPublishing = false;
+    this.opened = false;
   }
 
   ngOnDestroy() {
