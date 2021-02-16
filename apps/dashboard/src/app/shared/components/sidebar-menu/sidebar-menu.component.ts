@@ -7,8 +7,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar-menu.component.scss'],
 })
 export class SidebarMenuComponent {
-
-
   constructor(private router: Router) {}
 
   goto(page: string) {
