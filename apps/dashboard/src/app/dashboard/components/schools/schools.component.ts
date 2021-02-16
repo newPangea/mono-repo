@@ -206,11 +206,11 @@ export class SchoolsComponent implements OnInit, OnDestroy {
     this.mapVisible = false;
 
     this.school = null;
-    if(key){
+    if (key) {
       this.opened = true;
       this.updating = true;
-      this.dataSource.data.forEach(element => {
-        if(element.key == key){
+      this.dataSource.data.forEach((element) => {
+        if (element.key == key) {
           this.school = element;
           this.schoolForm.controls['schoolName'].setValue(this.school.name);
           this.schoolForm.controls['geoLocation'].setValue(this.school.addres);
@@ -226,7 +226,7 @@ export class SchoolsComponent implements OnInit, OnDestroy {
     }
   }
 
-  restartDrawer(){
+  restartDrawer() {
     this.opened = true;
     this.mapVisible = false;
     this.schoolForm.controls['schoolName'].setValue(null);
@@ -236,7 +236,7 @@ export class SchoolsComponent implements OnInit, OnDestroy {
     this.generateCodes();
   }
 
-  update(){
+  update() {
     this.isPublishing = true;
     const { schoolName } = this.schoolForm.value;
     const data = {
@@ -249,7 +249,7 @@ export class SchoolsComponent implements OnInit, OnDestroy {
       tcode: this.sCode,
       scode: this.pCode,
       ecode: this.eCode,
-    }
+    };
 
     this.schoolsService.updateSchool(this.school.key, data);
     this.snackBar.open('School updated!', 'close', { duration: 2000 });

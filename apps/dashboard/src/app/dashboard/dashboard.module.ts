@@ -6,7 +6,6 @@ import { CoreModule } from '@pang/core';
 import { DashboardComponent } from './dashboard.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-
 @NgModule({
   declarations: [DashboardComponent],
   imports: [CommonModule, DashboardRoutingModule, SharedModule, CoreModule, MatSnackBarModule],

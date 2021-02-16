@@ -11,10 +11,10 @@ export class SidebarMenuComponent {
   schoolsActive = false;
   preferencesActive = false;
 
-  constructor(private router: Router){}
+  constructor(private router: Router) {}
 
-  goto(page: string){
-    switch (page){
+  goto(page: string) {
+    switch (page) {
       case 'users':
         alert('Under development, please comeback soon!');
         break;

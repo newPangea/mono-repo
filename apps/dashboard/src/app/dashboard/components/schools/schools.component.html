@@ -90,17 +90,17 @@
           <mat-progress-bar *ngIf="isPublishing" mode="indeterminate"></mat-progress-bar>
         </button>
         <button
-        type="button"
-        *ngIf="updating"
-        (click)="update(schoolKey)"
-        class="publishSchool_button custom_button"
-        mat-raised-button
-        color="primary"
-        [disabled]="schoolForm.invalid"
-      >
-        Publish changes
-        <mat-progress-bar *ngIf="isPublishing" mode="indeterminate"></mat-progress-bar>
-      </button>
+          type="button"
+          *ngIf="updating"
+          (click)="update(schoolKey)"
+          class="publishSchool_button custom_button"
+          mat-raised-button
+          color="primary"
+          [disabled]="schoolForm.invalid"
+        >
+          Publish changes
+          <mat-progress-bar *ngIf="isPublishing" mode="indeterminate"></mat-progress-bar>
+        </button>
       </div>
     </form>
   </mat-drawer>
