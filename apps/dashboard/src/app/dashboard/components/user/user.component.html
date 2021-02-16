@@ -7,7 +7,7 @@
   </div>
   <div class="user-info-container">
     <div class="user-info-container__header">
-      <p class="user-info-container__header__username">Mark Mullins</p>
+      <p class="user-info-container__header__username">{{ (user$ | async)?.name }}</p>
       <pang-new-pangea-label badgeColor="green" badgeLabel="Student"></pang-new-pangea-label>
     </div>
     <div class="user-info-container__data">
@@ -33,7 +33,7 @@
       </p>
     </div>
     <div class="user-info-container__activate-container">
-      <mat-slide-toggle>Desactivate user</mat-slide-toggle>
+      <mat-slide-toggle [formControl]="isActiveControl">Desactivate user</mat-slide-toggle>
     </div>
   </div>
 </div>

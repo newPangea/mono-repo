@@ -1,4 +1,6 @@
 export const FUNCTION = {
   generateCode: 'codeGenerator',
-  confirmCode: 'codeVerification'
-}
+  confirmCode: 'codeVerification',
+  isActiveAuthUser: 'isActiveAuthUser',
+  enableOrDisableAuthUser: 'enableOrDisableAuthUser',
+};
