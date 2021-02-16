@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class SidebarMenuComponent {
   constructor(private router: Router) {}
 
-  goto(page: string) {
+  goTo(page: string) {
     switch (page) {
       case 'users':
         alert('Under development, please comeback soon!');
