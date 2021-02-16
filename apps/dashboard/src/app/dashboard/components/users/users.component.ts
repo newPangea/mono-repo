@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { FIRESTORE_COLLECTION } from '@pang/const';
-import { Student } from '@pang/interface';
-import { Observable, Subscription } from 'rxjs';
+import { User } from '@pang/interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'new-pangea-users',
@@ -14,7 +14,7 @@ import { Observable, Subscription } from 'rxjs';
 export class UsersComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['avatar', 'name', 'school', 'connections', 'teams', 'details'];
-  dataSource = new MatTableDataSource<Student>();
+  dataSource = new MatTableDataSource<User>();
   private usersSubscription: Subscription;
 
   constructor(private fireStore: AngularFirestore) {}
@@ -45,7 +45,7 @@ export class UsersComponent implements OnInit {
 
   private getAllStudents() {
     return this.fireStore
-      .collection<Student>(FIRESTORE_COLLECTION.student, (ref) => ref.orderBy('name'))
+      .collection<User>(FIRESTORE_COLLECTION.student, (ref) => ref.orderBy('name'))
       .valueChanges();
   }
 }

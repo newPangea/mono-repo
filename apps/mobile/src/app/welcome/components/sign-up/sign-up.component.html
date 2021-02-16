@@ -1,52 +1,55 @@
-<img src="assets/img/signup.svg" class="header__image" />
+<pang-welcome-container>
+  <div marcoHeader>
+    <a routerLink="/welcome">
+      <img src="assets/img/icon-back.svg" alt="" srcset="" />
+    </a>
+    <h1 class="header__title">Sign up</h1>
+  </div>
 
-<div class="header">
-  <a routerLink="/welcome">
-    <img src="assets/img/icon-back.svg" alt="" srcset="" />
-  </a>
-  <h1 class="header__title">Sign up</h1>
-</div>
+  <div marcoBody>
+    <h1 class="title">Create connections</h1>
+    <p class="sigUp-container__description">Check projects created by your partners round the world, Copy TBD</p>
+    <form [formGroup]="signFom" (ngSubmit)="createAccount()" class="sigUp-container__form">
+      <mat-form-field appearance="fill">
+        <mat-label>Full name</mat-label>
+        <input matInput formControlName="name" type="text" />
+        <mat-error *ngIf="signFom.controls['name'].invalid">{{ getErrorMessageByField('name') }}</mat-error>
+      </mat-form-field>
 
-<div class="sigUp-container">
-  <h1 class="title">Create connections</h1>
-  <p class="sigUp-container__description">Check projects created by your partners round the world, Copy TBD</p>
-  <form [formGroup]="signFom" (ngSubmit)="createAccount()" class="sigUp-container__form">
-    <mat-form-field appearance="fill">
-      <mat-label>Full name</mat-label>
-      <input matInput formControlName="name" type="text" />
-      <mat-error *ngIf="signFom.controls['name'].invalid">{{ getErrorMessageByField('name') }}</mat-error>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Country of Birth</mat-label>
+        <mat-select formControlName="country">
+          <mat-option *ngFor="let country of countries" [value]="country">
+            {{ country.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="signFom.controls['country'].invalid">{{ getErrorMessageByField('country') }}</mat-error>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Country of Birth</mat-label>
-      <mat-select formControlName="country">
-        <mat-option *ngFor="let country of countries" [value]="country">
-          {{ country.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="signFom.controls['country'].invalid">{{ getErrorMessageByField('country') }}</mat-error>
-    </mat-form-field>
+      <pang-date-picker formControlName="date"></pang-date-picker>
 
-    <pang-date-picker formControlName="date"></pang-date-picker>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" />
+        <mat-error *ngIf="signFom.controls['email'].invalid">{{ getErrorMessageByField('email') }}</mat-error>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email" type="email" />
-      <mat-error *ngIf="signFom.controls['email'].invalid">{{ getErrorMessageByField('email') }}</mat-error>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" />
+        <mat-error *ngIf="signFom.controls['password'].invalid">{{ getErrorMessageByField('password') }}</mat-error>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Password</mat-label>
-      <input matInput formControlName="password" />
-      <mat-error *ngIf="signFom.controls['password'].invalid">{{ getErrorMessageByField('password') }}</mat-error>
-    </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>School code</mat-label>
+        <input matInput formControlName="schoolCode" />
+        <mat-error *ngIf="signFom.controls['schoolCode'].invalid">{{ getErrorMessageByField('schoolCode') }}</mat-error>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>School code</mat-label>
-      <input matInput formControlName="schoolCode" />
-      <mat-error *ngIf="signFom.controls['schoolCode'].invalid">{{ getErrorMessageByField('schoolCode') }}</mat-error>
-    </mat-form-field>
-
-    <button pang-button color="primary" [loading]="loading" [disabled]="signFom.invalid">Next</button>
-  </form>
-</div>
+      <button pang-button color="primary" [loading]="loading" [disabled]="signFom.invalid">Next</button>
+    </form>
+    <div class="toggle-container">
+      <pang-toggle [tabs]="SIGN_TABS" (selectedTab)="goToLogin()" [currentTab]="currentPage"></pang-toggle>
+    </div>
+  </div>
+</pang-welcome-container>

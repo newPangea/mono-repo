@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireFunctions } from '@angular/fire/functions';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { FIRESTORE_COLLECTION, FUNCTION } from '@pang/const';
-import { Student } from '@pang/interface';
+import { User } from '@pang/interface';
 import { Observable } from 'rxjs';
 import { debounceTime, take } from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ import { debounceTime, take } from 'rxjs/operators';
 })
 export class UserComponent implements OnInit {
   @Input() userKey: string;
-  user$: Observable<Student>;
+  user$: Observable<User>;
 
   isActiveControl: FormControl = new FormControl(false);
   private readonly IS_ACTIVE_CONTROL_DELAY = 1000;
@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
   constructor(private angularFn: AngularFireFunctions, private fireStore: AngularFirestore) {}
 
   async ngOnInit(): Promise<void> {
-    this.user$ = this.fireStore.collection<Student>(FIRESTORE_COLLECTION.student).doc(this.userKey).valueChanges();
+    this.user$ = this.fireStore.collection<User>(FIRESTORE_COLLECTION.student).doc(this.userKey).valueChanges();
     await this.setIsActiveControlValue();
     this.listenIsActiveControlChanges();
   }

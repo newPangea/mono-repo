@@ -12,9 +12,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SchoolsComponent } from '../dashboard/components/schools/schools.component';
+import { PreferencesComponent } from '../dashboard/components/preferences/preferences.component';
+import { UiModule } from '@pang/ui';
 
 @NgModule({
-  declarations: [SidebarMenuComponent, SchoolsComponent],
+  declarations: [SidebarMenuComponent, SchoolsComponent, PreferencesComponent],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -28,7 +30,8 @@ import { SchoolsComponent } from '../dashboard/components/schools/schools.compon
     MatPaginatorModule,
     MatButtonModule,
     MatProgressBarModule,
+    UiModule,
   ],
-  exports: [SidebarMenuComponent, SchoolsComponent],
+  exports: [SidebarMenuComponent, SchoolsComponent, PreferencesComponent],
 })
 export class SharedModule {}

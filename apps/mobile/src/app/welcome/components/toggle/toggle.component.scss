@@ -1,0 +1,37 @@
+@import 'global.scss';
+
+.toggle-container {
+  width: 241px;
+  height: 41px;
+  border-radius: 28px;
+  box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.27);
+  background-color: $gray1;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  overflow: hidden;
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    &__label {
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: $gray;
+      margin: 0;
+    }
+    &--selected {
+      background-color: $green;
+      border-radius: 28px;
+      .toggle-container__item__label {
+        // TO DO: REMOVE THIS SELECTOR
+        color: $white;
+      }
+    }
+  }
+}

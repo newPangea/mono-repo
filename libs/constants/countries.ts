@@ -1,4 +1,4 @@
-import { Country } from '@pang/interface';
+import { Country } from '../interfaces';
 
 export const COUNTRIES: Country[] = [
   { name: 'Afghanistan', code: 'AF' },

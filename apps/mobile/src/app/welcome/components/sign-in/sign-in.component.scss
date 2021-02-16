@@ -1,0 +1,29 @@
+@import 'global';
+
+.header-title {
+  @include h1;
+  color: $white;
+  margin-top: 12px;
+}
+
+.description {
+  margin-top: 12px;
+  margin-bottom: 36px;
+}
+.signIn-form {
+  display: grid;
+}
+.forgot-password-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 35px;
+  &__label {
+    @include text($bodySize, $primary, 500);
+    text-decoration: underline;
+    margin: 0;
+  }
+}
+.submit-button {
+  margin-bottom: 40px;
+}

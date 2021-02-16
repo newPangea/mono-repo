@@ -1,43 +1,11 @@
 @import 'global.scss';
 
-:host {
-  display: block;
-  background-color: $primary;
-  padding-top: 198px;
-  overflow: auto;
-  box-sizing: border-box;
-  height: 100vh;
-}
-
 .header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  padding: 44px 16px 0;
-  z-index: 0;
-  &__image {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 218px;
-  }
   &__title {
     @include h1;
     color: $white;
     margin-top: 12px;
   }
-}
-
-.confirm {
-  padding: 41px 16px;
-  border-radius: 13px 13px 0 0;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.19);
-  background-color: #fafafa;
-  position: relative;
-  z-index: 2;
-  box-sizing: border-box;
-  min-height: 100%;
 }
 
 .success-icon {
@@ -51,14 +19,7 @@
 }
 
 .label {
-  font-family: Inter;
-  font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: $gray;
+  @include text($body2Size, $gray, 500);
   margin-top: 12px;
   margin-bottom: 42px;
 }
@@ -74,15 +35,8 @@
   align-items: center;
   margin-top: 42px;
   &__label {
-    font-family: Inter;
-    font-size: 16px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
+    @include text($bodySize, $green, 500);
     text-align: center;
-    color: $green;
     text-decoration: underline;
     margin: 0;
   }
