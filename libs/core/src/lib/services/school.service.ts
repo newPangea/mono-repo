@@ -26,4 +26,8 @@ export class SchoolService {
       .collection<School>(School.REF, (ref) => ref.where('scode', '==', code))
       .valueChanges();
   }
+
+  updateSchool(key: string, data) {
+    return this.db.collection(School.REF).doc(key).update(data);
+  }
 }

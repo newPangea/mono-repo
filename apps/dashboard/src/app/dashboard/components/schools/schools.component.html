@@ -3,7 +3,8 @@
     <mat-icon class="close-drawer" (click)="drawer.toggle()">close</mat-icon>
     <form [formGroup]="schoolForm" (ngSubmit)="addSchool()">
       <div class="form_container">
-        <p class="title">Add new school</p>
+        <p *ngIf="!updating" class="title">Add new school</p>
+        <p *ngIf="updating" class="title">Edit school</p>
         <mat-form-field appearance="fill">
           <mat-label>School name</mat-label>
           <input matInput type="text" formControlName="schoolName" />
@@ -78,6 +79,7 @@
           </div>
         </div>
         <button
+          *ngIf="!updating"
           type="submit"
           class="publishSchool_button custom_button"
           mat-raised-button
@@ -87,13 +89,25 @@
           Publish school
           <mat-progress-bar *ngIf="isPublishing" mode="indeterminate"></mat-progress-bar>
         </button>
+        <button
+        type="button"
+        *ngIf="updating"
+        (click)="update(schoolKey)"
+        class="publishSchool_button custom_button"
+        mat-raised-button
+        color="primary"
+        [disabled]="schoolForm.invalid"
+      >
+        Publish changes
+        <mat-progress-bar *ngIf="isPublishing" mode="indeterminate"></mat-progress-bar>
+      </button>
       </div>
     </form>
   </mat-drawer>
 
   <div class="secuential">
     <p class="segment-title">{{ title }}</p>
-    <p (click)="drawer.toggle()" class="add-school">+ Add school</p>
+    <p (click)="restartDrawer()" class="add-school">+ Add school</p>
   </div>
 
   <!-- table begin -->
@@ -151,7 +165,7 @@
         <ng-container matColumnDef="see">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td class="actionSee" mat-cell *matCellDef="let row">
-            <button mat-icon-button (click)="seeSchool(event, row.key)">
+            <button mat-icon-button (click)="seeSchool(row.key)">
               <mat-icon class="info" color="primary">chevron_right</mat-icon>
             </button>
           </td>
