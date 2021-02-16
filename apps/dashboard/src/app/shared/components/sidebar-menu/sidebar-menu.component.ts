@@ -7,9 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar-menu.component.scss'],
 })
 export class SidebarMenuComponent {
-  usersActive = false;
-  schoolsActive = false;
-  preferencesActive = false;
+
 
   constructor(private router: Router) {}
 
@@ -20,15 +18,11 @@ export class SidebarMenuComponent {
         break;
       case 'schools':
         this.router.navigate(['/', 'dashboard']);
-        this.usersActive = false;
-        this.schoolsActive = true;
-        this.preferencesActive = false;
+
         break;
       case 'preferences':
         this.router.navigate(['/', 'dashboard', 'preferences']);
-        this.usersActive = false;
-        this.schoolsActive = false;
-        this.preferencesActive = true;
+
         break;
     }
   }

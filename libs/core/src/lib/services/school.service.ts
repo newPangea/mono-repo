@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { School } from '@pang/models';
+import { FIRESTORE_COLLECTION } from '@pang/const';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,6 @@ export class SchoolService {
   }
 
   updateSchool(key: string, data) {
-    return this.db.collection(School.REF).doc(key).update(data);
+    return this.db.collection(FIRESTORE_COLLECTION.school).doc(key).update(data);
   }
 }
