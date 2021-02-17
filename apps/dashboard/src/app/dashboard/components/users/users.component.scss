@@ -54,4 +54,9 @@
 .details-label {
   @include text(14px, $blue, 500);
   text-decoration: underline;
+  cursor: pointer;
+}
+
+.mat-drawer-container {
+  height: 100vh;
 }

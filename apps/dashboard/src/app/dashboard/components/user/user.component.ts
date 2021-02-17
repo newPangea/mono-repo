@@ -3,9 +3,11 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireFunctions } from '@angular/fire/functions';
 import { FormControl } from '@angular/forms';
 import { FIRESTORE_COLLECTION, FUNCTION } from '@pang/const';
+import { SchoolService } from '@pang/core';
 import { User } from '@pang/interface';
+import { School } from '@pang/models';
 import { Observable } from 'rxjs';
-import { debounceTime, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'new-pangea-user',
@@ -14,15 +16,19 @@ import { debounceTime, take } from 'rxjs/operators';
 })
 export class UserComponent implements OnInit {
   @Input() userKey: string;
+  isActiveControl: FormControl = new FormControl(false);
+  school$: Observable<School>;
   user$: Observable<User>;
 
-  isActiveControl: FormControl = new FormControl(false);
-  private readonly IS_ACTIVE_CONTROL_DELAY = 1000;
-
-  constructor(private angularFn: AngularFireFunctions, private fireStore: AngularFirestore) {}
+  constructor(
+    private angularFn: AngularFireFunctions,
+    private fireStore: AngularFirestore,
+    private schoolService: SchoolService,
+  ) {}
 
   async ngOnInit(): Promise<void> {
-    this.user$ = this.fireStore.collection<User>(FIRESTORE_COLLECTION.student).doc(this.userKey).valueChanges();
+    this.user$ = this.fireStore.collection<User>(FIRESTORE_COLLECTION.user).doc(this.userKey).valueChanges();
+    this.setSchool();
     await this.setIsActiveControlValue();
     this.listenIsActiveControlChanges();
   }
@@ -52,10 +58,10 @@ export class UserComponent implements OnInit {
   }
 
   private listenIsActiveControlChanges(): void {
-    this.isActiveControl.valueChanges.pipe(debounceTime(this.IS_ACTIVE_CONTROL_DELAY)).subscribe(async (isActive) => {
-      this.toggleIsActiveControl(true);
+    this.isActiveControl.valueChanges.subscribe(async (isActive) => {
+      this.isActiveControl.disable({ emitEvent: false });
       await this.enableOrDisableAuthUser(this.userKey, isActive);
-      this.toggleIsActiveControl(false);
+      this.isActiveControl.enable({ emitEvent: false });
     });
   }
 
@@ -63,7 +69,12 @@ export class UserComponent implements OnInit {
     this.isActiveControl.setValue(await this.isActivedUser(this.userKey));
   }
 
-  private toggleIsActiveControl(value: boolean) {
-    this.isActiveControl.setValue({ disabled: value }, { emitEvent: false });
+  private async setSchool() {
+    const user = await this.user$.pipe(take(1)).toPromise();
+    if (!!user) {
+      this.school$ = this.schoolService
+        .findSchoolCode(user.schoolCode)
+        .pipe(map((schools) => (!!schools.length ? schools[0] : null)));
+    }
   }
 }

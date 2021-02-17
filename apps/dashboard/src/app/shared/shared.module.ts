@@ -5,7 +5,7 @@ import { SidebarMenuComponent } from './components/sidebar-menu/sidebar-menu.com
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -16,14 +16,17 @@ import { PreferencesComponent } from '../dashboard/components/preferences/prefer
 import { UiModule } from '@pang/ui';
 import { UsersComponent } from '../dashboard/components/users/users.component';
 import { CoreModule } from '@pang/core';
+import { UserComponent } from '../dashboard/components/user/user.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
-  declarations: [SidebarMenuComponent, SchoolsComponent, PreferencesComponent, UsersComponent],
+  declarations: [SidebarMenuComponent, SchoolsComponent, PreferencesComponent, UsersComponent, UserComponent],
   imports: [
     CommonModule,
     MatSidenavModule,
     MatIconModule,
     MatInputModule,
+    FormsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC9aRHf8SS9ZQ2kLESnX1RqJmbxFmkYZco&libraries=places',
@@ -33,7 +36,8 @@ import { CoreModule } from '@pang/core';
     MatButtonModule,
     MatProgressBarModule,
     UiModule,
-    CoreModule
+    CoreModule,
+    MatSlideToggleModule
   ],
   exports: [SidebarMenuComponent, SchoolsComponent, PreferencesComponent],
 })

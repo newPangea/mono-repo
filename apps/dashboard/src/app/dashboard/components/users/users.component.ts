@@ -17,6 +17,7 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['avatar', 'name', 'school', 'connections', 'teams', 'details'];
   dataSource = new MatTableDataSource<User>();
   schools$: Observable<School[]>;
+  showedUserKey: string;
   private usersSubscription: Subscription;
 
   constructor(private fireStore: AngularFirestore) {}
@@ -56,6 +57,10 @@ export class UsersComponent implements OnInit {
         school.ecode === schoolCode,
     );
     return !!schoolFound ? schoolFound[attribute] : null;
+  }
+
+  showUser(userKey: string): void {
+    this.showedUserKey = userKey;
   }
 
   private getAllSchools() {

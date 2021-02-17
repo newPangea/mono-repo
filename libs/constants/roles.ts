@@ -22,6 +22,6 @@ export const ROLES = {
   EXPERT: {
     code: 'E',
     label: 'Expert',
-    color: 'dsadadasd',
+    color: '#FFA000',
   },
 };

@@ -2,38 +2,37 @@
   <button mat-icon-button class="close-button">
     <mat-icon>close</mat-icon>
   </button>
-  <div class="user-image-container" [style.background-image]="'url(' + 'assets/images/login-bg.png' + ')'">
+  <div class="user-image-container" [style.background-image]="'url(' + 'assets/images/logo-1.png' + ')'">
     <div class="gradient">&nbsp;</div>
   </div>
   <div class="user-info-container">
     <div class="user-info-container__header">
       <p class="user-info-container__header__username">{{ (user$ | async)?.name }}</p>
-      <pang-new-pangea-label badgeColor="green" badgeLabel="Student"></pang-new-pangea-label>
+      <pang-new-pangea-label
+        [badgeLabel]="(user$ | async)?.schoolCode | userRoleLabel"
+        [badgeColor]="(user$ | async)?.schoolCode | userRoleColor"
+      ></pang-new-pangea-label>
     </div>
     <div class="user-info-container__data">
       <div class="data-item-container">
         <mat-icon class="data-item-container__icon" svgIcon="new-pangea-pin"></mat-icon>
-        <p class="data-item-container__label">United States | Florida</p>
+        <p class="data-item-container__label">{{ (user$ | async)?.country.name }}</p>
       </div>
       <div class="data-item-container">
         <mat-icon class="data-item-container__icon" svgIcon="new-pangea-school"></mat-icon>
-        <p class="data-item-container__label">Florida university</p>
+        <p class="data-item-container__label">{{ (school$ | async)?.name }}</p>
       </div>
       <div class="data-item-container">
         <mat-icon class="data-item-container__icon" svgIcon="new-pangea-mail"></mat-icon>
-        <p class="data-item-container__label">Mark.m93@schoolflorida.com</p>
+        <p class="data-item-container__label">{{ (user$ | async)?.email }}</p>
       </div>
     </div>
     <div class="user-info-container__about">
       <p class="user-info-container__about__title">About Mark</p>
-      <p class="user-info-container__about__description">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum
-        sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-        nec,
-      </p>
+      <p class="user-info-container__about__description">-</p>
     </div>
-    <div class="user-info-container__activate-container">
+    <form class="user-info-container__activate-container">
       <mat-slide-toggle [formControl]="isActiveControl">Desactivate user</mat-slide-toggle>
-    </div>
+    </form>
   </div>
 </div>
