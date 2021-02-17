@@ -46,17 +46,4 @@ export class SignInComponent implements OnInit {
         this.loading = false;
       });
   }
-
-  // TO DO: REMOVE THIS, DUPLICATED CODE
-  getErrorMessageByField(field: string): string {
-    if (this.signFom.controls[field].hasError('required')) {
-      return 'This field is required';
-    } else if (this.signFom.controls[field].hasError('pattern') && field == 'email') {
-      return 'Incorrect format, must be a valid email';
-    } else if (this.signFom.controls[field].hasError('pattern') && field == 'schoolCode') {
-      return 'Incorrect format, must be one letter and eight numbers';
-    } else {
-      if (field != 'password') return 'El campo no es válido';
-    }
-  }
 }

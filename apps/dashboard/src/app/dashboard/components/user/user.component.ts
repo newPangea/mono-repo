@@ -71,10 +71,10 @@ export class UserComponent implements OnInit {
 
   private async setSchool() {
     const user = await this.user$.pipe(take(1)).toPromise();
-    if (!!user) {
+    if (user) {
       this.school$ = this.schoolService
         .findSchoolCode(user.schoolCode)
-        .pipe(map((schools) => (!!schools.length ? schools[0] : null)));
+        .pipe(map((schools) => (schools.length ? schools[0] : null)));
     }
   }
 }

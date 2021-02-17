@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToggleComponentTab } from '@pang/interface';
 
 @Component({
   selector: 'pang-toggle',
@@ -6,7 +7,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./toggle.component.scss'],
 })
 export class ToggleComponent implements OnInit {
-  // TO DO: REMOVE COMPONENT FROM HERE
   @Input() tabs: ToggleComponentTab[] = [];
   @Input() currentTab: number;
   @Output() selectedTab: EventEmitter<number> = new EventEmitter();
@@ -21,9 +21,4 @@ export class ToggleComponent implements OnInit {
     this.currentTab = id;
     this.selectedTab.emit(id);
   }
-}
-
-export interface ToggleComponentTab {
-  label: string;
-  id: number;
 }

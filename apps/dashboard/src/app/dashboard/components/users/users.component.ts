@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,7 +12,7 @@ import { Observable, Subscription } from 'rxjs';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['avatar', 'name', 'school', 'connections', 'teams', 'details'];
   dataSource = new MatTableDataSource<User>();
@@ -56,7 +56,7 @@ export class UsersComponent implements OnInit {
         school.acode === schoolCode ||
         school.ecode === schoolCode,
     );
-    return !!schoolFound ? schoolFound[attribute] : null;
+    return schoolFound ? schoolFound[attribute] : null;
   }
 
   showUser(userKey: string): void {

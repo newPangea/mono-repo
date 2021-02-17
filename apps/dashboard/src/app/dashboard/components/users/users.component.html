@@ -6,10 +6,10 @@
         mode="over"
         position="end"
         hasBackdrop="true"
-        [opened]="!!showedUserKey"
+        [opened]="showedUserKey"
         (closedStart)="showedUserKey = null"
       >
-        <new-pangea-user *ngIf="!!showedUserKey" [userKey]="showedUserKey"></new-pangea-user>
+        <new-pangea-user *ngIf="showedUserKey" [userKey]="showedUserKey"></new-pangea-user>
       </mat-drawer>
       <div class="wrapper-container">
         <h1>Registered users</h1>
