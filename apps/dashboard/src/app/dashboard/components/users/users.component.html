@@ -1,78 +1,84 @@
-<div class="wrapper-container">
-  <h1>Registered users</h1>
-  <div class="card-container">
-    <div class="filters-container">
-      <mat-form-field appearance="fill">
-        <mat-label>Global search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" />
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-      <button class="filters-container__filter-button" mat-icon-button>
-        <mat-icon svgIcon="new-pangea-filter"></mat-icon>
-      </button>
+<new-pangea-sidebar-menu>
+  <div marcoBody class="wrapper-container">
+    <h1>Registered users</h1>
+    <div class="card-container">
+      <div class="filters-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Global search</mat-label>
+          <input matInput (keyup)="applyFilter($event)" />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <button class="filters-container__filter-button" mat-icon-button>
+          <mat-icon svgIcon="new-pangea-filter"></mat-icon>
+        </button>
+      </div>
+      <table class="users-table" mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="avatar">
+          <td mat-cell *matCellDef="let element">
+            <div class="user-avatar-container">
+              <pang-avatar-with-label
+                [badgeLabel]="element.schoolCode | userRoleLabel"
+                [badgeColor]="element.schoolCode | userRoleColor"
+              ></pang-avatar-with-label>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <td mat-cell *matCellDef="let element">
+            <div class="item-container">
+              <p class="item-container__title">
+                {{ element.name }}
+              </p>
+              <div class="item-container__info">
+                <mat-icon svgIcon="new-pangea-pin"></mat-icon>
+                <p class="item-container__info__label">{{ element.country.name }}</p>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="school">
+          <td mat-cell *matCellDef="let element">
+            <div class="item-container">
+              <p class="item-container__title">
+                {{ getSchoolAttributeValue(element.schoolCode, schools$ | async, 'name') }}
+              </p>
+              <div class="item-container__info">
+                <mat-icon svgIcon="new-pangea-school"></mat-icon>
+                <p class="item-container__info__label">School</p>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="connections">
+          <td mat-cell *matCellDef="let element">
+            <div class="item-container">
+              <p class="item-container__title">0 Connections</p>
+              <div class="item-container__info">
+                <mat-icon svgIcon="new-pangea-connection"></mat-icon>
+                <p class="item-container__info__label">with other user</p>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="teams">
+          <td mat-cell *matCellDef="let element">
+            <div class="item-container">
+              <p class="item-container__title">0 teams</p>
+              <div class="item-container__info">
+                <mat-icon svgIcon="new-pangea-team"></mat-icon>
+                <p class="item-container__info__label">Participating</p>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="details">
+          <td mat-cell *matCellDef="let element">
+            <a class="details-label">Details</a>
+          </td>
+        </ng-container>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
-    <table class="users-table" mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="avatar">
-        <td mat-cell *matCellDef="let element">
-          <div class="user-avatar-container">
-            <!-- TO DO: USE VARIABLES -->
-            <pang-avatar-with-label badgeLabel="Student" badgeColor="#92d050"></pang-avatar-with-label>
-          </div>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="name">
-        <td mat-cell *matCellDef="let element">
-          <div class="item-container">
-            <p class="item-container__title">
-              {{ element.name }}
-            </p>
-            <div class="item-container__info">
-              <mat-icon svgIcon="new-pangea-pin"></mat-icon>
-              <p class="item-container__info__label">{{ element.country.name }}</p>
-            </div>
-          </div>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="school">
-        <td mat-cell *matCellDef="let element">
-          <div class="item-container">
-            <p class="item-container__title">Florida University</p>
-            <div class="item-container__info">
-              <mat-icon svgIcon="new-pangea-school"></mat-icon>
-              <p class="item-container__info__label">School</p>
-            </div>
-          </div>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="connections">
-        <td mat-cell *matCellDef="let element">
-          <div class="item-container">
-            <p class="item-container__title">13 Connections</p>
-            <div class="item-container__info">
-              <mat-icon svgIcon="new-pangea-connection"></mat-icon>
-              <p class="item-container__info__label">with other user</p>
-            </div>
-          </div>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="teams">
-        <td mat-cell *matCellDef="let element">
-          <div class="item-container">
-            <p class="item-container__title">5 teams</p>
-            <div class="item-container__info">
-              <mat-icon svgIcon="new-pangea-team"></mat-icon>
-              <p class="item-container__info__label">Participating</p>
-            </div>
-          </div>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="details">
-        <td mat-cell *matCellDef="let element">
-          <a class="details-label">Details</a>
-        </td>
-      </ng-container>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
-</div>
+</new-pangea-sidebar-menu>

@@ -1,5 +1,4 @@
 export class School {
-  static REF: string = 'schools';
   key: string;
   name: string;
   addres: string;

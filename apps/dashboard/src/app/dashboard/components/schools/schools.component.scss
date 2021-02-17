@@ -24,6 +24,7 @@
     margin-bottom: 22px;
     cursor: pointer;
     color: $divider;
+    @include noselect;
   }
   .active {
     color: $primary;
@@ -45,6 +46,7 @@
     margin-bottom: 22px;
     cursor: pointer;
     color: $divider;
+    @include noselect;
   }
 }
 

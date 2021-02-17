@@ -14,9 +14,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SchoolsComponent } from '../dashboard/components/schools/schools.component';
 import { PreferencesComponent } from '../dashboard/components/preferences/preferences.component';
 import { UiModule } from '@pang/ui';
+import { UsersComponent } from '../dashboard/components/users/users.component';
+import { CoreModule } from '@pang/core';
 
 @NgModule({
-  declarations: [SidebarMenuComponent, SchoolsComponent, PreferencesComponent],
+  declarations: [SidebarMenuComponent, SchoolsComponent, PreferencesComponent, UsersComponent],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -31,6 +33,7 @@ import { UiModule } from '@pang/ui';
     MatButtonModule,
     MatProgressBarModule,
     UiModule,
+    CoreModule
   ],
   exports: [SidebarMenuComponent, SchoolsComponent, PreferencesComponent],
 })

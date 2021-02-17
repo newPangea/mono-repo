@@ -8,9 +8,8 @@ describe('NewPangeaLabelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewPangeaLabelComponent ]
-    })
-    .compileComponents();
+      declarations: [NewPangeaLabelComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -3,12 +3,13 @@
     <mat-sidenav #sidenav mode="side" opened class="sidenav">
       <mat-icon class="active">menu</mat-icon>
       <div class="divider"></div>
-      <mat-icon class="disabled">person</mat-icon>
-      <mat-icon class="active">account_balance</mat-icon>
+      <mat-icon (click)="goTo('users')" routerLinkActive="active">person</mat-icon>
+      <mat-icon (click)="goTo('schools')" routerLinkActive="active">account_balance</mat-icon>
+      <mat-icon (click)="goTo('preferences')" routerLinkActive="active">school</mat-icon>
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <ng-content select="[usersComponent]"></ng-content>
+      <ng-content select="[marcoBody]"></ng-content>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </mat-drawer-container>

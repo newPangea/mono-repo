@@ -8,7 +8,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { AngularFireModule } from '@angular/fire';
 import { SharedModule } from 'dashboard/app/shared/shared.module';
 
@@ -20,14 +19,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { UsersComponent } from './dashboard/components/users/users.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { UserComponent } from './dashboard/components/user/user.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, UsersComponent, UserComponent],
+  declarations: [AppComponent, LoginComponent],
   imports: [
     SharedModule,
     BrowserModule,

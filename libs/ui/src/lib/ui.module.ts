@@ -21,8 +21,20 @@ import { NewPangeaLabelComponent } from './new-pangea-label/new-pangea-label.com
     MatProgressSpinnerModule,
     ReactiveFormsModule,
   ],
-  declarations: [ButtonComponent, DatePickerComponent, PhoneCodeComponent, AvatarWithLabelComponent, NewPangeaLabelComponent],
+  declarations: [
+    ButtonComponent,
+    DatePickerComponent,
+    PhoneCodeComponent,
+    AvatarWithLabelComponent,
+    NewPangeaLabelComponent,
+  ],
   providers: [DatePipe],
-  exports: [ButtonComponent, DatePickerComponent, PhoneCodeComponent, AvatarWithLabelComponent, NewPangeaLabelComponent],
+  exports: [
+    ButtonComponent,
+    DatePickerComponent,
+    PhoneCodeComponent,
+    AvatarWithLabelComponent,
+    NewPangeaLabelComponent,
+  ],
 })
 export class UiModule {}
