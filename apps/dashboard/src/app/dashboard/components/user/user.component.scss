@@ -52,8 +52,8 @@
       @include text(20px, $gray, bold);
     }
     &__description {
-      margin-top: 8px !important;
       @include text(14px, $gray, normal);
+      margin-top: 8px;
     }
   }
   &__activate-container {

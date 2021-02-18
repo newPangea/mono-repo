@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, forwardRef, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Output, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';
 
@@ -8,7 +8,7 @@ import { debounceTime, filter } from 'rxjs/operators';
   styleUrls: ['./phone-code.component.scss'],
   providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => PhoneCodeComponent), multi: true }],
 })
-export class PhoneCodeComponent implements ControlValueAccessor {
+export class PhoneCodeComponent implements ControlValueAccessor, AfterViewInit {
   @Output() value: EventEmitter<number> = new EventEmitter();
   @ViewChild('digit1') digit1: ElementRef;
   @ViewChild('digit2') digit2: ElementRef;
