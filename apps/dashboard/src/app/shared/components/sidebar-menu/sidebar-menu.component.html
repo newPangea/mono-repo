@@ -3,9 +3,13 @@
     <mat-sidenav #sidenav mode="side" opened class="sidenav">
       <mat-icon class="active">menu</mat-icon>
       <div class="divider"></div>
-      <mat-icon (click)="goTo('users')" routerLinkActive="active">person</mat-icon>
-      <mat-icon (click)="goTo('schools')" routerLinkActive="active">account_balance</mat-icon>
-      <mat-icon (click)="goTo('preferences')" routerLinkActive="active">school</mat-icon>
+      <mat-icon (click)="goTo('users')" routerLink="/dashboard/users" routerLinkActive="active">person</mat-icon>
+      <mat-icon (click)="goTo('schools')" routerLink="/dashboard/schools" routerLinkActive="active"
+        >account_balance</mat-icon
+      >
+      <mat-icon (click)="goTo('preferences')" routerLink="/dashboard/preferences" routerLinkActive="active"
+        >school</mat-icon
+      >
     </mat-sidenav>
 
     <mat-sidenav-content>

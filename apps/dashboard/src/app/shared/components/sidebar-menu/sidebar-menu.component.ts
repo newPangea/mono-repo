@@ -15,7 +15,7 @@ export class SidebarMenuComponent {
         this.router.navigate(['/', 'dashboard', 'users']);
         break;
       case 'schools':
-        this.router.navigate(['/', 'dashboard']);
+        this.router.navigate(['/', 'dashboard', 'schools']);
         break;
       case 'preferences':
         this.router.navigate(['/', 'dashboard', 'preferences']);

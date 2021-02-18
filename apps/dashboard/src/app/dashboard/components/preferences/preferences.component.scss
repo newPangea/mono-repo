@@ -5,8 +5,9 @@
   grid-template-columns: max-content max-content;
   column-gap: 71px;
   align-items: flex-start;
-  padding: 48px 34px;
+
   .form-container {
+    margin-left: 30px;
     max-width: 291px;
     &__label {
       @include text(14px, $gray, 500);
@@ -19,8 +20,13 @@
     }
   }
 }
+.segment-title {
+  @include h2;
+  margin-top: 30px;
+}
 .striped-table {
   width: 442px;
+  margin: 30px;
   max-height: 660px;
   padding: 34px 20px 0px 0px;
   border-radius: 4px;

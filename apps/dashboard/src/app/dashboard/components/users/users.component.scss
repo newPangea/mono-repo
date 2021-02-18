@@ -1,9 +1,8 @@
 @import 'global.scss';
 
 .wrapper-container {
-  padding: 48px 34px;
+  margin: 30px;
   .card-container {
-    margin-top: 24px;
     border-radius: 4px;
     box-shadow: 0 0 10px 0 rgba(129, 127, 127, 0.14);
     background-color: $white;
@@ -19,6 +18,17 @@
     }
   }
 }
+.secuential {
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: 80% 20%;
+}
+.segment-title {
+  @include h2;
+  margin-top: 30px;
+  margin-left: 34px;
+}
+
 .users-table {
   width: 100%;
   tr:nth-child(odd) {
@@ -27,7 +37,7 @@
     }
   }
   td {
-    height: 96px;
+    height: 86px;
     border-bottom: unset;
   }
 }
@@ -55,8 +65,4 @@
   @include text(14px, $blue, 500);
   text-decoration: underline;
   cursor: pointer;
-}
-
-.mat-drawer-container {
-  height: 100vh;
 }

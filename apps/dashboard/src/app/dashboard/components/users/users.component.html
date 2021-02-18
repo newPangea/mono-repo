@@ -11,8 +11,10 @@
       >
         <new-pangea-user *ngIf="showedUserKey" [userKey]="showedUserKey"></new-pangea-user>
       </mat-drawer>
+      <div class="secuential">
+        <p class="segment-title">Registered users</p>
+      </div>
       <div class="wrapper-container">
-        <h1>Registered users</h1>
         <div class="card-container">
           <div class="filters-container">
             <mat-form-field appearance="fill">
@@ -90,6 +92,7 @@
             </ng-container>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
+          <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
           <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
         </div>
       </div>
