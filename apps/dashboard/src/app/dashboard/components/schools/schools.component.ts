@@ -91,7 +91,6 @@ export class SchoolsComponent implements OnInit, OnDestroy {
     this.schoolSubscription = this.schoolsService.getAll().subscribe((schools) => {
       this.schools = schools;
       this.dataSource.data = schools;
-      console.log(this.dataSource);
       this.isLoading = false;
     });
 
@@ -139,16 +138,12 @@ export class SchoolsComponent implements OnInit, OnDestroy {
 
   getAddress(latitude: number, longitude: number) {
     this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 18;
           this.addres = results[0].formatted_address;
           this.city = results[0].address_components[3].long_name;
           this.progress = false;
-          console.log(this.addres);
-          console.log(this.city);
         } else {
           window.alert('No results found');
         }
@@ -176,7 +171,6 @@ export class SchoolsComponent implements OnInit, OnDestroy {
   addSchool() {
     this.isPublishing = true;
     const { schoolName } = this.schoolForm.value;
-    console.log(schoolName);
     const school = new School(
       this.generalService.getFirestoreId(),
       schoolName,

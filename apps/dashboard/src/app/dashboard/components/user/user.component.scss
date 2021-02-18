@@ -1,0 +1,100 @@
+@import 'global.scss';
+
+@mixin sectionBorderBottom {
+  border-bottom: 1px solid $gray5;
+}
+.wrapper-container {
+  background-color: $backgroundWhite;
+  position: relative;
+  width: 429px;
+  height: 100%;
+}
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.user-image-container {
+  position: relative;
+  height: 301px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.user-info-container {
+  padding: 20px 32px 29px 32px;
+  &__header {
+    display: grid;
+    grid-template-columns: auto max-content;
+    column-gap: 20px;
+    align-items: center;
+    padding-bottom: 15px;
+    @include sectionBorderBottom;
+    &__username {
+      @include text(20px, $gray, bold);
+      margin: 0;
+    }
+  }
+  &__data {
+    padding: 16px 0px;
+    @include sectionBorderBottom;
+    .data-item-container {
+      margin-bottom: 13px;
+      &:last-of-type {
+        margin-bottom: 0px;
+      }
+    }
+  }
+  &__about {
+    padding: 15px 0px;
+    @include sectionBorderBottom;
+    &__title {
+      @include text(20px, $gray, bold);
+    }
+    &__description {
+      @include text(14px, $gray, normal);
+      margin-top: 8px;
+    }
+  }
+  &__activate-container {
+    padding-top: 19px;
+    mat-slide-toggle {
+      @include text(14px, $gray, 500);
+    }
+  }
+}
+.data-item-container {
+  display: grid;
+  grid-template-columns: max-content auto;
+  column-gap: 7px;
+  align-items: center;
+  &__icon {
+    max-width: 16px;
+    height: auto;
+  }
+  &__label {
+    @include text(14px, $gray, 500);
+  }
+}
+$startColor: transparent;
+$endColor: $backgroundWhite;
+.gradient {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 117px;
+  background: $startColor;
+  background: -moz-linear-gradient(top, $startColor 0%, $startColor 24%, $endColor 87%, $endColor 100%);
+  background: -webkit-gradient(
+    left top,
+    left bottom,
+    color-stop(0%, $startColor),
+    color-stop(24%, $startColor),
+    color-stop(87%, $endColor),
+    color-stop(100%, $endColor)
+  );
+  background: -webkit-linear-gradient(top, $startColor 0%, $startColor 24%, $endColor 87%, $endColor 100%);
+  background: -o-linear-gradient(top, $startColor 0%, $startColor 24%, $endColor 87%, $endColor 100%);
+  background: -ms-linear-gradient(top, $startColor 0%, $startColor 24%, $endColor 87%, $endColor 100%);
+  background: linear-gradient(to bottom, $startColor 0%, $startColor 24%, $endColor 87%, $endColor 100%);
+}

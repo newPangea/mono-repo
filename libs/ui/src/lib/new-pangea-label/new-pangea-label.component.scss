@@ -1,0 +1,20 @@
+@import 'global.scss';
+
+.badge {
+  width: 60px;
+  height: 24px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 4px;
+  box-sizing: border-box;
+  &__label {
+    text-align: center;
+    @include text(10px, $white, 500);
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}

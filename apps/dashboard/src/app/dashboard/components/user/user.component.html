@@ -1,0 +1,38 @@
+<div class="wrapper-container">
+  <button mat-icon-button class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="user-image-container" [style.background-image]="'url(' + 'assets/images/logo-1.png' + ')'">
+    <div class="gradient">&nbsp;</div>
+  </div>
+  <div class="user-info-container">
+    <div class="user-info-container__header">
+      <p class="user-info-container__header__username">{{ (user$ | async)?.name }}</p>
+      <pang-new-pangea-label
+        [badgeLabel]="(user$ | async)?.schoolCode | userRoleLabel"
+        [badgeColor]="(user$ | async)?.schoolCode | userRoleColor"
+      ></pang-new-pangea-label>
+    </div>
+    <div class="user-info-container__data">
+      <div class="data-item-container">
+        <mat-icon class="data-item-container__icon" svgIcon="new-pangea-pin"></mat-icon>
+        <p class="data-item-container__label">{{ (user$ | async)?.country.name }}</p>
+      </div>
+      <div class="data-item-container">
+        <mat-icon class="data-item-container__icon" svgIcon="new-pangea-school"></mat-icon>
+        <p class="data-item-container__label">{{ (school$ | async)?.name }}</p>
+      </div>
+      <div class="data-item-container">
+        <mat-icon class="data-item-container__icon" svgIcon="new-pangea-mail"></mat-icon>
+        <p class="data-item-container__label">{{ (user$ | async)?.email }}</p>
+      </div>
+    </div>
+    <div class="user-info-container__about">
+      <p class="user-info-container__about__title">About Mark</p>
+      <p class="user-info-container__about__description">-</p>
+    </div>
+    <form class="user-info-container__activate-container">
+      <mat-slide-toggle [formControl]="isActiveControl">Desactivate user</mat-slide-toggle>
+    </form>
+  </div>
+</div>

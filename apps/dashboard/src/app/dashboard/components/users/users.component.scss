@@ -1,0 +1,62 @@
+@import 'global.scss';
+
+.wrapper-container {
+  padding: 48px 34px;
+  .card-container {
+    margin-top: 24px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 0 rgba(129, 127, 127, 0.14);
+    background-color: $white;
+    padding: 20px 20px 0px 20px;
+    .filters-container {
+      display: grid;
+      grid-template-columns: auto max-content;
+      column-gap: 20px;
+      align-items: center;
+      &__filter-button {
+        margin-bottom: 1.34375em;
+      }
+    }
+  }
+}
+.users-table {
+  width: 100%;
+  tr:nth-child(odd) {
+    td {
+      background-color: rgba(235, 236, 239, 0.5);
+    }
+  }
+  td {
+    height: 96px;
+    border-bottom: unset;
+  }
+}
+
+.item-container {
+  border-right: 1px solid $gray4;
+  margin-right: 19px;
+  &__title {
+    @include text(20px, $gray, bold);
+    margin-bottom: 5px;
+  }
+  &__info {
+    display: grid;
+    grid-template-columns: max-content auto;
+    column-gap: 4px;
+    align-items: center;
+    &__label {
+      @include text(14px, $gray, 500);
+      opacity: 0.5;
+    }
+  }
+}
+
+.details-label {
+  @include text(14px, $blue, 500);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.mat-drawer-container {
+  height: 100vh;
+}

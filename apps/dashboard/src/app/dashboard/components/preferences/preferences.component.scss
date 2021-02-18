@@ -9,9 +9,9 @@
   .form-container {
     max-width: 291px;
     &__label {
+      @include text(14px, $gray, 500);
       margin-top: 17px;
       margin-bottom: 16px;
-      @include text(14px, $gray, 500);
     }
     mat-form-field,
     .submit-button {

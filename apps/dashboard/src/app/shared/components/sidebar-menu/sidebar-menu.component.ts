@@ -12,15 +12,13 @@ export class SidebarMenuComponent {
   goTo(page: string) {
     switch (page) {
       case 'users':
-        alert('Under development, please comeback soon!');
+        this.router.navigate(['/', 'dashboard', 'users']);
         break;
       case 'schools':
         this.router.navigate(['/', 'dashboard']);
-
         break;
       case 'preferences':
         this.router.navigate(['/', 'dashboard', 'preferences']);
-
         break;
     }
   }

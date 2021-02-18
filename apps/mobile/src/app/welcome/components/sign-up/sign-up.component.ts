@@ -4,12 +4,11 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { COUNTRIES } from '@pang/const';
-import { User } from '@pang/interface';
+import { ToggleComponentTab, User } from '@pang/interface';
 import { Plugins } from '@capacitor/core';
 import { SchoolService, UserService } from '@pang/core';
 import { take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ToggleComponentTab } from '../toggle/toggle.component'; // TO DO: REMOVE THIS
 
 const { Keyboard, Device } = Plugins;
 
