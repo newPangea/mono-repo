@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       this.isLogin = true;
       this.loginService.loginWithEmail(email, password).then((fireUser) => {
         if (fireUser) {
-          this.router.navigate(['/', 'dashboard']);
+          this.router.navigate(['/', 'dashboard', 'users']);
           this.isLogin = false;
         } else {
           alert('Incorrect credentials');

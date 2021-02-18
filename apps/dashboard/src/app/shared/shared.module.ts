@@ -18,6 +18,7 @@ import { UsersComponent } from '../dashboard/components/users/users.component';
 import { CoreModule } from '@pang/core';
 import { UserComponent } from '../dashboard/components/user/user.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [SidebarMenuComponent, SchoolsComponent, PreferencesComponent, UsersComponent, UserComponent],
@@ -37,7 +38,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatProgressBarModule,
     UiModule,
     CoreModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    RouterModule,
   ],
   exports: [SidebarMenuComponent, SchoolsComponent, PreferencesComponent],
 })

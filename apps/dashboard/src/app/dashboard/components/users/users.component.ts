@@ -18,13 +18,16 @@ export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
   dataSource = new MatTableDataSource<User>();
   schools$: Observable<School[]>;
   showedUserKey: string;
+  public isLoading = false;
   private usersSubscription: Subscription;
 
   constructor(private fireStore: AngularFirestore) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.usersSubscription = this.getAllStudents().subscribe((users) => {
       this.dataSource.data = users;
+      this.isLoading = false;
     });
     this.schools$ = this.getAllSchools();
   }
