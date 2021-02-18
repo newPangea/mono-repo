@@ -37,3 +37,9 @@
   padding: 0 1em;
   margin-top: 4px;
 }
+
+mat-drawer-container {
+  position: unset;
+  display: block;
+  overflow: hidden;
+}
