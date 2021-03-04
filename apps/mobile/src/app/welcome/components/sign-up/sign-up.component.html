@@ -36,7 +36,11 @@
 
       <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
-        <input matInput formControlName="password" />
+        <input matInput formControlName="password" [type]="showPassword ? 'text' : 'password'" />
+        <button mat-icon-button matSuffix (click)='showPassword =! showPassword' type='button'>
+          <mat-icon *ngIf='!showPassword'>visibility</mat-icon>
+          <mat-icon *ngIf='showPassword'>visibility_off</mat-icon>
+        </button>
         <mat-error *ngIf="signFom.controls['password'].invalid">{{ getErrorMessageByField('password') }}</mat-error>
       </mat-form-field>
 

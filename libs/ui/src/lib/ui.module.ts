@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PhoneCodeComponent } from './components/phone-code/phone-code.component';
 import { AvatarWithLabelComponent } from './avatar-with-label/avatar-with-label.component';
 import { NewPangeaLabelComponent } from './new-pangea-label/new-pangea-label.component';
+import { GoBackDirective } from './directives/go-back.directive';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { NewPangeaLabelComponent } from './new-pangea-label/new-pangea-label.com
     PhoneCodeComponent,
     AvatarWithLabelComponent,
     NewPangeaLabelComponent,
+    GoBackDirective,
   ],
   providers: [DatePipe],
   exports: [
@@ -35,6 +37,7 @@ import { NewPangeaLabelComponent } from './new-pangea-label/new-pangea-label.com
     PhoneCodeComponent,
     AvatarWithLabelComponent,
     NewPangeaLabelComponent,
+    GoBackDirective,
   ],
 })
 export class UiModule {}

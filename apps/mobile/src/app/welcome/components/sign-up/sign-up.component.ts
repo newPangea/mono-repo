@@ -30,12 +30,14 @@ export class SignUpComponent implements OnInit {
       id: this.SIGN_UP_TAB_ID,
     },
   ];
-  currentPage = this.SIGN_IN_TAB_ID;
 
   readonly countries = COUNTRIES;
 
+  currentPage = this.SIGN_IN_TAB_ID;
   signFom: FormGroup;
   loading = false;
+  showPassword = false;
+
   constructor(
     formBuild: FormBuilder,
     private fireAuth: AngularFireAuth,
@@ -79,7 +81,7 @@ export class SignUpComponent implements OnInit {
     } else if (this.signFom.controls[field].hasError('minlength') && field == 'password') {
       return 'Password must be at least 6 characters long';
     } else {
-      if (field != 'password') return 'El campo no es válido';
+      if (field != 'password') return 'The field is invalid';
     }
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, userConvert } from '@pang/interface';
+import { Preference, User, userConvert } from '@pang/interface';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FIRESTORE_COLLECTION } from '@pang/const';
@@ -17,14 +17,15 @@ export class UserService {
     private messageService: MessageService,
   ) {}
 
-  private readonly studentCollection = this.db.collection<User>(FIRESTORE_COLLECTION.user);
+  private readonly userReference = this.db.firestore.collection(FIRESTORE_COLLECTION.user).withConverter(userConvert);
+  private readonly userCollection = this.db.collection<User>(this.userReference);
 
   async createUser(user: User, password: string) {
     const dataUser = await this.fireAuth.createUserWithEmailAndPassword(user.email, password);
     const { uid } = dataUser.user;
     user.uid = uid;
     user.validateCode = false;
-    await this.db.firestore.collection(FIRESTORE_COLLECTION.user).withConverter(userConvert).doc(uid).set(user);
+    await this.userCollection.doc(uid).set(user);
     return this.messageService.sendConfirmationCode(user.email).toPromise();
   }
 
@@ -36,10 +37,14 @@ export class UserService {
       switchMap(({ valid, user }) =>
         iif(
           () => valid,
-          from(this.studentCollection.doc(user.uid).update({ validateCode: true })).pipe(map(() => ({ valid }))),
+          from(this.userCollection.doc(user.uid).update({ validateCode: true })).pipe(map(() => ({ valid }))),
           of({ valid }),
         ),
       ),
     );
+  }
+
+  savePreferences(uid: string, preferences: Preference[], bio: string, imgUrl: string) {
+    return this.userCollection.doc(uid).update({preferences, bio, imgUrl})
   }
 }

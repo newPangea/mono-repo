@@ -1,0 +1,31 @@
+<pang-welcome-container>
+  <ng-container marcoHeader>
+    <h1 class='preferences-title'>Sign up</h1>
+  </ng-container>
+  <ng-container marcoBody>
+
+    <a routerLink='/welcome/success-sign-up' class='preferences-skip'>Skip</a>
+
+    <button class='preferences-picture' matRipple (click)='takePicture()'>
+      <mat-icon class='preferences-picture__icon' *ngIf='!imgSrc'>add_a_photo</mat-icon>
+      <img [src]='imgSrc' *ngIf='imgSrc' alt='profile' class='preferences-picture__img'>
+    </button>
+
+    <h2 class='title'>Preferences</h2>
+    <p class='preferences-description'>Select the topics most interested for you, and find people who do match with your interest</p>
+    <mat-chip-list [multiple]='true' class='preferences-chip'>
+      <mat-chip color="accent" *ngFor='let item of preferenceTags | async' (click)='checkItem(item)' [selected]='!!tagSelected[item.key]'>
+        {{item.name}}
+      </mat-chip>
+    </mat-chip-list>
+    <p class='preferences-description'>Biography, tell us about you</p>
+    <mat-form-field appearance="fill" class='preferences-bio'>
+      <mat-label>Biography</mat-label>
+      <textarea matInput type="text" aria-label='bio' [(ngModel)]='bio'></textarea>
+    </mat-form-field>
+
+    <button pang-button color='primary' style='width: 100%' [disabled]='!bio' (click)='saveData()' [loading]='load'>
+      Continue
+    </button>
+  </ng-container>
+</pang-welcome-container>

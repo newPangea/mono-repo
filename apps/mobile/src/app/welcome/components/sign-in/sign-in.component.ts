@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
 
 const { Keyboard, Device } = Plugins;
 
@@ -13,7 +14,7 @@ const { Keyboard, Device } = Plugins;
 export class SignInComponent implements OnInit {
   signFom: FormGroup;
   loading = false;
-  constructor(formBuild: FormBuilder, private fireAuth: AngularFireAuth) {
+  constructor(formBuild: FormBuilder, private fireAuth: AngularFireAuth, private router: Router) {
     this.signFom = formBuild.group({
       email: [
         '',
@@ -41,6 +42,7 @@ export class SignInComponent implements OnInit {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         this.loading = false;
+        this.router.navigate(['welcome', 'success-sign-up'])
       })
       .catch(() => {
         this.loading = false;

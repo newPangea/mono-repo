@@ -23,7 +23,7 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "build:ui": "ng run ui:build-storybook",
-    "serve:mobile": "ng run mobile:serve --port 4201"
+    "serve:mobile": "ng run mobile:serve --port 4201 --hmr"
   },
   "private": true,
   "dependencies": {

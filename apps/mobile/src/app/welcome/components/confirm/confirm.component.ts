@@ -29,7 +29,7 @@ export class ConfirmComponent {
         if (!data.valid) {
           this.snackBar.open('Your code is incorrect', 'close', { duration: 2000 });
         } else {
-          this.route.navigate(['/welcome/success-sign-up'])
+          this.route.navigate(['/welcome/preferences'])
         }
       },
       (err) => {

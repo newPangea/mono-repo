@@ -23,13 +23,18 @@ import { ToggleComponent } from './components/toggle/toggle.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { IsLoginGuard } from '../guards/is-login.guard';
 import { WelcomeContainerComponent } from './components/welcome-container/welcome-container.component';
+import { MatButtonModule } from '@angular/material/button';
+import { PreferencesComponent } from './components/preferences/preferences.component';
+import { MatRippleModule } from '@angular/material/core';
+import { MatChipsModule } from '@angular/material/chips';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent, canActivate: [IsNewUserGuard] },
-  { path: 'sign-up', component: SignUpComponent, canActivate: [IsNewUserGuard] },
   { path: 'confirm', component: ConfirmComponent, canActivate: [IsLoginGuard] },
-  { path: 'success-sign-up', component: SuccessSignUpComponent, canActivate: [IsUserCompleteGuard] },
+  { path: 'preferences', component: PreferencesComponent },
   { path: 'sign-in', component: SignInComponent },
+  { path: 'sign-up', component: SignUpComponent, canActivate: [IsNewUserGuard] },
+  { path: 'success-sign-up', component: SuccessSignUpComponent, canActivate: [IsUserCompleteGuard] },
 ];
 
 @NgModule({
@@ -41,6 +46,7 @@ const routes: Routes = [
     ToggleComponent,
     SignInComponent,
     WelcomeContainerComponent,
+    PreferencesComponent,
   ],
   imports: [
     CommonModule,
@@ -54,6 +60,9 @@ const routes: Routes = [
     CoreModule,
     MatSnackBarModule,
     FormsModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatChipsModule,
   ],
 })
 export class WelcomeModule {}

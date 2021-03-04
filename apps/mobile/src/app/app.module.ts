@@ -10,6 +10,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '@pang/mobile/environments/environment';
 import { IonicModule } from '@ionic/angular';
 import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.guard';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,6 +39,7 @@ import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.gu
     AngularFireModule.initializeApp(environment.fire),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
     IonicModule.forRoot(),
   ],
   providers: [],
