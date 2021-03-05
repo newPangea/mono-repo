@@ -1,0 +1,41 @@
+<mat-form-field class="search" appearance="standard">
+  <input
+    type="text"
+    matInput
+    placeholder="Search by Name or city"
+    aria-label="Search by Name or city"
+    autocomplete="off"
+    #input
+    [(ngModel)]="searchText"
+    (input)="searchData($event)"
+    (focus)="focusInput()"
+  />
+  <mat-icon matSuffix class="search-icon">search</mat-icon>
+</mat-form-field>
+<div *ngIf="openList" [ngStyle]="{ top: topPosition + 'px' }" class="search-list divide">
+  <div class="search-result" *ngIf="hits.length > 0">
+    <div class="search-result__header">
+      <span class="search-title">People results</span>
+      <a class="link search-link">View all results</a>
+    </div>
+    <pang-user-search-result
+      *ngFor="let user of hits"
+      [user]="user"
+      [searchText]="searchText"
+    ></pang-user-search-result>
+  </div>
+  <div class="search-result divide" *ngIf="hits.length > 0">
+    <div class="search-result__header">
+      <span class="search-title">Schools</span>
+      <a class="link search-link">View all results</a>
+    </div>
+    <pang-school-search-result [user]="hits" [searchText]="searchText"></pang-school-search-result>
+  </div>
+  <div *ngIf="hits.length === 0" class="search-empty">
+    <img src="assets/img/empty-search.svg" alt="empty" class="search-empty__img" />
+    <span class="search-empty__title">No results for your search</span>
+    <span class="search-empty__description">
+      There’s no user or location with your search criteria. Try using another keywords
+    </span>
+  </div>
+</div>

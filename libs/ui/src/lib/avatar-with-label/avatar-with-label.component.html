@@ -1,5 +1,16 @@
-<div class="user-avatar" [style.background-image]="'url(' + userAvatar + ')'">
-  <div class="badge">
+<div class="user-avatar" [ngStyle]="{ width: size + 'px', height: size + 'px' }">
+  <img *ngIf="!!userAvatar" [src]="userAvatar" alt="avatar" class="img" />
+  <mat-icon
+    *ngIf="!userAvatar"
+    [ngStyle]="{
+      width: size + 'px',
+      height: size + 'px',
+      'font-size': size + 'px'
+    }"
+  >
+    perm_identity
+  </mat-icon>
+  <div class="badge" *ngIf="badgeLabel">
     <pang-new-pangea-label [badgeColor]="badgeColor" [badgeLabel]="badgeLabel"></pang-new-pangea-label>
   </div>
 </div>

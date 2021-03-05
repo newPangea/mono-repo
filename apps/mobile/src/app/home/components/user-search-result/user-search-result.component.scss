@@ -1,0 +1,13 @@
+@import "global";
+.user-search {
+  display: grid;
+  grid-template-columns: 24px auto;
+  gap: 8px;
+  margin: 10px 0;
+  align-items: center;
+}
+
+.text {
+  @include body2;
+  color: $gray6;
+}

@@ -11,6 +11,8 @@ import { PhoneCodeComponent } from './components/phone-code/phone-code.component
 import { AvatarWithLabelComponent } from './avatar-with-label/avatar-with-label.component';
 import { NewPangeaLabelComponent } from './new-pangea-label/new-pangea-label.component';
 import { GoBackDirective } from './directives/go-back.directive';
+import { MatIconModule } from '@angular/material/icon';
+import { HighlightPipe } from './pipes/highlight.pipe';
 
 @NgModule({
   imports: [
@@ -21,6 +23,7 @@ import { GoBackDirective } from './directives/go-back.directive';
     FormsModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
+    MatIconModule,
   ],
   declarations: [
     ButtonComponent,
@@ -29,6 +32,7 @@ import { GoBackDirective } from './directives/go-back.directive';
     AvatarWithLabelComponent,
     NewPangeaLabelComponent,
     GoBackDirective,
+    HighlightPipe,
   ],
   providers: [DatePipe],
   exports: [
@@ -38,6 +42,7 @@ import { GoBackDirective } from './directives/go-back.directive';
     AvatarWithLabelComponent,
     NewPangeaLabelComponent,
     GoBackDirective,
+    HighlightPipe,
   ],
 })
 export class UiModule {}

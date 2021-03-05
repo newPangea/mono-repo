@@ -3,6 +3,7 @@
 @import './fontsize';
 @import './mixin';
 @import './material';
+@import './highlight';
 
 html,
 body {
@@ -20,4 +21,10 @@ body {
 
 .body {
   @include body;
+}
+
+.link {
+  @include body;
+  color: $secondary;
+  text-decoration: underline;
 }

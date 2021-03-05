@@ -23,7 +23,8 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "build:ui": "ng run ui:build-storybook",
-    "serve:mobile": "ng run mobile:serve --port 4201"
+    "serve:mobile": "ng run mobile:serve --port 4201",
+    "emulate": "firebase emulators:start --export-on-exit=./fireBack --import=./fireBack"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +43,7 @@
     "@capacitor/core": "^2.4.5",
     "@ionic/angular": "^5.5.4",
     "@nrwl/angular": "11.1.5",
+    "algoliasearch": "^4.8.5",
     "firebase": "^8.2.6",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
@@ -69,9 +71,10 @@
     "@nrwl/tao": "11.1.5",
     "@nrwl/workspace": "11.1.5",
     "@nxtend/capacitor": "^11.1.0",
-    "@storybook/addon-essentials": "^6.1.17",
+    "@storybook/addon-essentials": "^6.1.21",
     "@storybook/addon-knobs": "^6.1.17",
-    "@storybook/angular": "^6.1.17",
+    "@storybook/angular": "^6.1.21",
+    "@types/algoliasearch": "^3.34.11",
     "@types/googlemaps": "^3.43.3",
     "@types/jest": "26.0.8",
     "@types/node": "12.12.38",
