@@ -7,7 +7,7 @@
     autocomplete="off"
     #input
     [(ngModel)]="searchText"
-    (input)="searchData($event)"
+    (input)="searchAlgolia($event.target['value'])"
     (focus)="focusInput()"
   />
   <mat-icon matSuffix class="search-icon">search</mat-icon>

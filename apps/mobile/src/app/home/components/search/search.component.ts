@@ -23,10 +23,6 @@ export class SearchComponent implements AfterViewInit {
     this.topPosition = y + height + 20;
   }
 
-  searchData(text: Event) {
-    const { value } = text.target as any;
-    this.searchAlgolia(value);
-  }
 
   @HostListener('document:click', ['$event'])
   listenClick(event: Event) {
