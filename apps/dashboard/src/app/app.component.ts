@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 const iconPinActive = '../assets/icons/icon-pin-active.svg';
 const iconSchoolActive = '../assets/icons/icon-school-active.svg';
@@ -17,8 +19,17 @@ const iconMail = '../assets/icons/icon-mail.svg';
 export class AppComponent {
   title = 'dashboard';
 
-  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+  constructor(
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer,
+    private auth: AngularFireAuth,
+    private db: AngularFirestore,
+  ) {
     this.registerIcons();
+    if (location.hostname === 'localhost') {
+      this.auth.useEmulator('http://localhost:9099/');
+      this.db.firestore.useEmulator('localhost', 8081);
+    }
   }
 
   private registerIcons() {

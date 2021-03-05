@@ -25,19 +25,15 @@ export class LoginComponent implements OnInit {
   login() {
     const { email } = this.loginForm.value;
     const { password } = this.loginForm.value;
-    if ((email && email != 'admin@newpangea.com') || (password && password != '12345678')) {
-      alert('Incorrect credentials');
-    } else {
-      this.isLogin = true;
-      this.loginService.loginWithEmail(email, password).then((fireUser) => {
-        if (fireUser) {
-          this.router.navigate(['/', 'dashboard', 'users']);
-          this.isLogin = false;
-        } else {
-          alert('Incorrect credentials');
-        }
-      });
-    }
+    this.isLogin = true;
+    this.loginService.loginWithEmail(email, password).then((fireUser) => {
+      if (fireUser) {
+        this.router.navigate(['/', 'dashboard', 'users']);
+        this.isLogin = false;
+      } else {
+        alert('Incorrect credentials');
+      }
+    });
   }
 
   forgotPassword(): void {

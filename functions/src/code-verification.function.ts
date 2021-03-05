@@ -1,10 +1,10 @@
 import * as functions from 'firebase-functions';
 import * as twilio from 'twilio';
 
-const accountSid = 'AC16c14349320d07863ccc5ebea0b36ab0';
-const authToken = '460cd3033fabded4786d64482f15be89';
+const accountSid = functions.config().twilio.account_sid;
+const authToken = functions.config().twilio.auth_token;
 
-export const codeVerification = functions.https.onCall((data, context) => {
+export const codeVerification = functions.https.onCall((data) => {
   const client = twilio(accountSid, authToken);
   const { code, email } = data;
   return client.verify

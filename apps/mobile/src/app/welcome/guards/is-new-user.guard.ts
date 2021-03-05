@@ -24,7 +24,7 @@ export class IsNewUserGuard implements CanActivate {
               take(1),
               map((student) => {
                 if (student.validateCode) {
-                  this.router.navigate(['/preferences']);
+                  this.router.navigate(['/home']);
                 } else {
                   this.router.navigate(['/welcome/confirm']);
                 }

@@ -110,6 +110,7 @@ export class SignUpComponent implements OnInit {
             email,
             validateCode: false,
             date,
+            school: school[0],
             schoolCode: code,
             code: schoolCode,
             ...rest,
