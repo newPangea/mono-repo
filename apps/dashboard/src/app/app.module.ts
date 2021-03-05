@@ -43,7 +43,7 @@ if (environment.emulate) {
     UiModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.fire),
+    AngularFireModule.initializeApp(environment.fire, 'myApp'),
     MatCardModule,
     ReactiveFormsModule,
     MatInputModule,
