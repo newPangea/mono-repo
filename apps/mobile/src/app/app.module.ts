@@ -28,10 +28,15 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
           canActivate: [IsUserCompleteGuard]
         },
         {
+          path: 'globe',
+          loadChildren: () => import('./globe/globe.module').then((m) => m.GlobeModule),
+        },
+        {
           path: '',
           redirectTo: 'welcome',
           pathMatch: 'full',
         },
+      { path: 'globe', loadChildren: () => import('./globe/globe.module').then(m => m.GlobeModule) },
       ],
       { initialNavigation: 'enabled' },
     ),
