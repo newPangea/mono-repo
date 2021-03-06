@@ -411,6 +411,29 @@
           }
         }
       }
+    },
+    "algolia": {
+      "projectType": "library",
+      "root": "libs/algolia",
+      "sourceRoot": "libs/algolia/src",
+      "prefix": "pang",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/algolia/tsconfig.lib.json", "libs/algolia/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/algolia/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/algolia"],
+          "options": {
+            "jestConfig": "libs/algolia/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
@@ -434,9 +457,13 @@
       "e2eTestRunner": "cypress"
     },
     "@nrwl/angular:library": {
-      "unitTestRunner": "jest"
+      "unitTestRunner": "jest",
+      "strict": true
     },
     "@nrwl/angular:component": {
+      "style": "scss"
+    },
+    "@schematics/angular:component": {
       "style": "scss"
     }
   },

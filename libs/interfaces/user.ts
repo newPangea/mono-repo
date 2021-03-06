@@ -1,5 +1,6 @@
 import { Country, Preference } from './';
 import * as firebase from 'firebase/app';
+import { School } from '../models';
 
 export interface User {
   uid: string;
@@ -10,6 +11,7 @@ export interface User {
   schoolCode: string;
   validateCode: boolean;
   code: string;
+  school?: School;
   preferences?: Preference[];
   bio?: string;
   imgUrl?: string

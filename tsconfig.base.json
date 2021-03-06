@@ -21,7 +21,8 @@
       "@pang/const": ["libs/constants/index.ts"],
       "@pang/interface": ["libs/interfaces/index.ts"],
       "@pang/models": ["libs/models/index.ts"],
-      "@pang/core": ["libs/core/src/index.ts"]
+      "@pang/core": ["libs/core/src/index.ts"],
+      "@pang/algolia": ["libs/algolia/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

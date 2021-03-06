@@ -21,6 +21,7 @@
     "mobile": { "tags": [] },
     "mobile-e2e": { "tags": [], "implicitDependencies": ["mobile"] },
     "ui": { "tags": [] },
-    "core": { "tags": [] }
+    "core": { "tags": [] },
+    "algolia": { "tags": [] }
   }
 }

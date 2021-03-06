@@ -23,6 +23,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/functions';
+
+const app = firebase.initializeApp(environment.fire, 'myApp');
+if (environment.emulate) {
+  app.auth().useEmulator('http://localhost:9099');
+  app.firestore().useEmulator('localhost', 8081);
+  app.functions().useEmulator('localhost', 5001);
+}
+
 @NgModule({
   declarations: [AppComponent, LoginComponent],
   imports: [
@@ -31,7 +43,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     UiModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.fire),
+    AngularFireModule.initializeApp(environment.fire, 'myApp'),
     MatCardModule,
     ReactiveFormsModule,
     MatInputModule,

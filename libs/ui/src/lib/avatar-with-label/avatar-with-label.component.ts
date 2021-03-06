@@ -6,7 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./avatar-with-label.component.scss'],
 })
 export class AvatarWithLabelComponent {
-  @Input() userAvatar = 'assets/images/logo-1.png'
+  @Input() size = 64;
+  @Input() userAvatar: string;
   @Input() badgeLabel: string;
   @Input() badgeColor: string;
 }

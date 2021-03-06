@@ -1,14 +1,21 @@
-@import 'global.scss';
+@import "global";
 
 .user-avatar {
-  width: 64px;
-  height: 64px;
-  border-radius: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  border-radius: 50%;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $secondary;
+  overflow: hidden;
 }
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .badge {
   position: absolute;
   bottom: -5px;

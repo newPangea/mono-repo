@@ -1,0 +1,64 @@
+@import 'global';
+
+:root {
+  position: relative;
+}
+
+.search {
+  width: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+
+  &-list {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    max-height: 443px;
+    overflow: auto;
+    border-bottom: 1px solid $subText;
+  }
+
+  &-icon {
+    color: $secondary;
+  }
+  &-title {
+    @include body2;
+  }
+  &-link {
+    @include body2;
+    color: $secondary;
+  }
+  &-result {
+    padding: 18px 12px;
+    &__header {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &__img {
+      width: 147px;
+      margin: 24px 0 12px;
+    }
+    &__title {
+      @include subtitle;
+      max-width: 215px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    &__description {
+      @include body2;
+      max-width: 215px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.divide {
+  border-top: 1px solid $subText;
+}

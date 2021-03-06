@@ -32,6 +32,7 @@
 npm-debug.log
 yarn-error.log
 testem.log
+*.log
 /typings
 
 # System Files
@@ -40,3 +41,6 @@ Thumbs.db
 
 .vscode
 *.cache
+fireBack
+
+

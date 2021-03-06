@@ -4,10 +4,10 @@ import * as twilio from 'twilio';
 // const sengridKey =
 // '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';
 
-const accountSid = 'AC16c14349320d07863ccc5ebea0b36ab0';
-const authToken = '460cd3033fabded4786d64482f15be89';
+const accountSid = functions.config().twilio.account_sid;
+const authToken = functions.config().twilio.auth_token;
 
-export const codeGenerator = functions.https.onCall((data, context) => {
+export const codeGenerator = functions.https.onCall((data) => {
   const { email } = data;
   const client = twilio(accountSid, authToken);
   return client.verify

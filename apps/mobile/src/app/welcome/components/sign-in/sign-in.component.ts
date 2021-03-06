@@ -42,7 +42,7 @@ export class SignInComponent implements OnInit {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         this.loading = false;
-        this.router.navigate(['welcome', 'success-sign-up'])
+        this.router.navigate(['home'])
       })
       .catch(() => {
         this.loading = false;
