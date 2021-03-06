@@ -19,13 +19,12 @@ export class SearchComponent implements AfterViewInit {
   constructor(private algoliaService: AlgoliaService, private elementRef: ElementRef<HTMLDivElement>) {}
 
   ngAfterViewInit(): void {
-    const { y, height } = this.inputElement.nativeElement.getClientRects()[0];
-    this.topPosition = y + height + 20;
+    this.calculateDistance();
   }
-
 
   @HostListener('document:click', ['$event'])
   listenClick(event: Event) {
+    console.log(this.elementRef.nativeElement.contains(event.target as Node));
     if (!this.elementRef.nativeElement.contains(event.target as Node)) {
       this.openList = false;
     }
@@ -35,10 +34,17 @@ export class SearchComponent implements AfterViewInit {
     this.algoliaService.search<UserAlgolia>('dev_USER', text).then(({ hits }) => {
       this.openList = !!text;
       this.hits = hits;
+      this.calculateDistance();
     });
   }
 
   focusInput() {
     this.searchAlgolia(this.searchText);
+  }
+
+  private calculateDistance() {
+    const element = this.inputElement.nativeElement;
+    const { y, height } = element.getBoundingClientRect();
+    this.topPosition = y + height + 14;
   }
 }

@@ -11,6 +11,7 @@ import { UserSearchResultComponent } from './components/user-search-result/user-
 import { UiModule } from '@pang/ui';
 import { FormsModule } from '@angular/forms';
 import { SchoolSearchResultComponent } from './components/school-search-result/school-search-result.component';
+import { IonicModule } from '@ionic/angular';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }
@@ -26,6 +27,7 @@ const routes: Routes = [
     MatIconModule,
     UiModule,
     FormsModule,
+    IonicModule,
   ],
 })
 export class HomeModule { }
