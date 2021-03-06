@@ -31,6 +31,5 @@ export class GlobeComponent implements OnInit {
     .append('g')
     .attr('transform', 'translate(' + this.margin + ',' + this.margin + ')');
 }
-  
 
 }
