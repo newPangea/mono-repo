@@ -79,8 +79,6 @@ export class GlobeComponent implements OnInit {
   graticule;
 
   ngOnInit() {
-    console.log('starting init');
-    //lets do it globe!
     this.height = 300;
     this.width = 300;
     this.current = d3.select('#current');
@@ -128,10 +126,10 @@ export class GlobeComponent implements OnInit {
   scale() {
     this.width = document.documentElement.clientWidth;
     this.height = document.documentElement.clientHeight;
-    this.canvas.attr('width', this.width).attr('height', this.height);
+    this.canvas.attr('width', this.width).attr('height', this.height-58);
     this.projection
-      .scale((this.scaleFactor * Math.min(this.width, this.height)) / 2)
-      .translate([this.width / 2, this.height / 2]);
+      .scale((this.scaleFactor * Math.min((this.width - 20), this.height-100)) / 2)
+      .translate([this.width / 2, (this.height-100) / 2]);
     this.render(this.countries);
   }
 
@@ -207,22 +205,7 @@ export class GlobeComponent implements OnInit {
     return d3.drag().on('start', dragstarted).on('drag', dragged);
   }
 
-  // rotate(elapsed) {
-  //   let now = d3.now();
-  //   console.log('rotating', this.lastTime);
-  //   // this.diff = now - this.lastTime;
-  //   // this.lastTime = now
-  //   // if (this.diff < elapsed) {
-  //   //   this.rotation = this.projection.rotate();
-  //   //   this.rotation[0] += this.diff * this.degPerMs;
-  //   //   this.projection.rotate(this.rotation);
-  //   //   this.render();
-  //   // }
-  //   // console.log(now);
-  // }
-
   getCountry(event) {
-    console.log('DEBUG: get country');
     this.pos = this.projection.invert(d3.pointer(event));
     return this.countries.features.find(function (f) {
       return f.geometry.coordinates.find(function (c1) {
@@ -266,9 +249,8 @@ export class GlobeComponent implements OnInit {
 
       window.addEventListener('resize', this.scale);
       this.scale();
-      //this.autorotate = d3.timer(this.rotate);
+
     });
   }
 
-  //end functions for 3d globe
 }

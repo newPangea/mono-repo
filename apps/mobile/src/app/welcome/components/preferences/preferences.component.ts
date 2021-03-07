@@ -79,7 +79,7 @@ export class PreferencesComponent implements OnInit {
     const preferences = Object.values(this.tagSelected);
     const user = await this.auth.currentUser;
     await this.userService.savePreferences(user.uid, preferences, this.bio, urlImag);
-    await this.router.navigate(['/welcome/success-sign-up']);
+    await this.router.navigate(['/home']);
   }
 
   async loadPhoto() {
@@ -87,9 +87,9 @@ export class PreferencesComponent implements OnInit {
     const ref = this.storage.ref(`${user.uid}/profile.${this.image.format}`);
     const file = await fetch(this.imgSrc).then((res) => res.blob());
     const task = ref.put(file);
-    task.percentageChanges().subscribe(num => {
+    task.percentageChanges().subscribe((num) => {
       this.snackBar.open(`${num.toFixed(2)}% uploading...`, 'close', { duration: 500 });
-    })
+    });
     return task.then((data) => data.ref.getDownloadURL());
   }
 }

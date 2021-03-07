@@ -12,6 +12,7 @@ import { UiModule } from '@pang/ui';
 import { FormsModule } from '@angular/forms';
 import { SchoolSearchResultComponent } from './components/school-search-result/school-search-result.component';
 import { GlobeComponent } from './components/globe/globe.component';
+import { IonicModule } from '@ionic/angular';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
@@ -31,6 +32,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     MatIconModule,
     UiModule,
     FormsModule,
+    IonicModule,
   ],
 })
 export class HomeModule {}

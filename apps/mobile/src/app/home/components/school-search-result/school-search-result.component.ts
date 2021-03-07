@@ -27,14 +27,16 @@ export class SchoolSearchResultComponent implements OnChanges {
     this.schoolsObject = {};
     this.schoolsName = [];
     this.user.forEach((user) => {
-      if (!this.schoolsObject[user.school.key]) {
-        this.schoolsObject[user.school.key] = {
-          school: user.school,
-          user: [],
-        };
-        this.schoolsName = [...this.schoolsName, user.school];
+      if (user.school) {
+        if (!this.schoolsObject[user.school.key]) {
+          this.schoolsObject[user.school.key] = {
+            school: user.school,
+            user: [],
+          };
+          this.schoolsName = [...this.schoolsName, user.school];
+        }
+        this.schoolsObject[user.school.key].user.push(user);
       }
-      this.schoolsObject[user.school.key].user.push(user);
     });
   }
 }
