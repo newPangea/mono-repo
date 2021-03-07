@@ -126,10 +126,10 @@ export class GlobeComponent implements OnInit {
   scale() {
     this.width = document.documentElement.clientWidth;
     this.height = document.documentElement.clientHeight;
-    this.canvas.attr('width', this.width).attr('height', this.height-58);
+    this.canvas.attr('width', this.width).attr('height', this.height - 58);
     this.projection
-      .scale((this.scaleFactor * Math.min((this.width - 20), this.height-100)) / 2)
-      .translate([this.width / 2, (this.height-100) / 2]);
+      .scale((this.scaleFactor * Math.min(this.width - 20, this.height - 100)) / 2)
+      .translate([this.width / 2, (this.height - 100) / 2]);
     this.render(this.countries);
   }
 
@@ -249,8 +249,6 @@ export class GlobeComponent implements OnInit {
 
       window.addEventListener('resize', this.scale);
       this.scale();
-
     });
   }
-
 }
