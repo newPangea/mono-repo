@@ -8,9 +8,8 @@ describe('GlobeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GlobeComponent ]
-    })
-    .compileComponents();
+      declarations: [GlobeComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

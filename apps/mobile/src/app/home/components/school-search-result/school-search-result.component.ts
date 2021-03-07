@@ -11,7 +11,7 @@ interface SchoolJoin {
   template: `
     <div class="school-search" *ngFor="let school of schoolsName">
       <img src="assets/img/icon-school-active.svg" alt="school icon" />
-      <span class='text' [innerHTML]="school.name | highlight : searchText"></span>
+      <span class="text" [innerHTML]="school.name | highlight: searchText"></span>
     </div>
   `,
   styleUrls: ['./school-search-result.component.scss'],

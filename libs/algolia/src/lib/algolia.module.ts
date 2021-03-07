@@ -11,7 +11,7 @@ export class AlgoliaModule {
   static forRoot(config: Config): ModuleWithProviders<AlgoliaModule> {
     return {
       ngModule: AlgoliaModule,
-      providers: [{provide: Config, useValue: config}]
+      providers: [{ provide: Config, useValue: config }],
     };
   }
 }

@@ -23,7 +23,6 @@ export class SearchComponent implements AfterViewInit {
     this.topPosition = y + height + 20;
   }
 
-
   @HostListener('document:click', ['$event'])
   listenClick(event: Event) {
     if (!this.elementRef.nativeElement.contains(event.target as Node)) {
