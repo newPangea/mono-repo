@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import { AlgoliaService } from '@pang/algolia';
 import { UserAlgolia } from '@pang/interface';
 import { Hit } from '@algolia/client-search';
@@ -7,6 +15,7 @@ import { Hit } from '@algolia/client-search';
   selector: 'pang-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class SearchComponent implements AfterViewInit {
   @ViewChild('input') inputElement: ElementRef<HTMLInputElement>;
@@ -16,7 +25,11 @@ export class SearchComponent implements AfterViewInit {
   openList = false;
   topPosition: number;
 
-  constructor(private algoliaService: AlgoliaService, private elementRef: ElementRef<HTMLDivElement>) {}
+  constructor(
+    private algoliaService: AlgoliaService,
+    private elementRef: ElementRef<HTMLDivElement>,
+    private change: ChangeDetectorRef,
+  ) {}
 
   ngAfterViewInit(): void {
     this.calculateDistance();
@@ -24,10 +37,10 @@ export class SearchComponent implements AfterViewInit {
 
   @HostListener('document:click', ['$event'])
   listenClick(event: Event) {
-    console.log(this.elementRef.nativeElement.contains(event.target as Node));
     if (!this.elementRef.nativeElement.contains(event.target as Node)) {
       this.openList = false;
     }
+    this.change.detectChanges()
   }
 
   searchAlgolia(text: string) {
@@ -44,7 +57,8 @@ export class SearchComponent implements AfterViewInit {
 
   private calculateDistance() {
     const element = this.inputElement.nativeElement;
-    const { y, height } = element.getBoundingClientRect();
-    this.topPosition = y + height + 14;
+    const topDistance = element.offsetTop;
+    const {  height } = element.getBoundingClientRect();
+    this.topPosition = topDistance + height + 20;
   }
 }

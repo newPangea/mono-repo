@@ -1,4 +1,8 @@
+:host {
+  display: block;
+  padding-top: unquote('env(safe-area-inset-top)');
+}
+
 .search {
   box-sizing: border-box;
-  padding: 0 10px;
 }

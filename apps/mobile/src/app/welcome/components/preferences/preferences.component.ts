@@ -79,7 +79,7 @@ export class PreferencesComponent implements OnInit {
     const preferences = Object.values(this.tagSelected);
     const user = await this.auth.currentUser;
     await this.userService.savePreferences(user.uid, preferences, this.bio, urlImag);
-    await this.router.navigate(['/welcome/success-sign-up']);
+    await this.router.navigate(['/home']);
   }
 
   async loadPhoto() {

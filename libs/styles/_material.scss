@@ -21,17 +21,17 @@
   transform: translateY(-0.59375em) scale(0.6);
 }
 
-::ng-deep .mat-form-field-underline {
-  display: none;
-}
-
-::ng-deep .mat-progress-bar-fill::after {
-  background-color: $buttonText;
-}
-
-::ng-deep .mat-progress-bar-buffer {
-  background: $primary;
-}
+//::ng-deep .mat-form-field-underline {
+//  display: none;
+//}
+//
+//::ng-deep .mat-progress-bar-fill::after {
+//  background-color: $buttonText;
+//}
+//
+//::ng-deep .mat-progress-bar-buffer {
+//  background: $primary;
+//}
 
 .mat-form-field-appearance-fill .mat-form-field-subscript-wrapper {
   padding: 0 1em;
