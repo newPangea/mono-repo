@@ -45,6 +45,6 @@ export class UserService {
   }
 
   savePreferences(uid: string, preferences: Preference[], bio: string, imgUrl: string = '') {
-    return this.userCollection.doc(uid).update({preferences, bio, imgUrl})
+    return this.userCollection.doc(uid).update({ preferences, bio, imgUrl });
   }
 }

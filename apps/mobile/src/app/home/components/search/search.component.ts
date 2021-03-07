@@ -40,7 +40,7 @@ export class SearchComponent implements AfterViewInit {
     if (!this.elementRef.nativeElement.contains(event.target as Node)) {
       this.openList = false;
     }
-    this.change.detectChanges()
+    this.change.detectChanges();
   }
 
   searchAlgolia(text: string) {
@@ -58,7 +58,7 @@ export class SearchComponent implements AfterViewInit {
   private calculateDistance() {
     const element = this.inputElement.nativeElement;
     const topDistance = element.offsetTop;
-    const {  height } = element.getBoundingClientRect();
+    const { height } = element.getBoundingClientRect();
     this.topPosition = topDistance + height + 20;
   }
 }

@@ -87,9 +87,9 @@ export class PreferencesComponent implements OnInit {
     const ref = this.storage.ref(`${user.uid}/profile.${this.image.format}`);
     const file = await fetch(this.imgSrc).then((res) => res.blob());
     const task = ref.put(file);
-    task.percentageChanges().subscribe(num => {
+    task.percentageChanges().subscribe((num) => {
       this.snackBar.open(`${num.toFixed(2)}% uploading...`, 'close', { duration: 500 });
-    })
+    });
     return task.then((data) => data.ref.getDownloadURL());
   }
 }

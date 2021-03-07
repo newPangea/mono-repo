@@ -11,14 +11,19 @@ import { UserSearchResultComponent } from './components/user-search-result/user-
 import { UiModule } from '@pang/ui';
 import { FormsModule } from '@angular/forms';
 import { SchoolSearchResultComponent } from './components/school-search-result/school-search-result.component';
+import { GlobeComponent } from './components/globe/globe.component';
 import { IonicModule } from '@ionic/angular';
 
-const routes: Routes = [
-  { path: '', component: HomeComponent }
-];
+const routes: Routes = [{ path: '', component: HomeComponent }];
 
 @NgModule({
-  declarations: [HomeComponent, SearchComponent, UserSearchResultComponent, SchoolSearchResultComponent],
+  declarations: [
+    HomeComponent,
+    SearchComponent,
+    UserSearchResultComponent,
+    SchoolSearchResultComponent,
+    GlobeComponent,
+  ],
   imports: [
     CommonModule,
     HomeRoutingModule,
@@ -30,4 +35,4 @@ const routes: Routes = [
     IonicModule,
   ],
 })
-export class HomeModule { }
+export class HomeModule {}

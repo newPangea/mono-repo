@@ -14,7 +14,7 @@ export interface User {
   school?: School;
   preferences?: Preference[];
   bio?: string;
-  imgUrl?: string
+  imgUrl?: string;
 }
 
 export const userConvert = {
