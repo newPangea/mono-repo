@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { SchoolSearchResultComponent } from './components/school-search-result/school-search-result.component';
 import { GlobeComponent } from './components/globe/globe.component';
 import { IonicModule } from '@ionic/angular';
+import { Globe2Component } from './components/globe2/globe2.component';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
@@ -23,6 +24,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     UserSearchResultComponent,
     SchoolSearchResultComponent,
     GlobeComponent,
+    Globe2Component,
   ],
   imports: [
     CommonModule,

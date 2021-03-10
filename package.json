@@ -45,6 +45,7 @@
     "@nrwl/angular": "11.1.5",
     "algoliasearch": "^4.8.5",
     "d3": "^6.5.0",
+    "d3-queue": "^3.0.7",
     "firebase": "^8.2.6",
     "rxjs": "~6.5.5",
     "topojson-client": "^3.1.0",
