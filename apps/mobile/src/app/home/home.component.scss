@@ -1,7 +1,7 @@
 @import 'global';
 
 .container {
-  background-image: radial-gradient(circle at 50% 50%, white 30%, #00d8f9, 50%, #00b0f0 100%);
+  background-image: radial-gradient(circle at 50% 50%, white 36%, #00d8f9, 50%, #00b0f0 100%);
   height: 100vh;
 }
 :host {
@@ -13,4 +13,9 @@
   background: $white;
   height: 46px;
   position: absolute;
+}
+
+.bottom-manu {
+  position: absolute;
+  bottom: 0;
 }
