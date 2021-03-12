@@ -110,8 +110,8 @@ export class GlobeComponent implements OnInit {
       this.schoolLocations = [];
       this.users = users;
       this.users.forEach((user) => {
-        if(user.school && user.school?.latitude){
-            this.schoolLocations.push([user.school?.longitude, user.school?.latitude])
+        if (user.school && user.school?.latitude) {
+          this.schoolLocations.push([user.school?.longitude, user.school?.latitude]);
         }
       });
       this.height = 300;
@@ -123,18 +123,17 @@ export class GlobeComponent implements OnInit {
       this.center = [this.width / 2, this.height / 2];
       this.current = d3.select('#current');
       this.canvas = d3.select('#globe');
-  
+
       this.context = this.canvas.node().getContext('2d');
       this.water = { type: 'Sphere' };
       this.projection = d3.geoOrthographic().precision(0.1);
       this.path = d3.geoPath(this.projection).context(this.context);
-  
+
       this.graticule = d3.geoGraticule();
       this.degPerMs = this.degPerSec / 1000;
-  
-  
+
       this.loadData();
-  
+
       d3.select(this.context.canvas)
         .call(
           this.drag(this.projection)
@@ -143,10 +142,9 @@ export class GlobeComponent implements OnInit {
         )
         .call(() => this.render(this.countries))
         .node();
-  
+
       d3.select(self.frameElement).style('height', this.height + 'px');
     });
-
   }
 
   //setting functions for 3d globe

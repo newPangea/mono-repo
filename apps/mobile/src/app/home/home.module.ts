@@ -15,7 +15,6 @@ import { GlobeComponent } from './components/globe/globe.component';
 import { IonicModule } from '@ionic/angular';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BottomMenuComponent } from './components/bottom-menu/bottom-menu.component';
 
@@ -40,7 +39,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     FormsModule,
     IonicModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
 })
 export class HomeModule {}
