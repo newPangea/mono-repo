@@ -41,9 +41,9 @@ const difference = (object: any, base: any) => {
     return _.transform(object2, (result: any, value: any, key: string) => {
       if (!_.isEqual(value, base2[key])) {
         result[key] =
-          _.isObject(value) && _.isObject(base2[key])
-            ? changes(value, base2[key])
-            : value;
+          _.isObject(value) && _.isObject(base2[key]) ?
+          changes(value, base2[key]) :
+          value;
       }
     });
   };

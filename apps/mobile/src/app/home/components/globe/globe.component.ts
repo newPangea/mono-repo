@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '@pang/core';
 import { User } from '@pang/interface';
 import * as d3 from 'd3';
@@ -11,7 +11,7 @@ import * as versor from 'versor';
   templateUrl: './globe.component.html',
   styleUrls: ['./globe.component.scss'],
 })
-export class GlobeComponent implements OnInit {
+export class GlobeComponent implements OnInit, OnDestroy {
   usersSubscription: Subscription;
   users: User[] = [];
   schoolLocations: any[];
