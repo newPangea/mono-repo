@@ -1,1 +1,7 @@
-<canvas id="globe"></canvas>
+<canvas [hidden]="hidden" id="globe"></canvas>
+<div *ngIf="isLoading" class="loginContainer">
+  <div class="loading">
+    <img style="width: 78vw" src="/assets/gifs/loading.gif" />
+    <p>Loading globe...</p>
+  </div>
+</div>

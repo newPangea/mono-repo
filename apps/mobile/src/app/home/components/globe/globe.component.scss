@@ -1,3 +1,5 @@
+@import 'global.scss';
+
 svg {
   margin-left: auto;
   margin-right: auto;
@@ -19,4 +21,26 @@ svg {
   fill: none;
   stroke: #fff;
   stroke-width: 0.5px;
+}
+
+.loading {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 0 rgba(129, 127, 127, 0.14);
+  padding: 10px;
+  p {
+    margin-top: 0;
+    text-align: center;
+  }
+}
+
+.loginContainer {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
 }

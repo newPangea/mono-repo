@@ -14,6 +14,8 @@ import { SchoolSearchResultComponent } from './components/school-search-result/s
 import { GlobeComponent } from './components/globe/globe.component';
 import { IonicModule } from '@ionic/angular';
 import { Globe2Component } from './components/globe2/globe2.component';
+import { Globe3Component } from './components/globe3/globe3.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
@@ -25,6 +27,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     SchoolSearchResultComponent,
     GlobeComponent,
     Globe2Component,
+    Globe3Component,
   ],
   imports: [
     CommonModule,
@@ -35,6 +38,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     UiModule,
     FormsModule,
     IonicModule,
+    MatProgressBarModule,
   ],
 })
 export class HomeModule {}

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Globe2Component } from './globe2.component';
+import { Globe3Component } from './globe3.component';
 
-describe('Globe2Component', () => {
-  let component: Globe2Component;
-  let fixture: ComponentFixture<Globe2Component>;
+describe('Globe3Component', () => {
+  let component: Globe3Component;
+  let fixture: ComponentFixture<Globe3Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Globe2Component],
+      declarations: [Globe3Component],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Globe2Component);
+    fixture = TestBed.createComponent(Globe3Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
