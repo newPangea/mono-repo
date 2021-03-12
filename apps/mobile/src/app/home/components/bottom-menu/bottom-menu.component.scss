@@ -1,0 +1,55 @@
+@import 'global';
+
+:host {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 60px;
+}
+
+.menu-container {
+  background-color: white;
+  display: flex;
+  width: 100%;
+  bottom: 0;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.btn-principal {
+  width: 66px;
+  height: 66px;
+  padding: 15px;
+  box-shadow: 0 5px 12px 0 rgba(0, 176, 240, 0.46);
+  border: solid 1px #00b4f1;
+  border-radius: 50%;
+  background-image: linear-gradient(to bottom, #00d8f9, $primary);
+  position: relative;
+  bottom: 86px;
+  left: calc(50vw - 33px);
+  @include noselect;
+}
+
+.profile {
+  margin-right: 12vw;
+}
+
+.teams {
+  margin-left: 12vw;
+}
+
+.preferences {
+  position: absolute;
+  right: 10px;
+  padding: 6px;
+  bottom: 80px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.icon {
+  vertical-align: bottom;
+  width: 24px;
+}

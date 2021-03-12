@@ -13,6 +13,10 @@ import { FormsModule } from '@angular/forms';
 import { SchoolSearchResultComponent } from './components/school-search-result/school-search-result.component';
 import { GlobeComponent } from './components/globe/globe.component';
 import { IonicModule } from '@ionic/angular';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { BottomMenuComponent } from './components/bottom-menu/bottom-menu.component';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
@@ -23,6 +27,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     UserSearchResultComponent,
     SchoolSearchResultComponent,
     GlobeComponent,
+    BottomMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +38,8 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     UiModule,
     FormsModule,
     IonicModule,
+    MatProgressBarModule,
+    MatSnackBarModule,
   ],
 })
 export class HomeModule {}

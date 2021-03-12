@@ -29,6 +29,10 @@ export class UserService {
     return this.messageService.sendConfirmationCode(user.email).toPromise();
   }
 
+  getAll() {
+    return this.db.collection<User>(FIRESTORE_COLLECTION.user).valueChanges();
+  }
+
   validateCode(code: string) {
     return from(this.fireAuth.currentUser).pipe(
       switchMap((user) =>

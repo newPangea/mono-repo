@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { UserService } from '@pang/core';
+import { User } from '@pang/interface';
 import * as d3 from 'd3';
+import { Subscription } from 'rxjs';
 import * as topojson from 'topojson-client';
 import * as versor from 'versor';
 
@@ -8,11 +11,15 @@ import * as versor from 'versor';
   templateUrl: './globe.component.html',
   styleUrls: ['./globe.component.scss'],
 })
-export class GlobeComponent implements OnInit {
+export class GlobeComponent implements OnInit, OnDestroy {
+  usersSubscription: Subscription;
+  users: User[] = [];
+  schoolLocations: any[];
+
   //implementing 3d globe
   rotationDelay = 3000;
   // scale of the globe (not the canvas element)
-  scaleFactor = 0.9;
+  scaleFactor = 0.8;
   // autorotation speed
   degPerSec = 6;
   // start angles
@@ -25,9 +32,16 @@ export class GlobeComponent implements OnInit {
 
   //for function use
   countryList;
+  locations;
+  markerGroup;
+  markers;
   current;
   canvas;
   water;
+  gdistance;
+  coordinate;
+  graticule;
+  center;
   v0; // Mouse position in Cartesian coordinates at start of drag gesture.
   r0; // Projection rotation as Euler angles at start.
   q0; // Projection rotation as versor at start.
@@ -45,6 +59,8 @@ export class GlobeComponent implements OnInit {
   a0;
   c;
   l;
+  coords: any;
+
   public lastTime = d3.now();
 
   degPerMs;
@@ -76,35 +92,54 @@ export class GlobeComponent implements OnInit {
 
   projection;
   path;
-  graticule;
+  geoGenerator;
+  markersPathString;
+  isLoading;
+  hidden = true;
+
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.height = 300;
-    this.width = 300;
-    this.current = d3.select('#current');
-    this.canvas = d3.select('#globe');
-    this.context = this.canvas.node().getContext('2d');
-    this.water = { type: 'Sphere' };
-    this.projection = d3.geoOrthographic().precision(0.1);
-    this.path = d3.geoPath(this.projection).context(this.context);
-    this.graticule = d3.geoGraticule10();
-    this.degPerMs = this.degPerSec / 1000;
+    this.isLoading = true;
+    this.usersSubscription = this.userService.getAll().subscribe((users) => {
+      this.schoolLocations = [];
+      this.users = users;
+      this.users.forEach((user) => {
+        if (user.school && user.school?.latitude) {
+          this.schoolLocations.push([user.school?.longitude, user.school?.latitude]);
+        }
+      });
+      this.height = 300;
+      this.width = 300;
+      this.coords = {
+        type: 'MultiPoint',
+        coordinates: this.schoolLocations,
+      };
+      this.center = [this.width / 2, this.height / 2];
+      this.current = d3.select('#current');
+      this.canvas = d3.select('#globe');
 
-    this.loadData();
+      this.context = this.canvas.node().getContext('2d');
+      this.water = { type: 'Sphere' };
+      this.projection = d3.geoOrthographic().precision(0.1);
+      this.path = d3.geoPath(this.projection).context(this.context);
 
-    d3.select(this.context.canvas)
-      .call(
-        this.drag(this.projection)
-          .on('drag.render', () => this.render(this.land))
-          .on('end.render', () => this.render(this.land)),
-      )
-      .call(() => this.render(this.countries))
-      .node();
+      this.graticule = d3.geoGraticule();
+      this.degPerMs = this.degPerSec / 1000;
 
-    //end lets do it globe!
+      this.loadData();
 
-    d3.select(self.frameElement).style('height', this.height + 'px');
-    //lets do it globe end!
+      d3.select(this.context.canvas)
+        .call(
+          this.drag(this.projection)
+            .on('drag.render', () => this.render(this.land))
+            .on('end.render', () => this.render(this.land)),
+        )
+        .call(() => this.render(this.countries))
+        .node();
+
+      d3.select(self.frameElement).style('height', this.height + 'px');
+    });
   }
 
   //setting functions for 3d globe
@@ -126,11 +161,13 @@ export class GlobeComponent implements OnInit {
   scale() {
     this.width = document.documentElement.clientWidth;
     this.height = document.documentElement.clientHeight;
-    this.canvas.attr('width', this.width).attr('height', this.height - 58);
+    this.canvas.attr('width', this.width).attr('height', this.height);
     this.projection
-      .scale((this.scaleFactor * Math.min(this.width - 20, this.height - 100)) / 2)
-      .translate([this.width / 2, (this.height - 100) / 2]);
-    this.render(this.countries);
+      .scale((this.scaleFactor * Math.min(this.width - 20, this.height - 20)) / 2)
+      .translate([this.width / 2, this.height / 2]);
+    this.render(this.land);
+    this.isLoading = false;
+    this.hidden = false;
   }
 
   fill(obj, color) {
@@ -148,10 +185,14 @@ export class GlobeComponent implements OnInit {
   }
 
   render(land) {
+    this.path.pointRadius((this.scaleFactor * Math.min(this.width - 20, this.height - 100)) / 30);
     this.context.clearRect(0, 0, this.width, this.height);
     this.context.beginPath(), this.path(this.water), (this.context.fillStyle = '#00d8f9'), this.context.fill();
     this.context.beginPath(), this.path(land), (this.context.fillStyle = '#00b0f0'), this.context.fill();
-    this.context.beginPath(), this.path(this.water), this.context.stroke();
+    this.context.beginPath(), this.path(land), (this.context.strokeStyle = '#00d8f9'), this.context.stroke();
+    this.context.beginPath(), this.path(land), (this.context.strokeWidth = 20), this.context.stroke();
+    this.context.beginPath(), this.path(this.coords), (this.context.fillStyle = '#ff7c00'), this.context.fill();
+    this.context.beginPath(), this.path(this.coords), (this.context.strokeStyle = 'white'), this.context.stroke();
   }
 
   drag(projection) {
@@ -240,15 +281,21 @@ export class GlobeComponent implements OnInit {
   loadData() {
     d3.json('https://unpkg.com/world-atlas@1/world/110m.json').then((data) => {
       this.world = data;
-      d3.tsv('../../assets/globe-data/land-50m.json').then((data2) => {
-        this.countries = data2;
-      });
       this.land = topojson.feature(this.world, this.world.objects.land);
       this.countries = topojson.feature(this.world, this.world.objects.countries);
       this.countryList = this.countries;
+      d3.json('../../../../assets/globe-data/locations.json').then((data2) => {
+        this.locations = data2;
+      });
 
       window.addEventListener('resize', this.scale);
       this.scale();
     });
+  }
+
+  ngOnDestroy() {
+    if (this.usersSubscription) {
+      this.usersSubscription.unsubscribe();
+    }
   }
 }
