@@ -101,11 +101,6 @@ export class GlobeComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true;
-
-    setTimeout(() => {
-      this.isLoading = false;
-      this.hidden = false;
-    }, 4000);
     this.usersSubscription = this.userService.getAll().subscribe((users) => {
       this.schoolLocations = [];
       this.users = users;
@@ -171,6 +166,8 @@ export class GlobeComponent implements OnInit {
       .scale((this.scaleFactor * Math.min(this.width - 20, this.height - 20)) / 2)
       .translate([this.width / 2, this.height / 2]);
     this.render(this.land);
+    this.isLoading = false;
+    this.hidden = false;
   }
 
   fill(obj, color) {
