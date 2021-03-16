@@ -20,8 +20,7 @@ import { User } from '@pang/interface';
 export class SchoolsComponent implements OnInit, OnDestroy {
   public schoolForm: FormGroup;
   public isLoading = false;
-  public schoolSubscription: Subscription;
-  public userSubscription: Subscription;
+  schoolSubscription: Subscription;
   public title: string;
   public schools: School[];
   showFiller = false;
@@ -29,8 +28,8 @@ export class SchoolsComponent implements OnInit, OnDestroy {
   public isPublishing = false;
   opened = false;
   updating = false;
-  public school: School;
-  public users: User [] = []
+  school: School;
+  users: User[] = [];
 
   //codes
   public tCode: string;
@@ -249,23 +248,24 @@ export class SchoolsComponent implements OnInit, OnDestroy {
       ecode: this.eCode,
     };
 
-    this.schoolsService.updateSchool(this.school.key, data).then(() => {
-      //manage update info on students
-      this.school.name = data.name;
-      this.school.addres = data.addres;
-      this.school.latitude = data.latitude;
-      this.school.longitude = data.longitude;
-      this.userSubscription = this.usersService.getBySchoolCode(this.sCode)
-      .subscribe((users) => {
-        this.users = users
-        this.users.forEach(u => {
-          //setting school data on user
-          this.usersService.updateSchoolInfo(u.uid, this.school)
+    this.schoolsService
+      .updateSchool(this.school.key, data)
+      .then(() => {
+        this.school.name = data.name;
+        this.school.addres = data.addres;
+        this.school.latitude = data.latitude;
+        this.school.longitude = data.longitude;
+        this.usersService.getBySchoolCode(this.sCode).subscribe((users) => {
+          this.users = users;
+          this.users.forEach((u) => {
+            this.usersService.updateSchoolInfo(u.uid, this.school);
+          });
         });
       })
-    }).catch((e) => {
-      console.error(e)
-    });
+      .catch((e) => {
+        this.snackBar.open('An error has occurred', 'close', { duration: 2000 });
+        console.error(e);
+      });
 
     this.snackBar.open('School updated!', 'close', { duration: 2000 });
     //remove data from drawer
@@ -278,9 +278,6 @@ export class SchoolsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.schoolSubscription) {
       this.schoolSubscription.unsubscribe();
-    }
-    if (this.userSubscription) {
-      this.userSubscription.unsubscribe();
     }
   }
 }
