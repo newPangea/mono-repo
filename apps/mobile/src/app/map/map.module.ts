@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { MapComponent } from './map.component';
 import { MapViewComponent } from './components/map-view/map-view.component';
+import { SharedModule } from '../shared/shared.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 const routes: Routes = [
@@ -13,6 +16,8 @@ const routes: Routes = [
   declarations: [MapComponent, MapViewComponent],
   imports: [
     CommonModule,
+    SharedModule,
+    MatSnackBarModule,
     RouterModule.forChild(routes)
   ]
 })
