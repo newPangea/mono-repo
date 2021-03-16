@@ -24,7 +24,8 @@
     "dep-graph": "nx dep-graph",
     "build:ui": "ng run ui:build-storybook",
     "serve:mobile": "ng run mobile:serve --port 4201",
-    "emulate": "firebase emulators:start --export-on-exit=./fireBack --import=./fireBack"
+    "emulate": "firebase emulators:start --export-on-exit=./fireBack --import=./fireBack",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -95,6 +96,7 @@
     "eslint-plugin-cypress": "^2.10.3",
     "firebase-tools": "^9.3.0",
     "fuzzy": "^0.1.3",
+    "husky": "^5.1.3",
     "inquirer": "^6.2.2",
     "inquirer-autocomplete-prompt": "^1.0.1",
     "jest": "26.2.2",
