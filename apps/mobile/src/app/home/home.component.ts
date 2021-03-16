@@ -21,20 +21,20 @@ export class HomeComponent implements OnInit {
     this.validateEnabledUser();
   }
 
-  private isActivedUser(): Promise<boolean> {
-    return new Promise(async (resolve) => {
+  private async isActivedUser(): Promise<boolean> {
+    try {
       const currentUserUid = (await this.angularFireAuth.currentUser).uid;
       if (!currentUserUid) {
-        resolve(true);
+        return true;
       }
-      this.angularFn
+      const isActive = await this.angularFn
         .httpsCallable(FUNCTION.isActiveAuthUser)({ uid: currentUserUid })
         .pipe(take(1))
-        .subscribe(
-          (isActive) => resolve(isActive),
-          () => resolve(false),
-        );
-    });
+        .toPromise();
+      return isActive;
+    } catch (err) {
+      return true;
+    }
   }
 
   private async kickOutUser(): Promise<void> {
