@@ -109,7 +109,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run format:check -- --base=origin/dev"
+      "pre-push": "npm run format:check",
+      "pre-commit": "npm run format:check"
     }
   }
 }
