@@ -8,8 +8,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { GeneralService } from 'dashboard/app/shared/services/generalService/general.service';
-import { SchoolService } from '@pang/core';
+import { SchoolService, UserService } from '@pang/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { User } from '@pang/interface';
 
 @Component({
   selector: 'new-pangea-schools',
@@ -20,6 +21,7 @@ export class SchoolsComponent implements OnInit, OnDestroy {
   public schoolForm: FormGroup;
   public isLoading = false;
   public schoolSubscription: Subscription;
+  public userSubscription: Subscription;
   public title: string;
   public schools: School[];
   showFiller = false;
@@ -28,6 +30,7 @@ export class SchoolsComponent implements OnInit, OnDestroy {
   opened = false;
   updating = false;
   public school: School;
+  public users: User [] = []
 
   //codes
   public tCode: string;
@@ -79,6 +82,7 @@ export class SchoolsComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private generalService: GeneralService,
     private schoolsService: SchoolService,
+    private usersService: UserService,
     private snackBar: MatSnackBar,
   ) {
     this.dataSource = new MatTableDataSource();
@@ -232,20 +236,37 @@ export class SchoolsComponent implements OnInit, OnDestroy {
 
   update() {
     this.isPublishing = true;
-    const { schoolName } = this.schoolForm.value;
+    const { schoolName, geoLocation } = this.schoolForm.value;
     const data = {
       name: schoolName,
-      addres: this.addres,
+      addres: this.addres == '' ? geoLocation : this.addres,
       latitude: this.latitude,
       longitude: this.longitude,
       acode: this.aCode,
-      pcode: this.tCode,
-      tcode: this.sCode,
-      scode: this.pCode,
+      pcode: this.pCode,
+      tcode: this.tCode,
+      scode: this.sCode,
       ecode: this.eCode,
     };
 
-    this.schoolsService.updateSchool(this.school.key, data);
+    this.schoolsService.updateSchool(this.school.key, data).then(() => {
+      //manage update info on students
+      this.school.name = data.name;
+      this.school.addres = data.addres;
+      this.school.latitude = data.latitude;
+      this.school.longitude = data.longitude;
+      this.userSubscription = this.usersService.getBySchoolCode(this.sCode)
+      .subscribe((users) => {
+        this.users = users
+        this.users.forEach(u => {
+          //setting school data on user
+          this.usersService.updateSchoolInfo(u.uid, this.school)
+        });
+      })
+    }).catch((e) => {
+      console.error(e)
+    });
+
     this.snackBar.open('School updated!', 'close', { duration: 2000 });
     //remove data from drawer
     this.schoolForm.controls['schoolName'].setValue(null);
@@ -257,6 +278,9 @@ export class SchoolsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.schoolSubscription) {
       this.schoolSubscription.unsubscribe();
+    }
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
     }
   }
 }

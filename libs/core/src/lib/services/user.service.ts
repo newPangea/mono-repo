@@ -6,6 +6,7 @@ import { FIRESTORE_COLLECTION } from '@pang/const';
 import { MessageService } from './message.service';
 import { from, iif, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { School } from '@pang/models';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,18 @@ export class UserService {
 
   getAll() {
     return this.db.collection<User>(FIRESTORE_COLLECTION.user).valueChanges();
+  }
+
+  getBySchoolCode(code: string) {
+    return this.db.collection<User>(FIRESTORE_COLLECTION.user, (ref) => ref.where('schoolCode', '==', code))
+    .valueChanges();
+  }
+
+  updateSchoolInfo(uid: string, school: School){
+    return this.db
+    .collection<User>(FIRESTORE_COLLECTION.user)
+    .doc(uid)
+    .update({ school: school});
   }
 
   validateCode(code: string) {
