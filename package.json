@@ -24,7 +24,8 @@
     "dep-graph": "nx dep-graph",
     "build:ui": "ng run ui:build-storybook",
     "serve:mobile": "ng run mobile:serve --port 4201",
-    "emulate": "firebase emulators:start --export-on-exit=./fireBack --import=./fireBack"
+    "emulate": "firebase emulators:start --export-on-exit=./fireBack --import=./fireBack",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -106,11 +107,5 @@
     "ts-node": "~9.1.1",
     "tslint": "~6.1.0",
     "typescript": "^4.0.6"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run format:check",
-      "pre-commit": "npm run format:check"
-    }
   }
 }
