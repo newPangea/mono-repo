@@ -64,6 +64,6 @@ jobs:
           fetch-depth: 0
       - name: validate function
         run: |
-          cd function
+          cd functions
           npm i
           npm run lint
