@@ -47,11 +47,15 @@ export class SearchComponent implements AfterViewInit {
   }
 
   searchAlgolia(text: string) {
-    this.algoliaService.search<UserAlgolia>('dev_USER', text).then(({ hits }) => {
-      this.openList = !!text;
-      this.hits = hits;
-      this.calculateDistance();
-    });
+    this.algoliaService
+      .search<UserAlgolia>('dev_USER', text, {
+        hitsPerPage: 4,
+      })
+      .then(({ hits }) => {
+        this.openList = !!text;
+        this.hits = hits;
+        this.calculateDistance();
+      });
   }
 
   focusInput() {
