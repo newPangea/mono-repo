@@ -9,6 +9,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 export class MapViewComponent implements OnInit {
 
 
+  
 
   ngOnInit(): void {
     console.log('map-view-component init')
