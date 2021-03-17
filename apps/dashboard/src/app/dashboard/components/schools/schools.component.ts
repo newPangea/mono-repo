@@ -11,6 +11,7 @@ import { GeneralService } from 'dashboard/app/shared/services/generalService/gen
 import { SchoolService, UserService } from '@pang/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '@pang/interface';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'new-pangea-schools',
@@ -255,12 +256,15 @@ export class SchoolsComponent implements OnInit, OnDestroy {
         this.school.addres = data.addres;
         this.school.latitude = data.latitude;
         this.school.longitude = data.longitude;
-        this.usersService.getBySchoolCode(this.sCode).subscribe((users) => {
-          this.users = users;
-          this.users.forEach((u) => {
-            this.usersService.updateSchoolInfo(u.uid, this.school);
+        this.usersService
+          .getBySchoolCode(this.sCode)
+          .pipe(first())
+          .subscribe((users) => {
+            this.users = users;
+            this.users.forEach((u) => {
+              this.usersService.updateSchoolInfo(u.uid, this.school);
+            });
           });
-        });
       })
       .catch((e) => {
         this.snackBar.open('An error has occurred', 'close', { duration: 2000 });
