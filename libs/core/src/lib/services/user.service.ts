@@ -36,7 +36,9 @@ export class UserService {
   }
 
   getBySchoolCode(code: string) {
-    return this.userCollection((this.userReference, (ref) => ref.where('schoolCode', '==', code))).valueChanges();
+    return this.db
+      .collection<User>(this.userReference, (ref) => ref.where('schoolCode', '==', code))
+      .valueChanges();
   }
 
   updateSchoolInfo(uid: string, school: School) {
