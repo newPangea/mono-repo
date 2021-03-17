@@ -19,8 +19,7 @@ export class UserService {
   ) {}
 
   private readonly userReference = this.db.firestore.collection(FIRESTORE_COLLECTION.user).withConverter(userConvert);
-  private readonly userCollection =
-    (queryFn?: QueryFn) => this.db.collection<User>(this.userReference, queryFn);
+  private readonly userCollection = (queryFn?: QueryFn) => this.db.collection<User>(this.userReference, queryFn);
 
   async createUser(user: User, password: string) {
     const dataUser = await this.fireAuth.createUserWithEmailAndPassword(user.email, password);
