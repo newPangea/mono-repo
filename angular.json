@@ -51,6 +51,30 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/dashboard/src/environments/environment.ts",
+                  "with": "apps/dashboard/src/environments/environment.qa.ts"
+                }
+              ],
+              "optimization": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
             }
           }
         },
@@ -62,6 +86,9 @@
           "configurations": {
             "production": {
               "browserTarget": "dashboard:build:production"
+            },
+            "qa": {
+              "browserTarget": "dashboard:build:qa"
             }
           }
         },
@@ -175,6 +202,30 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "qa": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/mobile/src/environments/environment.ts",
+                  "with": "apps/mobile/src/environments/environment.qa.ts"
+                }
+              ],
+              "optimization": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
             }
           }
         },
@@ -186,6 +237,9 @@
           "configurations": {
             "production": {
               "browserTarget": "mobile:build:production"
+            },
+            "qa": {
+              "browserTarget": "mobile:build:qa"
             }
           }
         },
@@ -324,24 +378,6 @@
       "sourceRoot": "libs/ui/src",
       "prefix": "pang",
       "architect": {
-        "deploy": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "command": "npx firebase-tools deploy --only hosting:ui"
-          }
-        },
-        "pre-deploy": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "command": "npx firebase-tools hosting:channel:deploy {args.chanel} --only ui"
-          }
-        },
-        "build": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "command": "ng run ui:build-storybook"
-          }
-        },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {

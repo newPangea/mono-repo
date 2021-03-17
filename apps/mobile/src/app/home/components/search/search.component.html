@@ -1,8 +1,9 @@
-<div class="search-content">
-  <mat-form-field class="search" appearance="legacy">
+<div class="search-content" [@positionSearch]="isFocus">
+  <div style="position: relative">
     <input
+      class="search-input"
+      [class.focus]="isFocus"
       type="text"
-      matInput
       placeholder="Search by Name or city"
       aria-label="Search by Name or city"
       autocomplete="off"
@@ -10,9 +11,10 @@
       [(ngModel)]="searchText"
       (input)="searchAlgolia($event.target['value'])"
       (focus)="focusInput()"
+      (blur)="blurInput()"
     />
-    <mat-icon matSuffix class="search-icon">search</mat-icon>
-  </mat-form-field>
+    <mat-icon matSuffix class="search-icon" [class.focus]="isFocus">search</mat-icon>
+  </div>
 
   <div *ngIf="openList" [ngStyle]="{ top: topPosition + 'px' }" class="search-list">
     <div class="search-result" *ngIf="hits.length > 0">

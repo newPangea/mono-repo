@@ -10,12 +10,16 @@ import {
 import { AlgoliaService } from '@pang/algolia';
 import { UserAlgolia } from '@pang/interface';
 import { Hit } from '@algolia/client-search';
+import { positionSearch } from './search.animation';
 
 @Component({
   selector: 'pang-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  animations: [
+    positionSearch
+  ]
 })
 export class SearchComponent implements AfterViewInit {
   @ViewChild('input') inputElement: ElementRef<HTMLInputElement>;
@@ -24,6 +28,7 @@ export class SearchComponent implements AfterViewInit {
   searchText: string;
   openList = false;
   topPosition: number;
+  isFocus = false;
 
   constructor(
     private algoliaService: AlgoliaService,
@@ -53,12 +58,17 @@ export class SearchComponent implements AfterViewInit {
 
   focusInput() {
     this.searchAlgolia(this.searchText);
+    this.isFocus = true;
+  }
+
+  blurInput() {
+    this.isFocus = false;
   }
 
   private calculateDistance() {
     const element = this.inputElement.nativeElement;
     const topDistance = element.offsetTop;
     const { height } = element.getBoundingClientRect();
-    this.topPosition = topDistance + height + 20;
+    this.topPosition = topDistance + height;
   }
 }

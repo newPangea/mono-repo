@@ -1,12 +1,43 @@
 @import 'global';
 
 .search-content {
-  position: relative;
+  position: absolute;
   display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
+
 
 .search {
   width: 100%;
+
+  &-input {
+    height: 52px;
+    border-radius: 26px;
+    border: solid 1px #ffffff;
+    background-color: rgba(255, 255, 255, 0.37);
+    width: 100%;
+    padding: 0 40px 0 16px;
+    box-sizing: border-box;
+    transition: all 0.5s ease-out;
+
+    &::placeholder {
+      color: $white;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.focus {
+      border-radius: 0;
+      border-color: transparent;
+      background-color: $white;
+      &::placeholder {
+        color: $subText;
+      }
+    }
+  }
 
   &-list {
     position: absolute;
@@ -19,7 +50,15 @@
   }
 
   &-icon {
-    color: $secondary;
+    color: $white;
+    position: absolute;
+    right: 16px;
+    top: 14px;
+    transition: all 0.5s ease-out;
+
+    &.focus {
+      color: $secondary;
+    }
   }
   &-title {
     @include body2;
