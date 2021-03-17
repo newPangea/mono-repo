@@ -11,70 +11,82 @@ export class MapViewComponent implements OnInit {
 
 
   colorScale; // accessible in d3.csv() and makeCrimeMap()
+  radiusScale;
+  geoJSONCrimeFeatures = [];
+  crimeData: any;
+  info
+  geoJSONFeature
+  L
+  map
+  bwOsmURL
+  osmAttrs
+  osmTiles
+  nycCoord
+  legendWidth
+  legendHeight
+  legend
+  legends
 
   ngOnInit(): void {
     console.log('map-view-component init')
     d3.csv('../../../../assets/globe-data/nyc-crime-subset.csv').then((data) => {
-      
-    })
+        this.colorScale  = d3.scaleOrdinal(d3.schemeCategory10);
+        this.crimeData = data;
 
-      colorScale  = d3.scale.category10();
+        this.radiusScale = d3.scaleLinear()
+            .domain([0, d3.max(this.crimeData, function(crime) { return +this.crime.TOT; })])
+            .range([1, 10]);
+        })
+        this.crimeData.forEach((crime) => {
+            this.info = '<span style=\'color:' + this.colorScale(crime.CR) + '\'><b>' +
+                         crime.CR.toLowerCase() + '</b></span><br/>' +
+                         'count: <b>' + crime.TOT + '</b>, ' +
+                         'date: <b>' + crime.MO + '/' + crime.YR + '</b>'
+  
+            this.geoJSONFeature = {
+                type: 'Feature',
+                properties: { // used to style marker below
+                    color:  this.colorScale(crime.CR),
+                    radius: this.radiusScale(+crime.TOT),
+                    info:   this.info
+                },
+                geometry: {
+                    type: 'Point',
+                    coordinates: [ +crime.longitude, +crime.latitude ] // note long lat!
+                }
+            };
+            this.geoJSONCrimeFeatures.push(this.geoJSONFeature);
+        });
 
-      var radiusScale = d3.scale.linear()
-          .domain([0, d3.max(crimeData, function(crime) { return +crime.TOT; })])
-          .range([1, 10]);
+        
 
-      var geoJSONCrimeFeatures = [];
 
-      crimeData.forEach(function(crime, i) {
-          var info = "<span style='color:" + colorScale(crime.CR) + "'><b>" +
-                       crime.CR.toLowerCase() + "</b></span><br/>" +
-                       "count: <b>" + crime.TOT + "</b>, " +
-                       "date: <b>" + crime.MO + "/" + crime.YR + "</b>"
 
-          var geoJSONFeature = {
-              "type": "Feature",
-              "properties": { // used to style marker below
-                  "color":  colorScale(crime.CR),
-                  "radius": radiusScale(+crime.TOT),
-                  "info":   info
-              },
-              "geometry": {
-                  "type": "Point",
-                  "coordinates": [ +crime.longitude, +crime.latitude ] // note long lat!
-              }
-          };
-          geoJSONCrimeFeatures.push(geoJSONFeature);
-      });
-
-      makeCrimeMap(geoJSONCrimeFeatures);
+      this.makeCrimeMap(this.geoJSONCrimeFeatures);
 
   }
 
-  // Load some data and add it to the map!
 
-
-
-  var makeCrimeMap = function(geoJSONCrimeFeatures) {
+  makeCrimeMap(geoJSONCrimeFeatures){
       // L = Leaflet name space, pass it the id of our container
       // Define URL for fetching map tiles, and cite source
-      var map       = L.map("map-container"),
-          bwOsmURL  = "http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-          osmAttrs  = "Map data © <a href='http://openstreetmap.org'>OpenStreetMap</a>";
+      this.map = this.L.map('map-container'),
+          this.bwOsmURL  = 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+          this.osmAttrs  = 'Map data © <a href=\'http://openstreetmap.org\'>OpenStreetMap</a>';
 
-      var osmTiles = new L.TileLayer(bwOsmURL, {
+      this.osmTiles = new this.L.TileLayer(this.bwOsmURL, {
           minZoom: 8,
           maxZoom: 16,
-          attribution: osmAttrs
+          attribution: this.osmAttrs
       });
 
       // Center view on ~NYC
-      var nycCoord  = new L.LatLng(40.75, -73.9);
+      this.nycCoord  = new this.L.LatLng(40.75, -73.9);
 
-      map.setView(nycCoord, 11); // latlng, zoom level
-      map.addLayer(osmTiles);
+      this.map.setView(this.nycCoord, 11); // latlng, zoom level
+      this.map.addLayer(this.osmTiles);
 
-      L.geoJson(geoJSONCrimeFeatures, {
+      this.L.geoJson(geoJSONCrimeFeatures, {
           style: function (feature) {
               return {
                   color:       '#000',
@@ -88,43 +100,39 @@ export class MapViewComponent implements OnInit {
               layer.bindPopup(feature.properties.info);
           },
           pointToLayer: function (feature, latlng) {
-              return L.circleMarker(latlng);
+              return this.L.circleMarker(latlng);
           }
 
-      }).addTo(map);
+      }).addTo(this.map);
 
       // Add legend with d3
-      var legendWidth  = 250,
-          legendHeight = 150;
+      this.legendWidth  = 250,
+          this.legendHeight = 150;
 
-      var legend = d3.select('#map-legend').append('svg')
-          .attr('width', legendWidth)
-          .attr('height', legendHeight);
+      this.legends = d3.select('#map-legend').append('svg')
+          .attr('width', this.legendWidth)
+          .attr('height', this.legendHeight);
 
-      var legends = legend.selectAll(".legend")
-          .data(colorScale.domain())
-        .enter().append("g")
-          .attr("class", "legend")
-          .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+      this.legends = this.legend.selectAll('.legend')
+          .data(this.colorScale.domain())
+        .enter().append('g')
+          .attr('class', 'legend')
+          .attr('transform', function(d, i) { return 'translate(0,' + i * 20 + ')'; });
 
       // draw legend colored rectangles
-      legends.append("rect")
-          .attr("x", legendWidth - 18)
-          .attr("width", 18)
-          .attr("height", 18)
-          .style("fill", colorScale);
+      this.legends.append('rect')
+          .attr('x', this.legendWidth - 18)
+          .attr('width', 18)
+          .attr('height', 18)
+          .style('fill', this.colorScale);
 
       // draw legend text
-      legends.append("text")
-          .attr("x", legendWidth - 24)
-          .attr("y", 9)
-          .attr("dy", ".35em")
-          .style("text-anchor", "end")
+      this.legends.append('text')
+          .attr('x', this.legendWidth - 24)
+          .attr('y', 9)
+          .attr('dy', '.35em')
+          .style('text-anchor', 'end')
           .text(function(d) { return d.toLowerCase(); })
-  };
-
-
-
-
+  }
 
 }
