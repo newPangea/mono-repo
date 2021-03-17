@@ -20,9 +20,11 @@
     padding: 0 40px 0 16px;
     box-sizing: border-box;
     transition: all 0.5s ease-out;
+    font-size: 17px;
 
     &::placeholder {
       color: $white;
+      font-size: 17px;
     }
 
     &:focus {

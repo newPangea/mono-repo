@@ -17,9 +17,7 @@ import { positionSearch } from './search.animation';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  animations: [
-    positionSearch
-  ]
+  animations: [positionSearch],
 })
 export class SearchComponent implements AfterViewInit {
   @ViewChild('input') inputElement: ElementRef<HTMLInputElement>;
@@ -63,6 +61,7 @@ export class SearchComponent implements AfterViewInit {
 
   blurInput() {
     this.isFocus = false;
+    setTimeout(() => (this.openList = false), 200);
   }
 
   private calculateDistance() {
