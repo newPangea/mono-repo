@@ -25,7 +25,6 @@
     "build:ui": "ng run ui:build-storybook",
     "serve:mobile": "ng run mobile:serve --port 4201",
     "emulate": "firebase emulators:start --export-on-exit=./fireBack --import=./fireBack",
-    "prepare": "husky install",
     "pretty-quick": "pretty-quick"
   },
   "private": true,
