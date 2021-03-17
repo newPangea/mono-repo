@@ -10,7 +10,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { GeneralService } from 'dashboard/app/shared/services/generalService/general.service';
 import { SchoolService, UserService } from '@pang/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { User } from '@pang/interface';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -19,26 +18,25 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./schools.component.scss'],
 })
 export class SchoolsComponent implements OnInit, OnDestroy {
-  public schoolForm: FormGroup;
-  public isLoading = false;
+  schoolForm: FormGroup;
+  isLoading = false;
   schoolSubscription: Subscription;
-  public title: string;
+  title: string;
   schools: School[];
   showFiller = false;
-  public progress = false;
-  public isPublishing = false;
+  progress = false;
+  isPublishing = false;
   opened = false;
   updating = false;
   school: School;
-  users: User[] = [];
 
   //codes
-  public tCode: string;
-  public sCode: string;
-  public pCode: string;
-  public aCode: string;
-  public eCode: string;
-  public code: string;
+  tCode: string;
+  sCode: string;
+  pCode: string;
+  aCode: string;
+  eCode: string;
+  code: string;
 
   //map
   latitude = 32.7068176;
@@ -260,8 +258,7 @@ export class SchoolsComponent implements OnInit, OnDestroy {
           .getBySchoolCode(this.sCode)
           .pipe(first())
           .subscribe((users) => {
-            this.users = users;
-            this.users.forEach((u) => {
+            users.forEach((u) => {
               this.usersService.updateSchoolInfo(u.uid, this.school);
             });
           });
