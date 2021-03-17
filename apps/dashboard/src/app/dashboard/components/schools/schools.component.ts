@@ -23,7 +23,7 @@ export class SchoolsComponent implements OnInit, OnDestroy {
   public isLoading = false;
   schoolSubscription: Subscription;
   public title: string;
-  public schools: School[];
+  schools: School[];
   showFiller = false;
   public progress = false;
   public isPublishing = false;
