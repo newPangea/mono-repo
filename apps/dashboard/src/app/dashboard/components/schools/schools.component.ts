@@ -267,7 +267,9 @@ export class SchoolsComponent implements OnInit, OnDestroy {
           });
       })
       .catch((e) => {
-        this.snackBar.open('An error has occurred', 'close', { duration: 2000 });
+        this.snackBar.open('Something went wrong, there was an error fetching the information', 'close', {
+          duration: 2000,
+        });
         console.error(e);
       });
 
