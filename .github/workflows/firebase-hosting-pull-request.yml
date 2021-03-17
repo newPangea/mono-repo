@@ -42,9 +42,6 @@ jobs:
       - name: Lint affected
         run: npm run affected:lint -- --base=origin/dev
 
-      - name: check affected
-        run: npm run format:check -- --base=origin/dev
-
       - name: Build affected
         run: npm run affected:build -- --base=origin/dev
 
@@ -58,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 14.x ]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
