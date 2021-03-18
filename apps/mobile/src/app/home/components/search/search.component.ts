@@ -66,7 +66,7 @@ export class SearchComponent implements AfterViewInit {
 
   blurInput() {
     this.isFocus = false;
-    // setTimeout(() => (this.openList = false), 200);
+    setTimeout(() => (this.openList = false), 200);
   }
 
   private calculateDistance() {
