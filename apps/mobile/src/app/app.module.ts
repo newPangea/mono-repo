@@ -18,7 +18,6 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/functions';
-import { MapModule } from './map/map.module';
 
 const app = firebase.initializeApp(environment.fire, 'myApp');
 if (environment.emulate) {
@@ -47,8 +46,6 @@ if (environment.emulate) {
           redirectTo: 'welcome',
           pathMatch: 'full',
         },
-      { path: 'map', loadChildren: () => import('./map/map.module').then(m => m.MapModule),
-      canActivate: [IsUserCompleteGuard], },
       ],
       { initialNavigation: 'enabled' },
     ),
@@ -63,7 +60,6 @@ if (environment.emulate) {
       apiKey: environment.algolia.apiKey,
       appId: environment.algolia.appId,
     }),
-    MapModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
