@@ -18,7 +18,12 @@
     <div class="user-options">
       <p class="user-name" @info>{{ user?.name }}</p>
       <div class="user-connections" @info>
-        <button pang-flat-button (click)="sendRequest()">Make connection</button>
+        <button pang-flat-button (click)="sendRequest()" *ngIf="connection.length === 0">
+          Make connection
+        </button>
+        <button pang-flat-button (click)="cancelRequest()" *ngIf="connection.length">
+          Cancel request
+        </button>
         <button class="user-option">
           <img src="assets/img/icon-more-options.svg" />
         </button>

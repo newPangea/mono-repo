@@ -9,7 +9,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { QueryFn } from '@angular/fire/firestore/interfaces';
 import { School } from '@pang/models';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { ConnectionStatus } from '@pang/const';
+import { ConnectionService } from './connection.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +20,7 @@ export class UserService {
     private db: AngularFirestore,
     private realtime: AngularFireDatabase,
     private messageService: MessageService,
+    private connectionService: ConnectionService,
   ) {}
 
   private readonly userReference = this.db.firestore
@@ -74,11 +75,6 @@ export class UserService {
 
   async sendConnectionRequest(uidConnection: string) {
     const user = await this.fireAuth.currentUser;
-    const key = this.realtime.createPushId();
-    return this.realtime.object(`connection/${key}`).set({
-      to: user.uid,
-      from: uidConnection,
-      status: ConnectionStatus.CREATE,
-    });
+    return this.connectionService.sendConnectionRequest(user.uid, uidConnection);
   }
 }

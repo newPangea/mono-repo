@@ -5,7 +5,9 @@ export const userCreation = functions.firestore
   .document('user/{userId}')
   .onCreate((snapshot) => {
     const data = snapshot.data();
-    const userIndex = clientAlgolia.initIndex('dev_USER');
+    const userIndex = clientAlgolia.initIndex(
+      functions.config().algolia.user_index
+    );
     const userData = {
       ...data,
       objectID: data.uid,
@@ -18,7 +20,9 @@ export const userUpdate = functions.firestore
   .document('user/{userId}')
   .onUpdate((change, context) => {
     const data = change.after.data();
-    const userIndex = clientAlgolia.initIndex('dev_USER');
+    const userIndex = clientAlgolia.initIndex(
+      functions.config().algolia.user_index
+    );
     return userIndex.partialUpdateObject({
       ...data,
       _geoloc: { lat: data.school?.latitude, lng: data.school?.longitude },

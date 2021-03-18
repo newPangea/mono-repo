@@ -43,7 +43,7 @@ jobs:
         run: npm run affected:lint -- --base=origin/dev
 
       - name: Build affected
-        run: npm run affected:build -- --base=origin/dev
+        run: npm run affected:build -- --base=origin/dev --configuration qa
 
       - name: Deploy temporal
         run: npm run affected:pre-deploy -- --base=origin/dev --chanel="$BRANCH_NAME"
