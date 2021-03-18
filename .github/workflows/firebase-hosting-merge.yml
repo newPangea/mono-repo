@@ -52,7 +52,7 @@ jobs:
         run: npm run affected:libs -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
 
       - name: Build affected
-        run: npm run affected:build -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT" --progress=false
+        run: npm run affected:build -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT" --configuration qa
 
       - name: Deploy affected
         run: npm run affected:deploy -- --base="$BEFORE_COMMIT" --head="$AFTHER_COMMIT"
