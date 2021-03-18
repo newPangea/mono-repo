@@ -7,6 +7,7 @@ import { MessageService } from './message.service';
 import { from, iif, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { QueryFn } from '@angular/fire/firestore/interfaces';
+import { School } from '@pang/models';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,14 @@ export class UserService {
 
   getAll() {
     return this.db.collection<User>(FIRESTORE_COLLECTION.user).valueChanges();
+  }
+
+  getBySchoolCode(code: string) {
+    return this.userCollection((ref) => ref.where('schoolCode', '==', code)).valueChanges();
+  }
+
+  updateSchoolInfo(uid: string, school: School) {
+    return this.userCollection().doc(uid).update({ school: school });
   }
 
   validateCode(code: string) {

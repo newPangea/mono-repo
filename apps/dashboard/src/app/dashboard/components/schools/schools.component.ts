@@ -8,8 +8,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { GeneralService } from 'dashboard/app/shared/services/generalService/general.service';
-import { SchoolService } from '@pang/core';
+import { SchoolService, UserService } from '@pang/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'new-pangea-schools',
@@ -17,25 +18,25 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./schools.component.scss'],
 })
 export class SchoolsComponent implements OnInit, OnDestroy {
-  public schoolForm: FormGroup;
-  public isLoading = false;
-  public schoolSubscription: Subscription;
-  public title: string;
-  public schools: School[];
+  schoolForm: FormGroup;
+  isLoading = false;
+  schoolSubscription: Subscription;
+  title: string;
+  schools: School[];
   showFiller = false;
-  public progress = false;
-  public isPublishing = false;
+  progress = false;
+  isPublishing = false;
   opened = false;
   updating = false;
-  public school: School;
+  school: School;
 
   //codes
-  public tCode: string;
-  public sCode: string;
-  public pCode: string;
-  public aCode: string;
-  public eCode: string;
-  public code: string;
+  tCode: string;
+  sCode: string;
+  pCode: string;
+  aCode: string;
+  eCode: string;
+  code: string;
 
   //map
   latitude = 32.7068176;
@@ -79,6 +80,7 @@ export class SchoolsComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private generalService: GeneralService,
     private schoolsService: SchoolService,
+    private usersService: UserService,
     private snackBar: MatSnackBar,
   ) {
     this.dataSource = new MatTableDataSource();
@@ -232,20 +234,42 @@ export class SchoolsComponent implements OnInit, OnDestroy {
 
   update() {
     this.isPublishing = true;
-    const { schoolName } = this.schoolForm.value;
+    const { schoolName, geoLocation } = this.schoolForm.value;
     const data = {
       name: schoolName,
-      addres: this.addres,
+      addres: this.addres == '' ? geoLocation : this.addres,
       latitude: this.latitude,
       longitude: this.longitude,
       acode: this.aCode,
-      pcode: this.tCode,
-      tcode: this.sCode,
-      scode: this.pCode,
+      pcode: this.pCode,
+      tcode: this.tCode,
+      scode: this.sCode,
       ecode: this.eCode,
     };
 
-    this.schoolsService.updateSchool(this.school.key, data);
+    this.schoolsService
+      .updateSchool(this.school.key, data)
+      .then(() => {
+        this.school.name = data.name;
+        this.school.addres = data.addres;
+        this.school.latitude = data.latitude;
+        this.school.longitude = data.longitude;
+        this.usersService
+          .getBySchoolCode(this.sCode)
+          .pipe(first())
+          .subscribe((users) => {
+            users.forEach((u) => {
+              this.usersService.updateSchoolInfo(u.uid, this.school);
+            });
+          });
+      })
+      .catch((e) => {
+        this.snackBar.open('Something went wrong, there was an error fetching the information', 'close', {
+          duration: 2000,
+        });
+        console.error(e);
+      });
+
     this.snackBar.open('School updated!', 'close', { duration: 2000 });
     //remove data from drawer
     this.schoolForm.controls['schoolName'].setValue(null);
