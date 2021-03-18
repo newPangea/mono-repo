@@ -18,12 +18,14 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/functions';
+import 'firebase/database';
 
 const app = firebase.initializeApp(environment.fire, 'myApp');
 if (environment.emulate) {
   app.auth().useEmulator('http://localhost:9099');
   app.firestore().useEmulator('localhost', 8081);
   app.functions().useEmulator('localhost', 5001);
+  app.database().useEmulator('localhost', 9000);
 }
 
 @NgModule({

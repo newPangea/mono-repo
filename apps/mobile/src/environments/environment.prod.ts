@@ -14,4 +14,5 @@ export const environment = {
     apiKey: 'e5336aaf9c29f80fdebd97748ccfeb4c',
     appId: '97BKXDYV1A',
   },
+  userAlgoliaIndex: 'pro_USER',
 };
