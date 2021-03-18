@@ -12,8 +12,4 @@ export class BottomMenuComponent {
   soon() {
     this.snackBar.open('Available in the next update', 'close', { duration: 2000 });
   }
-
-  profile(){
-    
-  }
 }
