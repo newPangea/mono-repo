@@ -11,6 +11,7 @@ import { AlgoliaService } from '@pang/algolia';
 import { UserAlgolia } from '@pang/interface';
 import { Hit } from '@algolia/client-search';
 import { positionSearch } from './search.animation';
+import { environment } from '@pang/mobile/environments/environment';
 
 @Component({
   selector: 'pang-search',
@@ -48,7 +49,7 @@ export class SearchComponent implements AfterViewInit {
 
   searchAlgolia(text: string) {
     this.algoliaService
-      .search<UserAlgolia>('dev_USER', text, {
+      .search<UserAlgolia>(environment.userAlgoliaIndex, text, {
         hitsPerPage: 4,
       })
       .then(({ hits }) => {

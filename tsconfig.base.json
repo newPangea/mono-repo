@@ -20,6 +20,7 @@
       "@pang/mobile/*": ["apps/mobile/src/*"],
       "@pang/const": ["libs/constants/index.ts"],
       "@pang/interface": ["libs/interfaces/index.ts"],
+      "@pang/utils": ["libs/utils/index.ts"],
       "@pang/models": ["libs/models/index.ts"],
       "@pang/core": ["libs/core/src/index.ts"],
       "@pang/algolia": ["libs/algolia/src/index.ts"]

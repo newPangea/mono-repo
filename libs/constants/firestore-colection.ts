@@ -3,4 +3,5 @@ export const FIRESTORE_COLLECTION = {
   preference: 'preferences',
   user: 'user',
   school: 'schools',
+  connection: 'connections',
 };

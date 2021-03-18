@@ -8,6 +8,8 @@ import { from, iif, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { QueryFn } from '@angular/fire/firestore/interfaces';
 import { School } from '@pang/models';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { ConnectionService } from './connection.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,11 +18,16 @@ export class UserService {
   constructor(
     private fireAuth: AngularFireAuth,
     private db: AngularFirestore,
+    private realtime: AngularFireDatabase,
     private messageService: MessageService,
+    private connectionService: ConnectionService,
   ) {}
 
-  private readonly userReference = this.db.firestore.collection(FIRESTORE_COLLECTION.user).withConverter(userConvert);
-  private readonly userCollection = (queryFn?: QueryFn) => this.db.collection<User>(this.userReference, queryFn);
+  private readonly userReference = this.db.firestore
+    .collection(FIRESTORE_COLLECTION.user)
+    .withConverter(userConvert);
+  private readonly userCollection = (queryFn?: QueryFn) =>
+    this.db.collection<User>(this.userReference, queryFn);
 
   async createUser(user: User, password: string) {
     const dataUser = await this.fireAuth.createUserWithEmailAndPassword(user.email, password);
@@ -46,12 +53,16 @@ export class UserService {
   validateCode(code: string) {
     return from(this.fireAuth.currentUser).pipe(
       switchMap((user) =>
-        this.messageService.confirmCode(code, user.email).pipe(map((confirm) => ({ ...confirm, user }))),
+        this.messageService
+          .confirmCode(code, user.email)
+          .pipe(map((confirm) => ({ ...confirm, user }))),
       ),
       switchMap(({ valid, user }) =>
         iif(
           () => valid,
-          from(this.userCollection().doc(user.uid).update({ validateCode: true })).pipe(map(() => ({ valid }))),
+          from(this.userCollection().doc(user.uid).update({ validateCode: true })).pipe(
+            map(() => ({ valid })),
+          ),
           of({ valid }),
         ),
       ),
@@ -60,5 +71,10 @@ export class UserService {
 
   savePreferences(uid: string, preferences: Preference[], bio: string, imgUrl: string = '') {
     return this.userCollection().doc(uid).update({ preferences, bio, imgUrl });
+  }
+
+  async sendConnectionRequest(uidConnection: string) {
+    const user = await this.fireAuth.currentUser;
+    return this.connectionService.sendConnectionRequest(user.uid, uidConnection);
   }
 }
