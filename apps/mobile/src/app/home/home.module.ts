@@ -16,7 +16,9 @@ import { IonicModule } from '@ionic/angular';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { BottomMenuComponent } from './components/bottom-menu/bottom-menu.component';
+import { SharedModule } from '../shared/shared.module';
+
+
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
@@ -27,7 +29,6 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     UserSearchResultComponent,
     SchoolSearchResultComponent,
     GlobeComponent,
-    BottomMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +41,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     IonicModule,
     MatProgressBarModule,
     MatSnackBarModule,
+    SharedModule
   ],
 })
 export class HomeModule {}

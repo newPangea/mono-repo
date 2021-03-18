@@ -284,10 +284,6 @@ export class GlobeComponent implements OnInit, OnDestroy {
       this.land = topojson.feature(this.world, this.world.objects.land);
       this.countries = topojson.feature(this.world, this.world.objects.countries);
       this.countryList = this.countries;
-      d3.json('../../../../assets/globe-data/locations.json').then((data2) => {
-        this.locations = data2;
-      });
-
       window.addEventListener('resize', this.scale);
       this.scale();
     });
