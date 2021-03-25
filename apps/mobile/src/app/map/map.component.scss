@@ -1,0 +1,27 @@
+@import 'global';
+
+.container {
+  background-color: #00b0f0;
+  height: 100vh;
+}
+:host {
+  display: block;
+  padding-top: unquote('env(safe-area-inset-top)');
+}
+
+.search {
+  background: $white;
+  height: 46px;
+  position: absolute;
+}
+
+.bottom-manu {
+  position: absolute;
+  bottom: 0;
+}
+
+//map styles
+#map-container {
+  height: 200px;
+  width: 200px;
+}
