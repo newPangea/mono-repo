@@ -1,6 +1,6 @@
 /// <reference types="@types/googlemaps" />
 import { MapsAPILoader } from '@agm/core';
-import { OnInit, Component, ElementRef, NgZone, ViewChild } from '@angular/core';
+import { OnInit, Component, NgZone } from '@angular/core';
 import { mapStyle } from '../../../../assets/globe-data/styles';
 
 @Component({
