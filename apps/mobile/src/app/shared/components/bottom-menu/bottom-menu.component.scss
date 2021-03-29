@@ -26,8 +26,8 @@
   border: solid 1px #00b4f1;
   border-radius: 50%;
   background-image: linear-gradient(to bottom, #00d8f9, $primary);
-  position: relative;
-  bottom: 86px;
+  position: absolute;
+  bottom: 24px;
   left: calc(50vw - 33px);
   @include noselect;
 }
