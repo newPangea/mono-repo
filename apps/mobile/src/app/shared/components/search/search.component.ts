@@ -4,6 +4,8 @@ import {
   Component,
   ElementRef,
   HostListener,
+  Output,
+  EventEmitter,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -22,6 +24,7 @@ import { environment } from '@pang/mobile/environments/environment';
 })
 export class SearchComponent implements AfterViewInit {
   @ViewChild('input') inputElement: ElementRef<HTMLInputElement>;
+  @Output() userSelect = new EventEmitter<UserAlgolia>();
 
   hits: Array<Hit<UserAlgolia>> = [];
   searchText: string;
