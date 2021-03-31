@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+
+import { UserService } from '@pang/core';
 
 import {
   Plugins,
@@ -15,14 +18,17 @@ const { PushNotifications } = Plugins;
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'mobile';
+  constructor(private userService: UserService, private auth: AngularFireAuth) {}
 
   ngOnInit(): void {
-    PushNotifications.addListener('registration', (token: PushNotificationToken) => {
-      console.log(token.value, 'token');
+    PushNotifications.addListener('registration', async (token: PushNotificationToken) => {
+      const user = await this.auth.currentUser;
+      if (user) {
+        await this.userService.updateUser(user.uid, { token: token.value });
+      }
     });
 
-    PushNotifications.addListener('registrationError', (error: any) => {
+    PushNotifications.addListener('registrationError', (error) => {
       console.error('Error on registration', JSON.stringify(error));
     });
 

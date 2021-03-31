@@ -13,12 +13,14 @@ import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.gu
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AlgoliaModule } from '@pang/algolia';
+import { CoreModule } from '@pang/core';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/functions';
 import 'firebase/database';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
 
 const app = firebase.initializeApp(environment.fire, 'myApp');
 if (environment.emulate) {
@@ -57,11 +59,13 @@ if (environment.emulate) {
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireFunctionsModule,
+    AngularFireMessagingModule,
     IonicModule.forRoot(),
     AlgoliaModule.forRoot({
       apiKey: environment.algolia.apiKey,
       appId: environment.algolia.appId,
     }),
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

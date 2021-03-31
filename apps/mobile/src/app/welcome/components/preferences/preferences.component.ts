@@ -12,7 +12,7 @@ import { Preference } from '@pang/interface';
 import { UserService } from '@pang/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-const { Camera, Device, Keyboard, PushNotifications, Modals } = Plugins;
+const { Camera, Device, Keyboard } = Plugins;
 
 @Component({
   selector: 'pang-preferences',
@@ -47,7 +47,6 @@ export class PreferencesComponent implements OnInit {
           document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
         Keyboard.setAccessoryBarVisible({ isVisible: true });
-        this.registerNotification();
       }
     });
   }
@@ -69,20 +68,6 @@ export class PreferencesComponent implements OnInit {
     } else {
       this.tagSelected[tag.key] = tag;
     }
-  }
-
-  registerNotification() {
-    PushNotifications.requestPermission().then((result) => {
-      if (result.granted) {
-        return PushNotifications.register();
-      } else {
-        console.error('error ----->', 'error permits', result);
-        return Modals.alert({
-          title: 'Error notification',
-          message: 'We have a error try to register notification',
-        });
-      }
-    });
   }
 
   async saveData() {

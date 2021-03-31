@@ -47,7 +47,7 @@ export class UserService {
   }
 
   updateSchoolInfo(uid: string, school: School) {
-    return this.userCollection().doc(uid).update({ school: school });
+    return this.updateUser(uid, { school: school });
   }
 
   validateCode(code: string) {
@@ -60,9 +60,7 @@ export class UserService {
       switchMap(({ valid, user }) =>
         iif(
           () => valid,
-          from(this.userCollection().doc(user.uid).update({ validateCode: true })).pipe(
-            map(() => ({ valid })),
-          ),
+          from(this.updateUser(user.uid, { validateCode: true })).pipe(map(() => ({ valid }))),
           of({ valid }),
         ),
       ),
@@ -70,7 +68,11 @@ export class UserService {
   }
 
   savePreferences(uid: string, preferences: Preference[], bio: string, imgUrl: string = '') {
-    return this.userCollection().doc(uid).update({ preferences, bio, imgUrl });
+    return this.updateUser(uid, { preferences, bio, imgUrl });
+  }
+
+  updateUser(uid: string, data: Partial<User>) {
+    return this.userCollection().doc(uid).update(data);
   }
 
   async sendConnectionRequest(uidConnection: string) {
