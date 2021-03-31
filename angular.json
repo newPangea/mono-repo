@@ -210,9 +210,8 @@
                   "with": "apps/mobile/src/environments/environment.qa.ts"
                 }
               ],
-              "optimization": true,
               "extractLicenses": true,
-              "vendorChunk": false,
+              "optimization": true,
               "buildOptimizer": true,
               "budgets": [
                 {

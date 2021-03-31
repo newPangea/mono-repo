@@ -22,18 +22,19 @@
         <span class="search-title">People results</span>
         <a class="link search-link">View all results</a>
       </div>
-      <pang-user-search-result
-        *ngFor="let user of hits"
-        [user]="user"
-        [searchText]="searchText"
-      ></pang-user-search-result>
+      <button *ngFor="let user of hits" class="btn-user" (click)="userSelect.emit(user)">
+        <pang-user-search-result [user]="user" [searchText]="searchText"></pang-user-search-result>
+      </button>
     </div>
     <div class="search-result divide" *ngIf="hits.length > 0">
       <div class="search-result__header">
         <span class="search-title">Schools</span>
         <a class="link search-link">View all results</a>
       </div>
-      <pang-school-search-result [user]="hits" [searchText]="searchText"></pang-school-search-result>
+      <pang-school-search-result
+        [user]="hits"
+        [searchText]="searchText"
+      ></pang-school-search-result>
     </div>
     <div *ngIf="hits.length === 0" class="search-empty">
       <img src="assets/img/empty-search.svg" alt="empty" class="search-empty__img" />
