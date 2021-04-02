@@ -11,14 +11,15 @@ export const requestconnection = functions.firestore
       userIndex.getObject<any>(to),
       userIndex.getObject<any>(from),
     ]);
-    const msg = `${toUser.name} wants to connect with you,
-      check his profile here`;
+    const msg =
+      `${toUser.name} wants to connect with you, ` + 'check his profile here';
     return admin.messaging().sendToDevice(fromUser.token, {
       notification: {
         title: 'Request connection',
         body: msg,
       },
       data: {
+        event: 'connection',
         to: toUser.uid,
       },
     });

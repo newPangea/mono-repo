@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
         }
     
-    NotificationCenter.default.post(name: Notification.Name(CAPNotifications.DidRegisterForRemoteNotificationsWithDeviceToken.name()), object: deviceToken)
+   
   }
 
   func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

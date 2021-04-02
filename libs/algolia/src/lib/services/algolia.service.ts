@@ -16,4 +16,8 @@ export class AlgoliaService {
     const indexAlgolia = this.client.initIndex(index);
     return indexAlgolia.search<T>(search, config);
   }
+
+  deleteUser(index: string, uid: string) {
+    return this.client.initIndex(index).deleteObject(uid);
+  }
 }
