@@ -35,7 +35,9 @@ export class PreferencesComponent implements OnInit {
     private storage: AngularFireStorage,
     private snackBar: MatSnackBar,
   ) {
-    this.preferenceTags = this.db.collection<Preference>(FIRESTORE_COLLECTION.preference).valueChanges();
+    this.preferenceTags = this.db
+      .collection<Preference>(FIRESTORE_COLLECTION.preference)
+      .valueChanges();
   }
 
   ngOnInit(): void {

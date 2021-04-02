@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "589660899480",
+    "firebase_url": "https://newpangea-dev-default-rtdb.firebaseio.com",
+    "project_id": "newpangea-dev",
+    "storage_bucket": "newpangea-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589660899480:android:e7fe1deab732ac866328ed",
+        "android_client_info": {
+          "package_name": "com.pappcorn.newpangea"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589660899480-bv6tl87g7vao9kr8icihc3ujk3f4bsfr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOsPuFth2ri9yZYbcA3cO5ofVIOwUyGO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589660899480-bv6tl87g7vao9kr8icihc3ujk3f4bsfr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
