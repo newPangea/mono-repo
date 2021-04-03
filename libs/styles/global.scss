@@ -23,8 +23,18 @@ body {
   @include body;
 }
 
+.body2 {
+  @include body2;
+}
+
 .link {
   @include body;
   color: $secondary;
   text-decoration: underline;
+}
+
+button {
+  &:focus {
+    outline: none;
+  }
 }

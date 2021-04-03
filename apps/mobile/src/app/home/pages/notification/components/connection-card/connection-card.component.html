@@ -1,0 +1,16 @@
+<div class="request" *ngIf="requestUser">
+  <pang-avatar-with-label [size]="32" [userAvatar]="requestUser.imgUrl"></pang-avatar-with-label>
+  <div>
+    <p class="subtitle">Connection request</p>
+    <p class="body2 description">
+      {{ requestUser.name }} wants to connect with you,check his
+      <a routerLink="/home/user/{{ requestUser.uid }}">profile here</a>
+    </p>
+    <div class="buttons">
+      <button pang-flat-button color="primary" (click)="acceptRequest.emit(true)">Accept</button>
+      <button pang-flat-button color="white" class="cancel" (click)="acceptRequest.emit(false)">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
