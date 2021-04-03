@@ -51,7 +51,7 @@ export class AppComponent implements OnInit {
                   okButtonTitle: 'View',
                 }).then(({ value }) => {
                   if (value) {
-                    this.router.navigate(['/home/user/', notification.data.to]);
+                    this.router.navigate(['/home/notification']);
                   }
                 });
                 break;
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
           ({ notification }: PushNotificationActionPerformed) => {
             switch (notification.data.event) {
               case 'connection':
-                this.router.navigate(['/home/user/', notification.data.to]);
+                this.router.navigate(['/home/notification/']);
                 break;
             }
           },
