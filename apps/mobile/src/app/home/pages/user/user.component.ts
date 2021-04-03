@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { circleAnimation2, info } from './user.animation';
 import { ActivatedRoute } from '@angular/router';
 import { AlgoliaService } from '@pang/algolia';
-import { map, switchMap } from 'rxjs/operators';
+import { first, map, switchMap } from 'rxjs/operators';
 import { ConnectionInterface, UserAlgolia } from '@pang/interface';
 import { environment } from '@pang/mobile/environments/environment';
 import { from, Subscription } from 'rxjs';
@@ -11,6 +11,7 @@ import { codeToName } from '@pang/utils';
 import { ConnectionService, UserService } from '@pang/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { ConnectionStatus } from '../../../../../../../libs/constants';
 
 @Component({
   selector: 'pang-user',
@@ -20,7 +21,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class UserComponent implements OnDestroy {
   user: Hit<UserAlgolia>;
-  connection: ConnectionInterface[] = [];
+  connection: ConnectionInterface;
+  request: ConnectionInterface;
+
   private subscribe: Subscription;
 
   constructor(
@@ -61,9 +64,32 @@ export class UserComponent implements OnDestroy {
     this.snack.open(`You invited to ${this.user.name} to connect`, 'close', { duration: 2000 });
   }
 
+  acceptRequest() {
+    return this.connectionService
+      .connection()
+      .doc(this.request.key)
+      .update({ status: ConnectionStatus.ACCEPTED });
+  }
+
   private loadConnection() {
     this.subscribe = this.auth.user
-      .pipe(switchMap(({ uid }) => this.connectionService.getConnection(uid, this.user.objectID)))
-      .subscribe((connection) => (this.connection = connection));
+      .pipe(
+        first(),
+        switchMap(({ uid }) => this.connectionService.getConnection(uid, this.user.objectID)),
+      )
+      .subscribe((connection) => {
+        this.connection = connection.length ? connection[0] : null;
+      });
+
+    const subscribeRequest = this.auth.user
+      .pipe(
+        first(),
+        switchMap(({ uid }) => this.connectionService.getConnection(this.user.objectID, uid)),
+      )
+      .subscribe((connection) => {
+        this.request = connection.length ? connection[0] : null;
+      });
+
+    this.subscribe.add(subscribeRequest);
   }
 }

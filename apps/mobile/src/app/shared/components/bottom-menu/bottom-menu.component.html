@@ -1,6 +1,20 @@
-<div (click)="soon()" class="preferences">
+<div (click)="soon()" class="float-button preferences">
   <img class="icon" src="assets/img/icon-filter.svg" alt="" />
 </div>
+
+<ng-container *ngIf="$notification | async; let notifications">
+  <button
+    class="float-button notification"
+    mat-ripple
+    routerLink="/home/notification"
+    matBadgePosition="above before"
+    matBadgeColor="warn"
+    [matBadge]="notifications"
+  >
+    <img src="assets/img/icon-notifications.svg" alt="notification" />
+  </button>
+</ng-container>
+
 <div class="menu-container">
   <img (click)="soon()" class="teams" src="assets/img/icon-teams.svg" alt="" />
   <img (click)="soon()" class="profile" src="assets/img/icon-profile.svg" alt="" />

@@ -71,6 +71,11 @@ $circleSize: 596px;
     grid-template-columns: max-content max-content;
     margin: 11px auto 0;
     width: fit-content;
+    align-items: center;
+
+    .text {
+      color: $white;
+    }
   }
 
   &-option {

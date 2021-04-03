@@ -13,6 +13,8 @@ import { NewPangeaLabelComponent } from './new-pangea-label/new-pangea-label.com
 import { GoBackDirective } from './directives/go-back.directive';
 import { MatIconModule } from '@angular/material/icon';
 import { HighlightPipe } from './pipes/highlight.pipe';
+import { IconComponent } from './components/icon/icon.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -24,6 +26,7 @@ import { HighlightPipe } from './pipes/highlight.pipe';
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     MatIconModule,
+    HttpClientModule,
   ],
   declarations: [
     ButtonComponent,
@@ -33,6 +36,7 @@ import { HighlightPipe } from './pipes/highlight.pipe';
     NewPangeaLabelComponent,
     GoBackDirective,
     HighlightPipe,
+    IconComponent,
   ],
   providers: [DatePipe],
   exports: [
@@ -43,6 +47,7 @@ import { HighlightPipe } from './pipes/highlight.pipe';
     NewPangeaLabelComponent,
     GoBackDirective,
     HighlightPipe,
+    IconComponent,
   ],
 })
 export class UiModule {}

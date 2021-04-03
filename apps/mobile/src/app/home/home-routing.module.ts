@@ -9,6 +9,11 @@ const routes: Routes = [
     path: 'user',
     loadChildren: () => import('./pages/user/user.module').then((m) => m.UserModule),
   },
+  {
+    path: 'notification',
+    loadChildren: () =>
+      import('./pages/notification/notification.module').then((m) => m.NotificationModule),
+  },
 ];
 
 @NgModule({

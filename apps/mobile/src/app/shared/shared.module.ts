@@ -9,6 +9,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { UiModule } from '@pang/ui';
 import { RouterModule } from '@angular/router';
+import { MatRippleModule } from '@angular/material/core';
+import { CoreModule } from '@pang/core';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,17 @@ import { RouterModule } from '@angular/router';
     UserSearchResultComponent,
     SchoolSearchResultComponent,
   ],
-  imports: [CommonModule, FormsModule, MatIconModule, MatInputModule, UiModule, RouterModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatIconModule,
+    MatInputModule,
+    UiModule,
+    RouterModule,
+    MatRippleModule,
+    CoreModule,
+    MatBadgeModule,
+  ],
   exports: [BottomMenuComponent, SearchComponent],
 })
 export class SharedModule {}

@@ -21,6 +21,7 @@ import 'firebase/auth';
 import 'firebase/functions';
 import 'firebase/database';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { HttpClientModule } from '@angular/common/http';
 
 const app = firebase.initializeApp(environment.fire, 'myApp');
 if (environment.emulate) {
@@ -66,6 +67,7 @@ if (environment.emulate) {
       appId: environment.algolia.appId,
     }),
     CoreModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
