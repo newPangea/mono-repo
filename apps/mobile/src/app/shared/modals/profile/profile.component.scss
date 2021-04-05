@@ -1,0 +1,97 @@
+@import 'global';
+
+.secuential {
+  display: grid;
+  grid-gap: 15px;
+  margin-bottom: 0px;
+  grid-template-columns: 70% 30%;
+}
+
+.secuential2 {
+  display: grid;
+  grid-gap: 5px;
+  margin-bottom: 4px;
+  grid-template-columns: 50% 50%;
+}
+
+.name {
+  margin: 19px 10px 16px 2px;
+  padding: 6px 0;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #3e3e3e;
+}
+
+.photoAction {
+  margin: 26px 20px 16px 2px;
+  padding: 6px 0;
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
+  color: #00b5f1;
+  text-decoration: underline;
+}
+
+.schoolData {
+  margin-bottom: 5px;
+  margin-top: 0px;
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #3e3e3e;
+}
+
+mat-icon {
+  vertical-align: bottom;
+  height: 16px;
+  width: 16px;
+}
+
+.line {
+  margin: 15px 10px 0 0;
+  border: solid 1px #cecece;
+}
+
+.bio {
+  margin: 12px 10px 16px 0;
+  font-family: Inter;
+  font-size: 10px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #8e8e8e;
+  text-align: justify;
+}
+
+.logout-button {
+  margin-top: 17px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  background-color: transparent;
+  color: $red;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}

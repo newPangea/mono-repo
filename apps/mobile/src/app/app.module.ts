@@ -13,6 +13,8 @@ import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.gu
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AlgoliaModule } from '@pang/algolia';
+import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -67,6 +69,8 @@ if (environment.emulate) {
       apiKey: environment.algolia.apiKey,
       appId: environment.algolia.appId,
     }),
+    MatIconModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

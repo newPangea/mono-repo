@@ -3,16 +3,17 @@
 .container {
   background-color: #00b0f0;
   height: 100vh;
+  position: relative;
 }
 :host {
   display: block;
   padding-top: unquote('env(safe-area-inset-top)');
+  position: fixed;
 }
 
 .search {
-  background: $white;
-  height: 46px;
-  position: absolute;
+  position: relative;
+  z-index: 1;
 }
 
 .bottom-menu {

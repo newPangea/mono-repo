@@ -29,7 +29,8 @@
   },
   "private": true,
   "dependencies": {
-    "@agm/core": "^1.0.0",
+    "@agm/core": "^1.1.0",
+    "@agm/js-marker-clusterer": "^1.1.0",
     "@angular/animations": "^11.1.2",
     "@angular/cdk": "^11.2.0",
     "@angular/common": "^11.1.2",
@@ -51,6 +52,7 @@
     "d3-queue": "^3.0.7",
     "d3-tile": "^1.0.0",
     "firebase": "^8.2.6",
+    "js-marker-clusterer": "^1.0.0",
     "leaflet": "^1.7.1",
     "rxjs": "~6.5.5",
     "topojson-client": "^3.1.0",

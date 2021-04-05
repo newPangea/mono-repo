@@ -8,6 +8,7 @@ const iconTeam = '../assets/icons/icon-team.svg';
 const iconConnection = '../assets/icons/icon-connections.svg';
 const iconFilter = '../assets/icons/icon-filter.svg';
 const iconMail = '../assets/icons/icon-mail.svg';
+const iconCode = '../assets/icons/icon-code.svg';
 
 @Component({
   selector: 'new-pangea-root',
@@ -22,17 +23,33 @@ export class AppComponent {
   }
 
   private registerIcons() {
-    this.matIconRegistry.addSvgIcon('new-pangea-pin', this.domSanitizer.bypassSecurityTrustResourceUrl(iconPinActive));
+    this.matIconRegistry.addSvgIcon(
+      'new-pangea-pin',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(iconPinActive),
+    );
     this.matIconRegistry.addSvgIcon(
       'new-pangea-school',
       this.domSanitizer.bypassSecurityTrustResourceUrl(iconSchoolActive),
     );
-    this.matIconRegistry.addSvgIcon('new-pangea-team', this.domSanitizer.bypassSecurityTrustResourceUrl(iconTeam));
+    this.matIconRegistry.addSvgIcon(
+      'new-pangea-team',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(iconTeam),
+    );
     this.matIconRegistry.addSvgIcon(
       'new-pangea-connection',
       this.domSanitizer.bypassSecurityTrustResourceUrl(iconConnection),
     );
-    this.matIconRegistry.addSvgIcon('new-pangea-filter', this.domSanitizer.bypassSecurityTrustResourceUrl(iconFilter));
-    this.matIconRegistry.addSvgIcon('new-pangea-mail', this.domSanitizer.bypassSecurityTrustResourceUrl(iconMail));
+    this.matIconRegistry.addSvgIcon(
+      'new-pangea-filter',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(iconFilter),
+    );
+    this.matIconRegistry.addSvgIcon(
+      'new-pangea-mail',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(iconMail),
+    );
+    this.matIconRegistry.addSvgIcon(
+      'new-pangea-code',
+      this.domSanitizer.bypassSecurityTrustResourceUrl(iconCode),
+    );
   }
 }

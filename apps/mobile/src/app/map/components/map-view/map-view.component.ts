@@ -9,12 +9,33 @@ import { mapStyle } from '../../../../assets/globe-data/styles';
   styleUrls: ['./map-view.component.scss'],
 })
 export class MapViewComponent implements OnInit {
-  latitude = 32.7068176;
-  longitude = -117.190456;
+  latitude = 32.86391;
+  longitude = -117.154312;
   zoom = 12;
   progress = false;
   addres: string;
   city: string;
+
+  locations = [
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.094312 },
+    { lat: 32.81391, lng: -117.129312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+    { lat: 32.86391, lng: -117.154312 },
+  ];
 
   styles = mapStyle;
 
@@ -23,8 +44,6 @@ export class MapViewComponent implements OnInit {
   constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
 
   ngOnInit() {
-    console.log('inits');
-    console.log(this.styles);
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder();
