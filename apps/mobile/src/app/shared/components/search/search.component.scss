@@ -46,7 +46,8 @@
     left: 0;
     max-height: 443px;
     overflow: auto;
-    border: 1px solid $subText;
+    border-top: 1px solid $subText;
+    border-bottom: 1px solid $subText;
     background: $white;
   }
 
@@ -105,4 +106,13 @@
 
 .divide {
   border-top: 1px solid $subText;
+}
+
+.btn-user {
+  display: block;
+  border: none;
+  background: transparent;
+  padding: 0;
+  width: 100%;
+  text-align: left;
 }

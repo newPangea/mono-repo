@@ -1,60 +1,75 @@
-import { Component } from '@angular/core';
-import { MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 
-const iconPinActive = '../assets/icons/icon-pin-active.svg';
-const iconSchoolActive = '../assets/icons/icon-school-active.svg';
-const iconTeam = '../assets/icons/icon-team.svg';
-const iconConnection = '../assets/icons/icon-connections.svg';
-const iconFilter = '../assets/icons/icon-filter.svg';
-const iconMail = '../assets/icons/icon-mail.svg';
-const iconCode = '../assets/icons/icon-code.svg';
-const iconLogout = '../assets/icons/icon-logout.svg';
+import { UserService } from '@pang/core';
+
+import {
+  Plugins,
+  PushNotification,
+  PushNotificationToken,
+  PushNotificationActionPerformed,
+} from '@capacitor/core';
+import { Router } from '@angular/router';
+
+const { PushNotifications, Device, Modals } = Plugins;
 
 @Component({
   selector: 'pang-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'mobile';
+export class AppComponent implements OnInit {
+  constructor(
+    private userService: UserService,
+    private auth: AngularFireAuth,
+    private router: Router,
+  ) {}
 
-  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
-    this.registerIcons();
-  }
+  ngOnInit(): void {
+    Device.getInfo().then((data) => {
+      if (data.platform !== 'web') {
+        PushNotifications.addListener('registration', async (token: PushNotificationToken) => {
+          const user = await this.auth.currentUser;
+          if (user) {
+            await this.userService.updateUser(user.uid, { token: token.value });
+          }
+        });
 
-  private registerIcons() {
-    this.matIconRegistry.addSvgIcon(
-      'new-pangea-pin',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(iconPinActive),
-    );
-    this.matIconRegistry.addSvgIcon(
-      'new-pangea-school',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(iconSchoolActive),
-    );
-    this.matIconRegistry.addSvgIcon(
-      'new-pangea-team',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(iconTeam),
-    );
-    this.matIconRegistry.addSvgIcon(
-      'new-pangea-connection',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(iconConnection),
-    );
-    this.matIconRegistry.addSvgIcon(
-      'new-pangea-filter',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(iconFilter),
-    );
-    this.matIconRegistry.addSvgIcon(
-      'new-pangea-mail',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(iconMail),
-    );
-    this.matIconRegistry.addSvgIcon(
-      'new-pangea-code',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(iconCode),
-    );
-    this.matIconRegistry.addSvgIcon(
-      'new-pangea-logout',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(iconLogout),
-    );
+        PushNotifications.addListener('registrationError', (error) => {
+          console.error('Error on registration', JSON.stringify(error));
+        });
+
+        PushNotifications.addListener(
+          'pushNotificationReceived',
+          (notification: PushNotification) => {
+            switch (notification.data.event) {
+              case 'connection':
+                Modals.confirm({
+                  cancelButtonTitle: 'Close',
+                  title: 'request Connection',
+                  message: 'You have a new request connection',
+                  okButtonTitle: 'View',
+                }).then(({ value }) => {
+                  if (value) {
+                    this.router.navigate(['/home/notification']);
+                  }
+                });
+                break;
+            }
+          },
+        );
+
+        PushNotifications.addListener(
+          'pushNotificationActionPerformed',
+          ({ notification }: PushNotificationActionPerformed) => {
+            switch (notification.data.event) {
+              case 'connection':
+                this.router.navigate(['/home/notification/']);
+                break;
+            }
+          },
+        );
+      }
+    });
   }
 }

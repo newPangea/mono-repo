@@ -1,9 +1,11 @@
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { QueryFn } from '@angular/fire/firestore/interfaces';
+
 import { ConnectionStatus, FIRESTORE_COLLECTION } from '@pang/const';
 import { ConnectionInterface } from '@pang/interface';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { QueryFn } from '@angular/fire/firestore/interfaces';
+import { filter, first, switchMap, takeUntil } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +14,7 @@ export class ConnectionService {
   readonly connection = (qf?: QueryFn) =>
     this.db.collection<ConnectionInterface>(FIRESTORE_COLLECTION.connection, qf);
 
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, private auth: AngularFireAuth) {}
 
   async sendConnectionRequest(to: string, from: string) {
     const key = this.db.createId();
@@ -22,6 +24,20 @@ export class ConnectionService {
       status: ConnectionStatus.CREATE,
       key,
     });
+  }
+
+  getPendingConnections() {
+    const logOut = this.auth.authState.pipe(filter((user) => !user));
+
+    return this.auth.user.pipe(
+      first(),
+      takeUntil(logOut),
+      switchMap(({ uid }) =>
+        this.connection((ref) =>
+          ref.where('from', '==', uid).where('status', '==', ConnectionStatus.CREATE),
+        ).valueChanges(),
+      ),
+    );
   }
 
   getConnection(to: string, from: string) {

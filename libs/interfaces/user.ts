@@ -15,6 +15,7 @@ export interface User {
   preferences?: Preference[];
   bio?: string;
   imgUrl?: string;
+  token?: string;
 }
 
 export const userConvert = {

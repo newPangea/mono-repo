@@ -1,0 +1,27 @@
+@import 'global';
+
+.notification {
+  &-header {
+    display: flex;
+    padding: 64px 16px 12px;
+    align-items: center;
+
+    .icon {
+      color: $gray;
+      --icon-size: 30px;
+      display: block;
+      width: 30px;
+      height: 30px;
+      margin-right: 20px;
+    }
+  }
+
+  &-empty {
+    text-align: center;
+    padding-top: 20px;
+  }
+}
+
+.odd {
+  background-color: $backgroundWhite;
+}

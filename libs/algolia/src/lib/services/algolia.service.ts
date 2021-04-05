@@ -16,4 +16,13 @@ export class AlgoliaService {
     const indexAlgolia = this.client.initIndex(index);
     return indexAlgolia.search<T>(search, config);
   }
+
+  getHit<T>(index: string, objectId: string) {
+    const indexAlgolia = this.client.initIndex(index);
+    return indexAlgolia.getObject<T>(objectId);
+  }
+
+  deleteUser(index: string, uid: string) {
+    return this.client.initIndex(index).deleteObject(uid);
+  }
 }

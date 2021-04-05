@@ -1,0 +1,21 @@
+<header class="notification-header">
+  <button mat-icon-button class="icon" pangGoBack>
+    <pang-icon url="/assets/img/back.svg" name="back"></pang-icon>
+  </button>
+  <h1 class="subtitle">Notifications</h1>
+</header>
+
+<mat-spinner style="margin: auto" *ngIf="load"></mat-spinner>
+
+<ng-container *ngIf="$pendingConnection | async; let pendingConnection">
+  <div *ngIf="pendingConnection.length == 0">
+    <p class="body notification-empty">No notifications already</p>
+  </div>
+
+  <pang-connection-card
+    *ngFor="let request of pendingConnection; let odd = odd"
+    [connection]="request"
+    [class.odd]="odd"
+    (acceptRequest)="validateRequest($event, request)"
+  ></pang-connection-card>
+</ng-container>

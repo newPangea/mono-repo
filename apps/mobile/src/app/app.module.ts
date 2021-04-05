@@ -14,13 +14,15 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { AlgoliaModule } from '@pang/algolia';
 import { MatIconModule } from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from '@pang/core';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/functions';
 import 'firebase/database';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { HttpClientModule } from '@angular/common/http';
 
 const app = firebase.initializeApp(environment.fire, 'myApp');
 if (environment.emulate) {
@@ -64,12 +66,14 @@ if (environment.emulate) {
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireFunctionsModule,
+    AngularFireMessagingModule,
     IonicModule.forRoot(),
     AlgoliaModule.forRoot({
       apiKey: environment.algolia.apiKey,
       appId: environment.algolia.appId,
     }),
     MatIconModule,
+    CoreModule,
     HttpClientModule,
   ],
   providers: [],

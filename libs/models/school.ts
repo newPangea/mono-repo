@@ -9,7 +9,7 @@ export class School {
   scode: string;
   pcode: string;
   ecode: string;
-  updated_at: number;
+  updated_at?: number;
   created_at: number;
 
   constructor(
