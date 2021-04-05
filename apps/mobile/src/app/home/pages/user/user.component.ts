@@ -56,7 +56,7 @@ export class UserComponent implements OnDestroy {
   }
 
   cancelRequest() {
-    return this.connectionService.connection().doc(this.connection[0].key).delete();
+    return this.connectionService.connection().doc(this.connection.key).delete();
   }
 
   async sendRequest() {

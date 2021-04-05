@@ -16,12 +16,12 @@
     }
   }
 
-  .odd {
-    background-color: $backgroundWhite;
-  }
-
   &-empty {
     text-align: center;
     padding-top: 20px;
   }
+}
+
+.odd {
+  background-color: $backgroundWhite;
 }
