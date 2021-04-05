@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from '@pang/core';
 import { User } from '@pang/interface';
 import * as d3 from 'd3';
@@ -11,7 +12,9 @@ import * as versor from 'versor';
   templateUrl: './globe.component.html',
   styleUrls: ['./globe.component.scss'],
 })
-export class GlobeComponent implements OnInit, OnDestroy {
+export class GlobeComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() user: User;
+
   usersSubscription: Subscription;
   users: User[] = [];
   schoolLocations: any[];
@@ -97,7 +100,7 @@ export class GlobeComponent implements OnInit, OnDestroy {
   isLoading;
   hidden = true;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private routrer: Router) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -142,12 +145,11 @@ export class GlobeComponent implements OnInit, OnDestroy {
     });
   }
 
-  //setting functions for 3d globe
-  enter(country) {
-    country = this.countryList.find(function (c) {
-      return parseInt(c.id, 10) === parseInt(country.id, 10);
-    });
-    this.current.text((country && country.name) || '');
+  ngOnChanges() {
+    if (this.user) {
+      alert(this.user?.school.latitude);
+      this.routrer.navigate(['/home/user/', this.user.uid]);
+    }
   }
 
   setAngles() {
@@ -187,12 +189,30 @@ export class GlobeComponent implements OnInit, OnDestroy {
   render(land) {
     this.path.pointRadius((this.scaleFactor * Math.min(this.width - 20, this.height - 100)) / 30);
     this.context.clearRect(0, 0, this.width, this.height);
-    this.context.beginPath(), this.path(this.water), (this.context.fillStyle = '#00d8f9'), this.context.fill();
-    this.context.beginPath(), this.path(land), (this.context.fillStyle = '#00b0f0'), this.context.fill();
-    this.context.beginPath(), this.path(land), (this.context.strokeStyle = '#00d8f9'), this.context.stroke();
-    this.context.beginPath(), this.path(land), (this.context.strokeWidth = 20), this.context.stroke();
-    this.context.beginPath(), this.path(this.coords), (this.context.fillStyle = '#ff7c00'), this.context.fill();
-    this.context.beginPath(), this.path(this.coords), (this.context.strokeStyle = 'white'), this.context.stroke();
+    this.context.beginPath(),
+      this.path(this.water),
+      (this.context.fillStyle = '#00d8f9'),
+      this.context.fill();
+    this.context.beginPath(),
+      this.path(land),
+      (this.context.fillStyle = '#00b0f0'),
+      this.context.fill();
+    this.context.beginPath(),
+      this.path(land),
+      (this.context.strokeStyle = '#00d8f9'),
+      this.context.stroke();
+    this.context.beginPath(),
+      this.path(land),
+      (this.context.strokeWidth = 20),
+      this.context.stroke();
+    this.context.beginPath(),
+      this.path(this.coords),
+      (this.context.fillStyle = '#ff7c00'),
+      this.context.fill();
+    this.context.beginPath(),
+      this.path(this.coords),
+      (this.context.strokeStyle = 'white'),
+      this.context.stroke();
   }
 
   drag(projection) {
