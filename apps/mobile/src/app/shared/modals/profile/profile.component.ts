@@ -1,10 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { FIRESTORE_COLLECTION } from '@pang/const';
 import { User } from '@pang/interface';
+
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 

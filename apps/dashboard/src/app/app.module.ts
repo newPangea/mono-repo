@@ -1,27 +1,26 @@
+import { AngularFireModule } from '@angular/fire';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableModule } from '@angular/material/table';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { UiModule } from '@pang/ui';
 
 import { AppComponent } from './app.component';
-import { UiModule } from '@pang/ui';
+import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './pages/login/login.component';
 
-import { AppRoutingModule } from './app-routing.module';
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularFireModule } from '@angular/fire';
-import { SharedModule } from 'dashboard/app/shared/shared.module';
-
 import { environment } from 'dashboard/environments/environment';
-import { MatCardModule } from '@angular/material/card';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { HttpClientModule } from '@angular/common/http';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { SharedModule } from 'dashboard/app/shared/shared.module';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -38,22 +37,22 @@ if (environment.emulate) {
 @NgModule({
   declarations: [AppComponent, LoginComponent],
   imports: [
-    SharedModule,
-    BrowserModule,
-    UiModule,
+    AngularFireModule.initializeApp(environment.fire, 'myApp'),
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.fire, 'myApp'),
-    MatCardModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatIconModule,
-    MatProgressBarModule,
-    MatButtonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSlideToggleModule,
+    BrowserModule,
     HttpClientModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatSlideToggleModule,
+    MatTableModule,
+    ReactiveFormsModule,
+    SharedModule,
+    UiModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

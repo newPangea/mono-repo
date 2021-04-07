@@ -1,20 +1,22 @@
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { environment } from '@pang/mobile/environments/environment';
+import { MatIconModule } from '@angular/material/icon';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+import { IonicModule } from '@ionic/angular';
+
+import { AlgoliaModule } from '@pang/algolia';
+import { CoreModule } from '@pang/core';
+import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.guard';
 
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { environment } from '@pang/mobile/environments/environment';
-import { IonicModule } from '@ionic/angular';
-import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.guard';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireFunctionsModule } from '@angular/fire/functions';
-import { AlgoliaModule } from '@pang/algolia';
-import { MatIconModule } from '@angular/material/icon';
-import { CoreModule } from '@pang/core';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -35,7 +37,22 @@ if (environment.emulate) {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    AlgoliaModule.forRoot({
+      apiKey: environment.algolia.apiKey,
+      appId: environment.algolia.appId,
+    }),
+    AngularFireAuthModule,
+    AngularFireFunctionsModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.fire, 'myApp'),
+    AngularFireStorageModule,
+    AngularFirestoreModule,
+    BrowserAnimationsModule,
     BrowserModule,
+    CoreModule,
+    HttpClientModule,
+    IonicModule.forRoot(),
+    MatIconModule,
     RouterModule.forRoot(
       [
         {
@@ -60,21 +77,6 @@ if (environment.emulate) {
       ],
       { initialNavigation: 'enabled' },
     ),
-    BrowserAnimationsModule,
-    AngularFireModule.initializeApp(environment.fire, 'myApp'),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
-    AngularFireStorageModule,
-    AngularFireFunctionsModule,
-    AngularFireMessagingModule,
-    IonicModule.forRoot(),
-    AlgoliaModule.forRoot({
-      apiKey: environment.algolia.apiKey,
-      appId: environment.algolia.appId,
-    }),
-    MatIconModule,
-    CoreModule,
-    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

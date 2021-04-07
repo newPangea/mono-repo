@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { UserAlgolia } from '@pang/interface';
 import { School } from '@pang/models';
 
@@ -9,16 +9,21 @@ interface SchoolJoin {
 @Component({
   selector: 'pang-school-search-result',
   template: `
-    <div class="school-search" *ngFor="let school of schoolsName">
+    <button
+      class="school-search btn-school"
+      *ngFor="let school of schoolsName"
+      (click)="schoolSelect.emit(school)"
+    >
       <img src="assets/img/icon-school-active.svg" alt="school icon" />
       <span class="text" [innerHTML]="school.name | highlight: searchText"></span>
-    </div>
+    </button>
   `,
   styleUrls: ['./school-search-result.component.scss'],
 })
 export class SchoolSearchResultComponent implements OnChanges {
   @Input() user: UserAlgolia[];
   @Input() searchText: string;
+  @Output() schoolSelect = new EventEmitter<School>();
 
   schoolsObject: SchoolJoin = {};
   schoolsName: School[] = [];

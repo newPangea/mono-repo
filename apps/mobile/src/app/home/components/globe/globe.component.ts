@@ -147,7 +147,6 @@ export class GlobeComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges() {
     if (this.user) {
-      alert(this.user?.school.latitude);
       this.routrer.navigate(['/home/user/', this.user.uid]);
     }
   }

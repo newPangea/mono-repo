@@ -2,6 +2,7 @@ import { Component, OnInit, Output } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { Router } from '@angular/router';
 import { User, UserAlgolia } from '@pang/interface';
+import { School } from '@pang/models';
 
 const { Device, PushNotifications, Modals } = Plugins;
 
@@ -13,11 +14,22 @@ const { Device, PushNotifications, Modals } = Plugins;
 export class HomeComponent implements OnInit {
   //test: string;
   @Output() user: User;
+  school: School;
 
-  constructor(private routrer: Router) {}
+  constructor(private router: Router) {}
 
   goToUser(user: UserAlgolia) {
     this.user = user;
+  }
+
+  goToSchool(school: School) {
+    this.school = school;
+    this.router.navigate(['map'], {
+      queryParams: {
+        sLatitude: this.school.latitude,
+        sLongitude: this.school.longitude,
+      },
+    });
   }
 
   ngOnInit(): void {

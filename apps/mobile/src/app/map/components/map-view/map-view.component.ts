@@ -1,6 +1,9 @@
 /// <reference types="@types/googlemaps" />
 import { MapsAPILoader } from '@agm/core';
-import { OnInit, Component, NgZone } from '@angular/core';
+import { OnInit, Component, NgZone, Input, OnDestroy, OnChanges } from '@angular/core';
+import { UserService } from '@pang/core';
+import { User } from '@pang/interface';
+import { Subscription } from 'rxjs';
 import { mapStyle } from '../../../../assets/globe-data/styles';
 
 @Component({
@@ -8,46 +11,62 @@ import { mapStyle } from '../../../../assets/globe-data/styles';
   templateUrl: './map-view.component.html',
   styleUrls: ['./map-view.component.scss'],
 })
-export class MapViewComponent implements OnInit {
+export class MapViewComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() sLatitude;
+  @Input() sLongitude;
+
+  usersSubscription: Subscription;
+  users: User[];
+
   latitude = 32.86391;
   longitude = -117.154312;
   zoom = 12;
   progress = false;
   addres: string;
   city: string;
-
-  locations = [
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.094312 },
-    { lat: 32.81391, lng: -117.129312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-    { lat: 32.86391, lng: -117.154312 },
-  ];
+  locations;
 
   styles = mapStyle;
 
   private geoCoder: google.maps.Geocoder;
 
-  constructor(private mapsAPILoader: MapsAPILoader, private ngZone: NgZone) {}
+  constructor(
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
+    private userService: UserService,
+  ) {}
+
+  ngOnChanges() {
+    if (this.sLatitude && this.sLongitude) {
+      this.latitude = Number(this.sLatitude);
+      this.longitude = Number(this.sLongitude);
+    }
+  }
 
   ngOnInit() {
+    this.usersSubscription = this.userService.getAll().subscribe((users) => {
+      this.locations = [];
+      this.users = users;
+      this.users.forEach((user) => {
+        if (user.school && user.school?.latitude) {
+          this.locations.push({
+            lng: user.school?.longitude,
+            lat: user.school?.latitude,
+          });
+        }
+      });
+      console.log(this.locations);
+    });
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder();
     });
+  }
+
+  ngOnDestroy() {
+    if (this.usersSubscription) {
+      this.usersSubscription.unsubscribe();
+    }
   }
 
   getAddress(latitude: number, longitude: number) {

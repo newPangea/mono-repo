@@ -6,9 +6,17 @@
   gap: 8px;
   margin: 10px 0;
   align-items: center;
+  border: none;
+  background: transparent;
 }
 
 .text {
   @include body2;
   color: $gray6;
+}
+
+.btn-school {
+  padding: 0;
+  width: 100%;
+  text-align: left;
 }
