@@ -18,6 +18,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { AlgoliaModule } from '@pang/algolia';
+import {
+  connectionFeatureKey,
+  ConnectionReducer,
+} from '@pang/mobile/app/state/connection/connection.reducer';
 import { CoreModule } from '@pang/core';
 import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.guard';
 import { environment } from '@pang/mobile/environments/environment';
@@ -73,7 +77,9 @@ const routes: Routes = [
     IonicModule.forRoot(),
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     StoreModule.forRoot(
-      {},
+      {
+        [connectionFeatureKey]: ConnectionReducer,
+      },
       {
         metaReducers: !environment.production ? [] : [],
         runtimeChecks: {
