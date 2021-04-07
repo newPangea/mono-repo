@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { ProfileComponent } from '../../modals/profile/profile.component';
+
 import { ConnectionService } from '@pang/core';
+import { HIDDEN_SECTIONS } from '@pang/const';
+
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { HIDDEN_SECTIONS } from '@pang/const';
+
+import { ProfileComponent } from '../../modals/profile/profile.component';
 
 @Component({
   selector: 'pang-bottom-menu',
