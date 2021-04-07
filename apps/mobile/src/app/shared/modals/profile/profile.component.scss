@@ -55,10 +55,9 @@
   color: #3e3e3e;
 }
 
-mat-icon {
-  vertical-align: bottom;
-  height: 16px;
-  width: 16px;
+.icons {
+  --icon-size: 16px;
+  --vertical-align: bottom;
 }
 
 .line {

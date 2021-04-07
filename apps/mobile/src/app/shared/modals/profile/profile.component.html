@@ -6,23 +6,27 @@
   <div class="schoolInfo">
     <div class="secuential2">
       <p class="schoolData">
-        <mat-icon class="data-item-container__icon" svgIcon="new-pangea-pin"></mat-icon>
+        <pang-icon class="icons" url="/assets/icons/icon-pin-active.svg" name="pin"></pang-icon>
         {{ address ? address[address.length - 2] : '' }},
         {{ address ? address[address.length - 1] : '' }}
       </p>
       <p class="schoolData">
-        <mat-icon class="data-item-container__icon" svgIcon="new-pangea-school"></mat-icon>
+        <pang-icon
+          class="icons"
+          url="/assets/icons/icon-school-active.svg"
+          name="school"
+        ></pang-icon>
         {{ user?.school.name }}
       </p>
     </div>
     <div class="secuential2">
       <p class="schoolData">
-        <mat-icon class="data-item-container__icon" svgIcon="new-pangea-mail"></mat-icon>
+        <pang-icon class="icons" url="/assets/icons/icon-mail.svg" name="mail"></pang-icon>
         {{ user?.email }}
       </p>
       <p class="schoolData">
-        <mat-icon class="data-item-container__icon" svgIcon="new-pangea-code"></mat-icon>
-        {{ user?.school.name }}
+        <pang-icon class="icons" url="/assets/icons/icon-code.svg" name="code"></pang-icon>
+        {{ user?.code }}
       </p>
     </div>
   </div>
@@ -36,7 +40,7 @@
   </p>
   <hr class="line" />
   <button class="logout-button" (click)="logout()">
-    <mat-icon class="data-item-container__icon" svgIcon="new-pangea-logout"></mat-icon>
+    <pang-icon class="icons" url="/assets/icons/icon-logout.svg" name="logout"></pang-icon>
     Log out
   </button>
 </div>
