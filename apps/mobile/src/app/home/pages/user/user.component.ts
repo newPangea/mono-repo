@@ -1,17 +1,19 @@
-import { Component, OnDestroy } from '@angular/core';
-import { circleAnimation2, info } from './user.animation';
 import { ActivatedRoute } from '@angular/router';
-import { AlgoliaService } from '@pang/algolia';
-import { first, map, switchMap } from 'rxjs/operators';
-import { ConnectionInterface, UserAlgolia } from '@pang/interface';
-import { environment } from '@pang/mobile/environments/environment';
-import { from, Subscription } from 'rxjs';
-import { Hit } from '@algolia/client-search';
-import { codeToName } from '@pang/utils';
-import { ConnectionService, UserService } from '@pang/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { Hit } from '@algolia/client-search';
+import { first, map, switchMap } from 'rxjs/operators';
+import { from, Subscription } from 'rxjs';
+
+import { AlgoliaService } from '@pang/algolia';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ConnectionStatus } from '../../../../../../../libs/constants';
+import { ConnectionInterface, UserAlgolia } from '@pang/interface';
+import { ConnectionService, UserService } from '@pang/core';
+import { ConnectionStatus } from '@pang/const';
+import { circleAnimation2, info } from './user.animation';
+import { codeToName } from '@pang/utils';
+import { environment } from '@pang/mobile/environments/environment';
 
 @Component({
   selector: 'pang-user',

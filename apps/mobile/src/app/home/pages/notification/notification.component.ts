@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit, TrackByFunction } from '@angular/core';
 
+import { select, State } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import { ConnectionService } from '@pang/core';
+import { AppState } from '@pang/mobile/app/state/app.state';
 import { ConnectionInterface } from '@pang/interface';
+import { ConnectionService } from '@pang/core';
 import { ConnectionStatus } from '@pang/const';
+import { selectConnectionNotification } from '@pang/mobile/app/state/connection/connection.selectors';
 
 @Component({
   selector: 'pang-notification',
@@ -17,14 +20,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
   private subscribe: Subscription;
   trackByFn: TrackByFunction<ConnectionInterface>;
 
-  constructor(private connection: ConnectionService) {
+  constructor(private connection: ConnectionService, private state: State<AppState>) {
     this.trackByFn = (index, item) => {
       return item.key;
     };
   }
 
   ngOnInit(): void {
-    this.subscribe = this.connection.getPendingConnections().subscribe((value) => {
+    this.subscribe = this.state.pipe(select(selectConnectionNotification)).subscribe((value) => {
       this.pendingConnection = value;
       this.load = false;
     });

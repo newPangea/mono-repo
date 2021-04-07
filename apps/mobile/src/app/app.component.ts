@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-
-import { UserService } from '@pang/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {
   Plugins,
@@ -9,7 +8,11 @@ import {
   PushNotificationToken,
   PushNotificationActionPerformed,
 } from '@capacitor/core';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { filter } from 'rxjs/operators';
+
+import { loadPendingConnection } from '@pang/mobile/app/state/connection/connection.actions';
+import { UserService } from '@pang/core';
 
 const { PushNotifications, Device, Modals } = Plugins;
 
@@ -23,7 +26,12 @@ export class AppComponent implements OnInit {
     private userService: UserService,
     private auth: AngularFireAuth,
     private router: Router,
-  ) {}
+    private store: Store,
+  ) {
+    this.auth.authState.pipe(filter((user) => !!user)).subscribe(() => {
+      this.store.dispatch(loadPendingConnection());
+    });
+  }
 
   ngOnInit(): void {
     Device.getInfo().then((data) => {

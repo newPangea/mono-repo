@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { select, State } from '@ngrx/store';
 
 import { AppState } from '@pang/mobile/app/state/app.state';
-import { ConnectionService } from '@pang/core';
 import { selectConnectionNotification } from '@pang/mobile/app/state/connection/connection.selectors';
 
 @Component({
@@ -17,16 +16,11 @@ import { selectConnectionNotification } from '@pang/mobile/app/state/connection/
 export class BottomMenuComponent implements OnInit {
   $notification: Observable<number>;
 
-  constructor(
-    private snackBar: MatSnackBar,
-    private connection: ConnectionService,
-    private state: State<AppState>,
-  ) {}
+  constructor(private snackBar: MatSnackBar, private state: State<AppState>) {}
 
   ngOnInit(): void {
-    this.state.pipe(select(selectConnectionNotification)).subscribe(console.log);
-    this.$notification = this.connection
-      .getPendingConnections()
+    this.$notification = this.state
+      .pipe(select(selectConnectionNotification))
       .pipe(map((connections) => connections.length));
   }
 

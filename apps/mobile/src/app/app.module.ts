@@ -22,6 +22,7 @@ import {
   connectionFeatureKey,
   ConnectionReducer,
 } from '@pang/mobile/app/state/connection/connection.reducer';
+import { ConnectionEffects } from '@pang/mobile/app/state/connection/connection.effects';
 import { CoreModule } from '@pang/core';
 import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.guard';
 import { environment } from '@pang/mobile/environments/environment';
@@ -72,7 +73,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     BrowserModule,
     CoreModule,
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([ConnectionEffects]),
     HttpClientModule,
     IonicModule.forRoot(),
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
