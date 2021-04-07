@@ -1,6 +1,8 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { Plugins } from '@capacitor/core';
 import { Router } from '@angular/router';
+
+import { Plugins } from '@capacitor/core';
+
 import { User, UserAlgolia } from '@pang/interface';
 import { School } from '@pang/models';
 

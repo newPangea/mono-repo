@@ -22,17 +22,17 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
   declarations: [HomeComponent, GlobeComponent],
   imports: [
     CommonModule,
-    HomeRoutingModule,
-    RouterModule.forChild(routes),
-    MatInputModule,
-    MatIconModule,
-    UiModule,
     FormsModule,
+    HomeRoutingModule,
     IonicModule,
+    MatBottomSheetModule,
+    MatIconModule,
+    MatInputModule,
     MatProgressBarModule,
     MatSnackBarModule,
+    RouterModule.forChild(routes),
     SharedModule,
-    MatBottomSheetModule,
+    UiModule,
   ],
 })
 export class HomeModule {}

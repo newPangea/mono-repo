@@ -1,7 +1,8 @@
-import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User, UserAlgolia } from '@pang/interface';
+import { Component, OnInit } from '@angular/core';
+
 import { School } from '@pang/models';
+import { UserAlgolia } from '@pang/interface';
 
 @Component({
   selector: 'pang-map',
@@ -29,7 +30,6 @@ export class MapComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.sLatitude = params.sLatitude;
       this.sLongitude = params.sLongitude;
-      console.log(this.sLatitude, this.sLongitude);
     });
   }
 }

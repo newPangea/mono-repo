@@ -1,9 +1,12 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { UserService } from '@pang/core';
 import { User } from '@pang/interface';
-import * as d3 from 'd3';
+
 import { Subscription } from 'rxjs';
+
+import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import * as versor from 'versor';
 

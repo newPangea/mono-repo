@@ -1,9 +1,13 @@
 /// <reference types="@types/googlemaps" />
-import { MapsAPILoader } from '@agm/core';
 import { OnInit, Component, NgZone, Input, OnDestroy, OnChanges } from '@angular/core';
-import { UserService } from '@pang/core';
+
 import { User } from '@pang/interface';
+import { UserService } from '@pang/core';
+
+import { MapsAPILoader } from '@agm/core';
+
 import { Subscription } from 'rxjs';
+
 import { mapStyle } from '../../../../assets/globe-data/styles';
 
 @Component({
@@ -55,7 +59,6 @@ export class MapViewComponent implements OnInit, OnDestroy, OnChanges {
           });
         }
       });
-      console.log(this.locations);
     });
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {

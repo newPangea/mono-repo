@@ -29,7 +29,6 @@ export class BottomMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.hide = HIDDEN_SECTIONS.bottomMenuFilter;
-    console.log(this.hide);
     this.$notification = this.connection
       .getPendingConnections()
       .pipe(map((connections) => connections.length));

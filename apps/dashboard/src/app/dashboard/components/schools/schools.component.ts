@@ -141,20 +141,10 @@ export class SchoolsComponent implements OnInit, OnDestroy {
   getAddress(latitude: number, longitude: number) {
     this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
-        for (let i = 0; i < results.length; i++) {
-          const result = results[i];
-          for (let j = 0; j < result.address_components.length; j++) {
-            const element = result.address_components[j];
-            if (element.types.includes('locality')) {
-              console.log(i, j);
-            }
-          }
-        }
         if (results[0]) {
           this.zoom = 18;
           this.addres = results[0].formatted_address;
           this.city = results[0].address_components[3].long_name;
-          console.log(results);
           this.progress = false;
         } else {
           window.alert('No results found');
