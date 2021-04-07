@@ -1,4 +1,8 @@
 @import 'global.scss';
+:host {
+  display: block;
+  height: 100%;
+}
 
 svg {
   margin-left: auto;

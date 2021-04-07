@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConnectionService } from '@pang/core';
+
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { select, State } from '@ngrx/store';
+
+import { AppState } from '@pang/mobile/app/state/app.state';
+import { selectConnectionNotification } from '@pang/mobile/app/state/connection/connection.selectors';
 
 @Component({
   selector: 'pang-bottom-menu',
@@ -12,11 +16,11 @@ import { Observable } from 'rxjs';
 export class BottomMenuComponent implements OnInit {
   $notification: Observable<number>;
 
-  constructor(private snackBar: MatSnackBar, private connection: ConnectionService) {}
+  constructor(private snackBar: MatSnackBar, private state: State<AppState>) {}
 
   ngOnInit(): void {
-    this.$notification = this.connection
-      .getPendingConnections()
+    this.$notification = this.state
+      .pipe(select(selectConnectionNotification))
       .pipe(map((connections) => connections.length));
   }
 

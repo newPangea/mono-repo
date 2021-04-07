@@ -2,8 +2,14 @@
 
 $circleSize: 596px;
 
+.content {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto max-content;
+}
+
 .user {
-  min-height: 100vh;
+  min-height: 100%;
   position: relative;
   display: block;
   background-image: linear-gradient(to bottom, $neon-blue, $primary);

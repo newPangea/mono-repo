@@ -13,12 +13,12 @@ export const environment = {
     appId: '1:589660899480:web:8d774b0e73e6004c6328ed',
     measurementId: 'G-EFG3311SJH',
   },
-  emulate: true,
+  emulate: false,
   algolia: {
     apiKey: 'e5336aaf9c29f80fdebd97748ccfeb4c',
     appId: '97BKXDYV1A',
   },
-  userAlgoliaIndex: 'dev_USER',
+  userAlgoliaIndex: 'qa_USER',
 };
 
 /*

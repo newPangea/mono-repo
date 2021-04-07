@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '@pang/core';
 import { User } from '@pang/interface';
 import * as d3 from 'd3';
@@ -97,7 +97,7 @@ export class GlobeComponent implements OnInit, OnDestroy {
   isLoading;
   hidden = true;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private elRef: ElementRef<HTMLDivElement>) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -160,7 +160,7 @@ export class GlobeComponent implements OnInit, OnDestroy {
 
   scale() {
     this.width = document.documentElement.clientWidth;
-    this.height = document.documentElement.clientHeight;
+    this.height = this.elRef.nativeElement.clientHeight - 10;
     this.canvas.attr('width', this.width).attr('height', this.height);
     this.projection
       .scale((this.scaleFactor * Math.min(this.width - 20, this.height - 20)) / 2)
@@ -187,12 +187,30 @@ export class GlobeComponent implements OnInit, OnDestroy {
   render(land) {
     this.path.pointRadius((this.scaleFactor * Math.min(this.width - 20, this.height - 100)) / 30);
     this.context.clearRect(0, 0, this.width, this.height);
-    this.context.beginPath(), this.path(this.water), (this.context.fillStyle = '#00d8f9'), this.context.fill();
-    this.context.beginPath(), this.path(land), (this.context.fillStyle = '#00b0f0'), this.context.fill();
-    this.context.beginPath(), this.path(land), (this.context.strokeStyle = '#00d8f9'), this.context.stroke();
-    this.context.beginPath(), this.path(land), (this.context.strokeWidth = 20), this.context.stroke();
-    this.context.beginPath(), this.path(this.coords), (this.context.fillStyle = '#ff7c00'), this.context.fill();
-    this.context.beginPath(), this.path(this.coords), (this.context.strokeStyle = 'white'), this.context.stroke();
+    this.context.beginPath(),
+      this.path(this.water),
+      (this.context.fillStyle = '#00d8f9'),
+      this.context.fill();
+    this.context.beginPath(),
+      this.path(land),
+      (this.context.fillStyle = '#00b0f0'),
+      this.context.fill();
+    this.context.beginPath(),
+      this.path(land),
+      (this.context.strokeStyle = '#00d8f9'),
+      this.context.stroke();
+    this.context.beginPath(),
+      this.path(land),
+      (this.context.strokeWidth = 20),
+      this.context.stroke();
+    this.context.beginPath(),
+      this.path(this.coords),
+      (this.context.fillStyle = '#ff7c00'),
+      this.context.fill();
+    this.context.beginPath(),
+      this.path(this.coords),
+      (this.context.strokeStyle = 'white'),
+      this.context.stroke();
   }
 
   drag(projection) {

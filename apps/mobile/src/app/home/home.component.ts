@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { Router } from '@angular/router';
 import { UserAlgolia } from '@pang/interface';
@@ -11,10 +11,10 @@ const { Device, PushNotifications, Modals } = Plugins;
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private routrer: Router) {}
+  constructor(private router: Router) {}
 
   goToUser(user: UserAlgolia) {
-    this.routrer.navigate(['/home/user/', user.uid]);
+    this.router.navigate(['/home/user/', user.uid]);
   }
 
   ngOnInit(): void {
