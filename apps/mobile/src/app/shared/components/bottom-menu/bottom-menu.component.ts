@@ -18,7 +18,7 @@ import { ProfileComponent } from '../../modals/profile/profile.component';
 })
 export class BottomMenuComponent implements OnInit {
   $notification: Observable<number>;
-  hide;
+  hide: boolean;
 
   constructor(
     private snackBar: MatSnackBar,

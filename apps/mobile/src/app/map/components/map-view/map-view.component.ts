@@ -1,14 +1,16 @@
 /// <reference types="@types/googlemaps" />
-import { OnInit, Component, NgZone, Input, OnDestroy, OnChanges } from '@angular/core';
+import { OnInit, Component, Input, OnDestroy, OnChanges } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { User } from '@pang/interface';
 import { UserService } from '@pang/core';
+import { mapStyle } from '@pang/const';
 
 import { MapsAPILoader } from '@agm/core';
 
 import { Subscription } from 'rxjs';
 
-import { mapStyle } from '../../../../assets/globe-data/styles';
+mapStyle;
 
 @Component({
   selector: 'pang-map-view',
@@ -28,7 +30,7 @@ export class MapViewComponent implements OnInit, OnDestroy, OnChanges {
   progress = false;
   addres: string;
   city: string;
-  locations;
+  locations: { lat: number; lng: number }[];
 
   styles = mapStyle;
 
@@ -36,8 +38,8 @@ export class MapViewComponent implements OnInit, OnDestroy, OnChanges {
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,
     private userService: UserService,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnChanges() {
@@ -60,16 +62,19 @@ export class MapViewComponent implements OnInit, OnDestroy, OnChanges {
         }
       });
     });
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder();
-    });
+    this.initPlacesAutocomplete();
   }
 
   ngOnDestroy() {
     if (this.usersSubscription) {
       this.usersSubscription.unsubscribe();
     }
+  }
+
+  initPlacesAutocomplete() {
+    this.mapsAPILoader.load().then(() => {
+      this.geoCoder = new google.maps.Geocoder();
+    });
   }
 
   getAddress(latitude: number, longitude: number) {
@@ -81,11 +86,19 @@ export class MapViewComponent implements OnInit, OnDestroy, OnChanges {
           this.city = results[0].address_components[3].long_name;
           this.progress = false;
         } else {
-          window.alert('No results found');
+          this.snackBar.open(
+            'We couldn’t find results for your search, Try again using other keywords',
+            'close',
+            { duration: 2000 },
+          );
         }
       } else {
         this.progress = false;
-        window.alert('Geocoder failed due to: ' + status);
+        this.snackBar.open(
+          'Something went wrong fletching the information, please try again',
+          'close',
+          { duration: 2000 },
+        );
       }
     });
   }

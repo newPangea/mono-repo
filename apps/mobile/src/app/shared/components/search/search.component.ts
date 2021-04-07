@@ -37,7 +37,7 @@ export class SearchComponent implements AfterViewInit {
   openList = false;
   topPosition: number;
   isFocus = false;
-  hide;
+  hide: boolean;
 
   constructor(
     private algoliaService: AlgoliaService,

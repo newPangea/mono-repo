@@ -10,6 +10,7 @@ import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { MapComponent } from './map.component';
 import { MapViewComponent } from './components/map-view/map-view.component';
 import { SharedModule } from '../shared/shared.module';
+import { environment } from '@pang/mobile/environments/environment';
 
 const routes: Routes = [{ path: '', component: MapComponent }];
 
@@ -17,7 +18,7 @@ const routes: Routes = [{ path: '', component: MapComponent }];
   declarations: [MapComponent, MapViewComponent],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC9aRHf8SS9ZQ2kLESnX1RqJmbxFmkYZco&libraries=places',
+      apiKey: environment.agmapKey,
     }),
     AgmJsMarkerClustererModule,
     CommonModule,

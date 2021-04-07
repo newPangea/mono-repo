@@ -14,7 +14,6 @@ const { Device, PushNotifications, Modals } = Plugins;
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  //test: string;
   @Output() user: User;
   school: School;
 

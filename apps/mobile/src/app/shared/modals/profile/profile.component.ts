@@ -32,7 +32,11 @@ export class ProfileComponent implements OnInit {
     },
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
+    this.getUserInfo();
+  }
+
+  async getUserInfo() {
     const user = await this.auth.currentUser;
     this.user$ = this.fireStore
       .collection<User>(FIRESTORE_COLLECTION.user)

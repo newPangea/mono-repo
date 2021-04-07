@@ -10,8 +10,8 @@ import { UserAlgolia } from '@pang/interface';
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
-  sLongitude;
-  sLatitude;
+  sLongitude: number;
+  sLatitude: number;
   school: School;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
