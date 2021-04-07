@@ -6,6 +6,7 @@ import { ProfileComponent } from '../../modals/profile/profile.component';
 import { ConnectionService } from '@pang/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { HIDDEN_SECTIONS } from '@pang/const';
 
 @Component({
   selector: 'pang-bottom-menu',
@@ -14,6 +15,7 @@ import { Observable } from 'rxjs';
 })
 export class BottomMenuComponent implements OnInit {
   $notification: Observable<number>;
+  hide;
 
   constructor(
     private snackBar: MatSnackBar,
@@ -23,6 +25,8 @@ export class BottomMenuComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.hide = HIDDEN_SECTIONS.bottomMenuFilter;
+    console.log(this.hide);
     this.$notification = this.connection
       .getPendingConnections()
       .pipe(map((connections) => connections.length));
