@@ -47,7 +47,7 @@ export class BottomMenuComponent implements OnInit {
 
   openProfile() {
     this.bottomSheet.open(ProfileComponent, {
-      panelClass: 'bottom_modal',
+      panelClass: 'profile_sheet',
       data: {
         user: 'user data',
       },
