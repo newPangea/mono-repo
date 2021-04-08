@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UserService } from '@pang/core';
@@ -103,7 +103,11 @@ export class GlobeComponent implements OnInit, OnDestroy, OnChanges {
   isLoading;
   hidden = true;
 
-  constructor(private userService: UserService, private routrer: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private elRef: ElementRef<HTMLDivElement>,
+  ) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -150,7 +154,7 @@ export class GlobeComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges() {
     if (this.user) {
-      this.routrer.navigate(['/home/user/', this.user.uid]);
+      this.router.navigate(['/home/user/', this.user.uid]);
     }
   }
 
@@ -164,7 +168,7 @@ export class GlobeComponent implements OnInit, OnDestroy, OnChanges {
 
   scale() {
     this.width = document.documentElement.clientWidth;
-    this.height = document.documentElement.clientHeight;
+    this.height = this.elRef.nativeElement.clientHeight - 10;
     this.canvas.attr('width', this.width).attr('height', this.height);
     this.projection
       .scale((this.scaleFactor * Math.min(this.width - 20, this.height - 20)) / 2)

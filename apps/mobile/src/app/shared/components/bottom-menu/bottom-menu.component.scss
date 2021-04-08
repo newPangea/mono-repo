@@ -1,12 +1,10 @@
 @import 'global';
 
 :host {
-  position: absolute;
-  bottom: 0;
-  left: 0;
   display: block;
-  width: 100%;
+  width: 100vw;
   height: 60px;
+  position: relative;
 }
 
 .menu-container {
@@ -27,8 +25,8 @@
   border-radius: 50%;
   background-image: linear-gradient(to bottom, #00d8f9, $primary);
   position: absolute;
-  bottom: 24px;
-  left: calc(50vw - 33px);
+  bottom: 25px;
+  left: calc(50% - 33px);
   @include noselect;
 }
 

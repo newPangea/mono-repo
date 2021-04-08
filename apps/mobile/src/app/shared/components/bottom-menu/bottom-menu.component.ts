@@ -3,11 +3,14 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-import { ConnectionService } from '@pang/core';
 import { HIDDEN_SECTIONS } from '@pang/const';
 
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { select, State } from '@ngrx/store';
+
+import { AppState } from '@pang/mobile/app/state/app.state';
+import { selectConnectionNotification } from '@pang/mobile/app/state/connection/connection.selectors';
 
 import { ProfileComponent } from '../../modals/profile/profile.component';
 
@@ -21,16 +24,16 @@ export class BottomMenuComponent implements OnInit {
   hide: boolean;
 
   constructor(
-    private snackBar: MatSnackBar,
-    private connection: ConnectionService,
-    private router: Router,
     private bottomSheet: MatBottomSheet,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private state: State<AppState>,
   ) {}
 
   ngOnInit(): void {
     this.hide = HIDDEN_SECTIONS.bottomMenuFilter;
-    this.$notification = this.connection
-      .getPendingConnections()
+    this.$notification = this.state
+      .pipe(select(selectConnectionNotification))
       .pipe(map((connections) => connections.length));
   }
 

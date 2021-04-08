@@ -7,15 +7,13 @@
 
 <mat-spinner style="margin: auto" *ngIf="load"></mat-spinner>
 
-<ng-container *ngIf="$pendingConnection | async; let pendingConnection">
-  <div *ngIf="pendingConnection.length == 0">
-    <p class="body notification-empty">No notifications already</p>
-  </div>
+<div *ngIf="pendingConnection.length == 0">
+  <p class="body notification-empty">No notifications already</p>
+</div>
 
-  <pang-connection-card
-    *ngFor="let request of pendingConnection; let odd = odd"
-    [connection]="request"
-    [class.odd]="odd"
-    (acceptRequest)="validateRequest($event, request)"
-  ></pang-connection-card>
-</ng-container>
+<pang-connection-card
+  *ngFor="let request of pendingConnection; let odd = odd; trackBy: trackByFn"
+  [connection]="request"
+  [class.odd]="odd"
+  (acceptRequest)="validateRequest($event, request)"
+></pang-connection-card>

@@ -1,19 +1,15 @@
 @import 'global';
 
+.home {
+  height: 100vh;
+  background: $primary;
+  padding-top: unquote('env(safe-area-inset-top)');
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto max-content;
+}
+
 .container {
   background-image: radial-gradient(circle at 50% 50%, white 36%, #00d8f9 50%, #00b0f0 100%);
   position: relative;
-}
-:host {
-  display: block;
-  padding-top: unquote('env(safe-area-inset-top)');
-  background: #00b0f0;
-  height: 100vh;
-  box-sizing: border-box;
-  position: fixed;
-}
-
-.bottom-manu {
-  position: absolute;
-  bottom: 0;
 }

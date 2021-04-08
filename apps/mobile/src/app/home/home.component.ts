@@ -1,7 +1,6 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { Component, OnInit } from '@angular/core';
 import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
 
 import { User, UserAlgolia } from '@pang/interface';
 import { School } from '@pang/models';
@@ -14,7 +13,7 @@ const { Device, PushNotifications, Modals } = Plugins;
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  @Output() user: User;
+  user: User;
   school: School;
 
   constructor(private router: Router) {}
