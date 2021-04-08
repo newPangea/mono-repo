@@ -1,9 +1,12 @@
 <div class="home">
   <div class="container">
     <div class="search">
-      <pang-search (userSelect)="goToUser($event)"></pang-search>
+      <pang-search
+        (userSelect)="goToUser($event)"
+        (schoolSelect)="goToSchool($event)"
+      ></pang-search>
     </div>
-    <pang-globe></pang-globe>
+    <pang-globe [user]="user"></pang-globe>
   </div>
 
   <div class="bottom-menu">

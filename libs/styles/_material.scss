@@ -17,7 +17,8 @@
   border-color: $alert;
 }
 
-.mat-form-field-appearance-fill.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+.mat-form-field-appearance-fill.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label {
   transform: translateY(-0.59375em) scale(0.6);
 }
 
@@ -53,4 +54,9 @@ mat-drawer-container {
 .mat-chip.mat-standard-chip.mat-chip-selected.mat-accent {
   background-color: $secondary;
   color: $white;
+}
+
+.profile_sheet {
+  border-radius: 15px 15px 0 0;
+  padding: 26px !important;
 }

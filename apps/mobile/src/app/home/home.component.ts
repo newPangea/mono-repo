@@ -1,7 +1,10 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { Plugins } from '@capacitor/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserAlgolia } from '@pang/interface';
+
+import { Plugins } from '@capacitor/core';
+
+import { User, UserAlgolia } from '@pang/interface';
+import { School } from '@pang/models';
 
 const { Device, PushNotifications, Modals } = Plugins;
 
@@ -11,10 +14,23 @@ const { Device, PushNotifications, Modals } = Plugins;
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  user: User;
+  school: School;
+
   constructor(private router: Router) {}
 
   goToUser(user: UserAlgolia) {
-    this.router.navigate(['/home/user/', user.uid]);
+    this.user = user;
+  }
+
+  goToSchool(school: School) {
+    this.school = school;
+    this.router.navigate(['map'], {
+      queryParams: {
+        sLatitude: this.school.latitude,
+        sLongitude: this.school.longitude,
+      },
+    });
   }
 
   ngOnInit(): void {
