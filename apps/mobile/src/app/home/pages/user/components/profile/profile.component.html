@@ -44,16 +44,27 @@
       </div>
     </div>
 
-    <div class="user-action user-resources level1">
+    <div class="user-action user-resources">
       <div class="user-action__data hideZoom">
-        <img src="assets/img/icon-connections.svg" alt="connection" />
+        <pang-icon class="icons" url="assets/img/resource.svg" name="resources"></pang-icon>
         <span class="user-action__text">Resources</span>
       </div>
+
+      <pang-resources
+        @root
+        *ngIf="showLevel1"
+        [scaleFactor]="scaleFactor"
+        [maxScale]="this.level1"
+      ></pang-resources>
     </div>
 
-    <div class="user-action user-connection level1">
+    <div class="user-action user-connection">
       <div class="user-action__data hideZoom">
-        <img src="assets/img/icon-connections.svg" alt="connection" />
+        <pang-icon
+          class="icons"
+          url="assets/img/icon-connections.svg"
+          name="connection"
+        ></pang-icon>
         <span class="user-action__text">Connections</span>
       </div>
     </div>

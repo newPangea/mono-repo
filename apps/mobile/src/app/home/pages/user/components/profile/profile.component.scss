@@ -97,6 +97,8 @@ $circleSize: 596px;
       gap: 13px;
       justify-items: center;
       transform: translate(0px, 14px);
+      position: absolute;
+      width: 100%;
     }
 
     &__text {
@@ -130,4 +132,9 @@ $circleSize: 596px;
     top: 350px;
     right: 25px;
   }
+}
+
+.icons {
+  --icon-size: 60px;
+  color: $white;
 }

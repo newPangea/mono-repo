@@ -13,21 +13,25 @@ import * as d3 from 'd3';
 import * as d3Zoom from 'd3-zoom';
 import { Hit } from '@algolia/client-search';
 import { Subscription } from 'rxjs';
-import { ScaleLinear, ZoomBehavior, ZoomedElementBaseType } from 'd3';
+import { BaseType, ScaleLinear, ZoomBehavior, ZoomedElementBaseType } from 'd3';
 import { first, switchMap } from 'rxjs/operators';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ConnectionInterface, UserAlgolia } from '@pang/interface';
 import { ConnectionService, UserService } from '@pang/core';
 import { ConnectionStatus } from '@pang/const';
-import { circleAnimation2, info } from '@pang/mobile/app/home/pages/user/user.animation';
+import {
+  circleAnimation2,
+  info,
+  resourceAnimation,
+} from '@pang/mobile/app/home/pages/user/user.animation';
 import { codeToName } from '@pang/utils';
 
 @Component({
   selector: 'pang-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
-  animations: [circleAnimation2, info],
+  animations: [circleAnimation2, info, resourceAnimation],
 })
 export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() user: Hit<UserAlgolia>;
@@ -35,6 +39,8 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   connection: ConnectionInterface;
   request: ConnectionInterface;
+  showLevel1 = false;
+  scaleFactor = 1;
 
   private group: d3.Selection<HTMLDivElement, unknown, null, undefined>;
   private height: number;
@@ -43,9 +49,10 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
   private zoom: ZoomBehavior<ZoomedElementBaseType, unknown>;
   private subscribe: Subscription;
 
-  private readonly level1 = 5;
+  readonly level1 = 5;
   private readonly zoomLimit: [number, number] = [1, 10];
   private readonly opacityScale: ScaleLinear<number, number, never>;
+  private readonly deltaLevel = 1;
 
   constructor(
     private userService: UserService,
@@ -83,7 +90,7 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
       .on('zoom', this.zoomed.bind(this));
 
     this.group
-      .selectAll('.level1')
+      .selectAll('.user-action')
       .on('click', (element) => this.zoomToElement(element, this.level1));
 
     this.root.call(this.zoom);
@@ -119,8 +126,13 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
       'transform',
       `translate(${transform.x}px, ${transform.y}px) scale(${transform.k})`,
     );
+    this.group
+      .selectAll('.hideZoom')
+      .style('opacity', this.opacityScale(transform.k))
+      .style('display', () => (transform.k + this.deltaLevel >= this.level1 ? 'none' : ''));
 
-    this.group.selectAll('.hideZoom').style('opacity', this.opacityScale(transform.k));
+    this.showLevel1 = transform.k + this.deltaLevel >= this.level1;
+    this.scaleFactor = transform.k;
   }
 
   reset() {
@@ -177,5 +189,11 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   get nameCode() {
     return this.user ? codeToName(this.user.code) : '';
+  }
+
+  get level1Style() {
+    return {
+      'transform-origin': 'left top',
+    };
   }
 }
