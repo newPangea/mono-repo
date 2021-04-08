@@ -7,10 +7,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 
+import { environment } from '@pang/mobile/environments/environment';
+
 import { MapComponent } from './map.component';
 import { MapViewComponent } from './components/map-view/map-view.component';
 import { SharedModule } from '../shared/shared.module';
-import { environment } from '@pang/mobile/environments/environment';
 
 const routes: Routes = [{ path: '', component: MapComponent }];
 

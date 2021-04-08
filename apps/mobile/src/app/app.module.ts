@@ -55,6 +55,11 @@ const routes: Routes = [
     canActivate: [IsUserCompleteGuard],
   },
   {
+    path: 'map',
+    loadChildren: () => import('./map/map.module').then((m) => m.MapModule),
+    canActivate: [IsUserCompleteGuard],
+  },
+  {
     path: '',
     redirectTo: 'welcome',
     pathMatch: 'full',

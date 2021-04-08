@@ -2,13 +2,16 @@
 
 .container {
   background-color: #00b0f0;
-  height: 100vh;
-  position: relative;
+  height: 100%;
 }
-:host {
-  display: block;
+
+.map {
+  height: 100vh;
+  background: $primary;
   padding-top: unquote('env(safe-area-inset-top)');
-  position: fixed;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto max-content;
 }
 
 .search {

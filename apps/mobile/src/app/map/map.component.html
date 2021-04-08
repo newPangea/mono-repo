@@ -1,7 +1,15 @@
-<div class="container">
-  <div class="search">
-    <pang-search (userSelect)="goToUser($event)" (schoolSelect)="goToSchool($event)"></pang-search>
+<div class="map">
+  <div class="container">
+    <div class="search">
+      <pang-search
+        (userSelect)="goToUser($event)"
+        (schoolSelect)="goToSchool($event)"
+      ></pang-search>
+    </div>
+    <pang-map-view [sLatitude]="sLatitude" [sLongitude]="sLongitude"></pang-map-view>
   </div>
-  <pang-map-view [sLatitude]="sLatitude" [sLongitude]="sLongitude"></pang-map-view>
-  <pang-bottom-menu></pang-bottom-menu>
+
+  <div class="bottom-menu">
+    <pang-bottom-menu></pang-bottom-menu>
+  </div>
 </div>

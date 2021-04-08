@@ -4,3 +4,8 @@ agm-map {
   width: 100vw;
   height: 100%;
 }
+
+:host {
+  display: block;
+  height: 100%;
+}
