@@ -1,18 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { UiModule } from '@pang/ui';
-import { FormsModule } from '@angular/forms';
-import { GlobeComponent } from './components/globe/globe.component';
 import { IonicModule } from '@ionic/angular';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { UiModule } from '@pang/ui';
+
+import { GlobeComponent } from './components/globe/globe.component';
+import { HomeComponent } from './home.component';
+import { HomeRoutingModule } from './home-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
@@ -21,16 +23,17 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
   declarations: [HomeComponent, GlobeComponent],
   imports: [
     CommonModule,
-    HomeRoutingModule,
-    RouterModule.forChild(routes),
-    MatInputModule,
-    MatIconModule,
-    UiModule,
     FormsModule,
+    HomeRoutingModule,
     IonicModule,
+    MatBottomSheetModule,
+    MatIconModule,
+    MatInputModule,
     MatProgressBarModule,
     MatSnackBarModule,
+    RouterModule.forChild(routes),
     SharedModule,
+    UiModule,
   ],
 })
 export class HomeModule {}

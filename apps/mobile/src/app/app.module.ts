@@ -9,13 +9,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 import { IonicModule } from '@ionic/angular';
-
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+
+import { environment } from '@pang/mobile/environments/environment';
 
 import { AlgoliaModule } from '@pang/algolia';
 import {
@@ -25,7 +27,6 @@ import {
 import { ConnectionEffects } from '@pang/mobile/app/state/connection/connection.effects';
 import { CoreModule } from '@pang/core';
 import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.guard';
-import { environment } from '@pang/mobile/environments/environment';
 
 import { AppComponent } from './app.component';
 
@@ -54,6 +55,11 @@ const routes: Routes = [
     canActivate: [IsUserCompleteGuard],
   },
   {
+    path: 'map',
+    loadChildren: () => import('./map/map.module').then((m) => m.MapModule),
+    canActivate: [IsUserCompleteGuard],
+  },
+  {
     path: '',
     redirectTo: 'welcome',
     pathMatch: 'full',
@@ -73,6 +79,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     BrowserModule,
     CoreModule,
+    MatIconModule,
     EffectsModule.forRoot([ConnectionEffects]),
     HttpClientModule,
     IonicModule.forRoot(),

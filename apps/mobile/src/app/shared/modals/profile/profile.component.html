@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="secuential">
+    <p class="name">{{ user?.name }}</p>
+    <p (click)="soon()" class="photoAction">Change image</p>
+  </div>
+  <div class="schoolInfo">
+    <div class="secuential2">
+      <p class="schoolData">
+        <pang-icon class="icons" url="/assets/icons/icon-pin-active.svg" name="pin"></pang-icon>
+        {{ address ? address[address.length - 2] : '' }},
+        {{ address ? address[address.length - 1] : '' }}
+      </p>
+      <p class="schoolData">
+        <pang-icon
+          class="icons"
+          url="/assets/icons/icon-school-active.svg"
+          name="school"
+        ></pang-icon>
+        {{ user?.school.name }}
+      </p>
+    </div>
+    <div class="secuential2">
+      <p class="schoolData">
+        <pang-icon class="icons" url="/assets/icons/icon-mail.svg" name="mail"></pang-icon>
+        {{ user?.email }}
+      </p>
+      <p class="schoolData">
+        <pang-icon class="icons" url="/assets/icons/icon-code.svg" name="code"></pang-icon>
+        {{ user?.code }}
+      </p>
+    </div>
+  </div>
+  <hr class="line" />
+  <div class="secuential">
+    <p class="name">About {{ firstName ? firstName[0] : '' }}</p>
+    <p (click)="soon()" class="photoAction">Edit information</p>
+  </div>
+  <p class="bio">
+    {{ user?.bio }}
+  </p>
+  <hr class="line" />
+  <button class="logout-button" (click)="logout()">
+    <pang-icon class="icons" url="/assets/icons/icon-logout.svg" name="logout"></pang-icon>
+    Log out
+  </button>
+</div>

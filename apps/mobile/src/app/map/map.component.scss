@@ -1,0 +1,25 @@
+@import 'global';
+
+.container {
+  background-color: #00b0f0;
+  height: 100%;
+}
+
+.map {
+  height: 100vh;
+  background: $primary;
+  padding-top: unquote('env(safe-area-inset-top)');
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto max-content;
+}
+
+.search {
+  position: relative;
+  z-index: 1;
+}
+
+.bottom-menu {
+  position: absolute;
+  bottom: 0;
+}

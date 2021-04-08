@@ -9,11 +9,16 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+
 import { AlgoliaService } from '@pang/algolia';
-import { UserAlgolia } from '@pang/interface';
-import { Hit } from '@algolia/client-search';
-import { positionSearch } from './search.animation';
 import { environment } from '@pang/mobile/environments/environment';
+import { School } from '@pang/models';
+import { UserAlgolia } from '@pang/interface';
+
+import { Hit } from '@algolia/client-search';
+
+import { positionSearch } from './search.animation';
+import { HIDDEN_SECTIONS } from '@pang/const';
 
 @Component({
   selector: 'pang-search',
@@ -25,12 +30,14 @@ import { environment } from '@pang/mobile/environments/environment';
 export class SearchComponent implements AfterViewInit {
   @ViewChild('input') inputElement: ElementRef<HTMLInputElement>;
   @Output() userSelect = new EventEmitter<UserAlgolia>();
+  @Output() schoolSelect = new EventEmitter<School>();
 
   hits: Array<Hit<UserAlgolia>> = [];
   searchText: string;
   openList = false;
   topPosition: number;
   isFocus = false;
+  hide: boolean;
 
   constructor(
     private algoliaService: AlgoliaService,
@@ -39,6 +46,7 @@ export class SearchComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
+    this.hide = HIDDEN_SECTIONS.bottomMenuFilter;
     this.calculateDistance();
   }
 

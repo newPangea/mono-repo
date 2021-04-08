@@ -38,13 +38,12 @@ svg {
   }
 }
 
-.loginContainer {
-  position: absolute;
-  width: 100%;
+.loadingContainer {
+  width: 100vw;
   top: 0;
   left: 0;
   display: flex;
-  height: 100vh;
+  height: 100%;
   align-items: center;
   justify-content: center;
 }

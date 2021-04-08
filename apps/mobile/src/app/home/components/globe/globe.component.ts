@@ -1,8 +1,12 @@
-import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { UserService } from '@pang/core';
 import { User } from '@pang/interface';
-import * as d3 from 'd3';
+
 import { Subscription } from 'rxjs';
+
+import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import * as versor from 'versor';
 
@@ -11,7 +15,9 @@ import * as versor from 'versor';
   templateUrl: './globe.component.html',
   styleUrls: ['./globe.component.scss'],
 })
-export class GlobeComponent implements OnInit, OnDestroy {
+export class GlobeComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() user: User;
+
   usersSubscription: Subscription;
   users: User[] = [];
   schoolLocations: any[];
@@ -97,7 +103,11 @@ export class GlobeComponent implements OnInit, OnDestroy {
   isLoading;
   hidden = true;
 
-  constructor(private userService: UserService, private elRef: ElementRef<HTMLDivElement>) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private elRef: ElementRef<HTMLDivElement>,
+  ) {}
 
   ngOnInit() {
     this.isLoading = true;
@@ -142,12 +152,10 @@ export class GlobeComponent implements OnInit, OnDestroy {
     });
   }
 
-  //setting functions for 3d globe
-  enter(country) {
-    country = this.countryList.find(function (c) {
-      return parseInt(c.id, 10) === parseInt(country.id, 10);
-    });
-    this.current.text((country && country.name) || '');
+  ngOnChanges() {
+    if (this.user) {
+      this.router.navigate(['/home/user/', this.user.uid]);
+    }
   }
 
   setAngles() {

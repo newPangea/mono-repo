@@ -1,0 +1,61 @@
+@import 'global';
+
+.secuential {
+  display: grid;
+  grid-gap: 15px;
+  margin-bottom: 0px;
+  grid-template-columns: 70% 30%;
+}
+
+.secuential2 {
+  display: grid;
+  grid-gap: 5px;
+  margin-bottom: 4px;
+  grid-template-columns: 50% 50%;
+}
+
+.name {
+  @include text($subtitleSize, $gray, bold);
+  margin: 19px 10px 16px 2px;
+  padding: 6px 0;
+}
+
+.photoAction {
+  @include text($captionSize, $blue3, 500);
+  margin: 26px 20px 16px 2px;
+  padding: 6px 0;
+  text-align: right;
+  text-decoration: underline;
+}
+
+.schoolData {
+  @include text($captionSize, $gray, 500);
+  margin-bottom: 5px;
+  margin-top: 0px;
+}
+
+.icons {
+  --icon-size: 16px;
+  --vertical-align: bottom;
+}
+
+.line {
+  margin: 15px 10px 0 0;
+  border: solid 1px #cecece;
+}
+
+.bio {
+  @include text($captionSize, $gray7, 500);
+  margin: 12px 10px 16px 0;
+  text-align: justify;
+}
+
+.logout-button {
+  @include text($body2Size, $red, 500);
+  margin-top: 17px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  background-color: transparent;
+}

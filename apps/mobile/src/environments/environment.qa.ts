@@ -14,6 +14,7 @@ export const environment = {
     measurementId: 'G-EFG3311SJH',
   },
   emulate: false,
+  agmapKey: 'AIzaSyC9aRHf8SS9ZQ2kLESnX1RqJmbxFmkYZco&libraries=places',
   algolia: {
     apiKey: 'e5336aaf9c29f80fdebd97748ccfeb4c',
     appId: '97BKXDYV1A',

@@ -1,0 +1,17 @@
+<agm-map
+  [latitude]="latitude"
+  [longitude]="longitude"
+  [zoom]="zoom"
+  [disableDefaultUI]="true"
+  [styles]="styles"
+>
+  <agm-marker-cluster
+    imagePath="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m"
+  >
+    <agm-marker
+      *ngFor="let item of locations"
+      [latitude]="item.lat"
+      [longitude]="item.lng"
+    ></agm-marker>
+  </agm-marker-cluster>
+</agm-map>
