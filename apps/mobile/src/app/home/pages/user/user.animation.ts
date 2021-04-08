@@ -18,11 +18,11 @@ export const circleAnimation2 = trigger('circles', [
       ]),
       query('.circle', [
         style({ opacity: 0, transform: 'scale(0)' }),
-        stagger(600, [animate('0.6s ease-out', style({ opacity: 1, transform: 'scale(1)' }))]),
+        stagger(400, [animate('0.4s ease-out', style({ opacity: 1, transform: 'scale(1)' }))]),
       ]),
-      query('@info', [stagger(300, [animate(600, style({ opacity: 1 }))])]),
+      query('@info', [stagger(400, [animate(400, style({ opacity: 1 }))])]),
       query('.user-action', [
-        stagger(600, [animate('0.5s ease-out', style({ opacity: 1, transform: 'scale(1)' }))]),
+        stagger(300, [animate('0.4s ease-out', style({ opacity: 1, transform: 'scale(1)' }))]),
       ]),
     ]),
   ]),

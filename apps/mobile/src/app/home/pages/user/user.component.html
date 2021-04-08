@@ -1,65 +1,9 @@
 <div class="content">
-  <div class="user" @circles>
-    <a pangGoBack class="user-back">
-      <img src="assets/img/icon-back.svg" alt="back" />
-    </a>
-
-    <div class="user-spare circle">
-      <div class="user-avatar circle">
-        <pang-avatar-with-label
-          class="user-avatar__image"
-          [size]="94"
-          [userAvatar]="user.imgUrl"
-          *ngIf="user"
-        ></pang-avatar-with-label>
-        <span class="user-badge">
-          {{ nameCode }}
-        </span>
-      </div>
-      <div class="user-options">
-        <p class="user-name" @info>{{ user?.name }}</p>
-        <div class="user-connections" @info>
-          <button pang-flat-button (click)="sendRequest()" *ngIf="!connection && !request">
-            Make connection
-          </button>
-          <button
-            pang-flat-button
-            (click)="cancelRequest()"
-            *ngIf="connection && connection.status == 0 && !request"
-          >
-            Cancel request
-          </button>
-          <span *ngIf="connection && connection.status == 1 && !request" class="text"
-            >Connected</span
-          >
-          <button
-            pang-flat-button
-            (click)="acceptRequest()"
-            *ngIf="request && request.status == 0 && !connection"
-          >
-            Accept request
-          </button>
-          <span *ngIf="request && request.status == 1 && !connection" class="text">Connected</span>
-          <button class="user-option">
-            <img src="assets/img/icon-more-options.svg" />
-          </button>
-        </div>
-        <div class="user-action-content">
-          <div class="user-action">
-            <div class="user-action__data">
-              <img src="assets/img/icon-connections.svg" alt="connection" />
-              <span class="user-action__text">Resources</span>
-            </div>
-          </div>
-          <div class="user-action">
-            <div class="user-action__data">
-              <img src="assets/img/icon-connections.svg" alt="connection" />
-              <span class="user-action__text">Connections</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="user">
+    <button mat-icon-button pangGoBack class="user-back">
+      <pang-icon url="assets/img/icon-back.svg" name="back"></pang-icon>
+    </button>
+    <pang-profile *ngIf="user" [user]="user"></pang-profile>
   </div>
   <pang-bottom-menu></pang-bottom-menu>
 </div>

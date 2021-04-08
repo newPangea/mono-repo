@@ -8,9 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CoreModule } from '@pang/core';
 import { SharedModule } from '../../../shared/shared.module';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
-  declarations: [UserComponent],
+  declarations: [UserComponent, ProfileComponent],
   imports: [
     CommonModule,
     UserRoutingModule,
