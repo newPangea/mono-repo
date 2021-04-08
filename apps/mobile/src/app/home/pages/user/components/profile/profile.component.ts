@@ -13,7 +13,7 @@ import * as d3 from 'd3';
 import * as d3Zoom from 'd3-zoom';
 import { Hit } from '@algolia/client-search';
 import { Subscription } from 'rxjs';
-import { BaseType, ScaleLinear, ZoomBehavior, ZoomedElementBaseType } from 'd3';
+import { ScaleLinear, ZoomBehavior, ZoomedElementBaseType } from 'd3';
 import { first, switchMap } from 'rxjs/operators';
 
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -41,6 +41,7 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
   request: ConnectionInterface;
   showLevel1 = false;
   scaleFactor = 1;
+  uid: string;
 
   private group: d3.Selection<HTMLDivElement, unknown, null, undefined>;
   private height: number;
@@ -61,6 +62,7 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
     private auth: AngularFireAuth,
   ) {
     this.opacityScale = d3.scaleLinear().domain([1, 4]).range([1, 0]);
+    this.auth.currentUser.then((user) => (this.uid = user.uid));
   }
 
   ngOnChanges(): void {
