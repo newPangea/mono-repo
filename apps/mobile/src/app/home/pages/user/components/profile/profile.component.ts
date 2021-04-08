@@ -28,7 +28,7 @@ import {
 import { codeToName } from '@pang/utils';
 
 @Component({
-  selector: 'pang-profile',
+  selector: 'pang-user-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
   animations: [circleAnimation2, info, resourceAnimation],
