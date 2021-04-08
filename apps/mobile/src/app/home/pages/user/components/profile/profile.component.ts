@@ -42,6 +42,8 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
   private width: number;
   private zoom: ZoomBehavior<ZoomedElementBaseType, unknown>;
   private subscribe: Subscription;
+
+  private readonly level1 = 5;
   private readonly zoomLimit: [number, number] = [1, 10];
   private readonly opacityScale: ScaleLinear<number, number, never>;
 
@@ -80,7 +82,9 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
       .scaleExtent(this.zoomLimit)
       .on('zoom', this.zoomed.bind(this));
 
-    this.group.selectAll('.level1').on('click', this.zoomToElement.bind(this));
+    this.group
+      .selectAll('.level1')
+      .on('click', (element) => this.zoomToElement(element, this.level1));
 
     this.root.call(this.zoom);
     this.root.on('click', this.reset.bind(this));
@@ -92,7 +96,7 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
     }
   }
 
-  zoomToElement(event: MouseEvent) {
+  zoomToElement(event: MouseEvent, levelZoom: number) {
     event.stopPropagation();
     const target = event.currentTarget as HTMLDivElement;
     const x = target.offsetLeft + target.offsetWidth / 2;
@@ -105,7 +109,7 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
         this.zoom.transform,
         d3Zoom.zoomIdentity
           .translate(this.width / 2, this.height / 2)
-          .scale(5)
+          .scale(levelZoom)
           .translate(-x, -y),
       );
   }

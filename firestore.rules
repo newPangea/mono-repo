@@ -1,0 +1,24 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /connections/{connection} {
+    	allow write: if resource.data.from == request.auth.uid || resource.data.to == request.auth.uid;
+      allow read, create: if request.auth != null;
+    }
+
+    match /preferences/{document=**} {
+      allow read, write: if request.auth != null;
+    }
+
+    match /schools/{document=**} {
+      allow read, write: if request.auth != null;
+    }
+
+    match /user/{document=**} {
+    	allow write: if resource.data.uid == request.auth.uid;
+      allow read, create: if request.auth != null;
+
+    }
+
+  }
+}

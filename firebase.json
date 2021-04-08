@@ -46,5 +46,9 @@
       "enabled": true,
       "port": 4000
     }
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   }
 }
