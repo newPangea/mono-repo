@@ -11,8 +11,7 @@ import { AddResourceComponent } from '@pang/mobile/app/shared/resources/componen
 export class ResourcesComponent implements OnChanges {
   @Input() scaleFactor = 1;
   @Input() maxScale: number;
-
-  private time: never;
+  @Input() owner: string;
 
   constructor(
     private elementRef: ElementRef<HTMLElement>,
@@ -22,12 +21,7 @@ export class ResourcesComponent implements OnChanges {
 
   ngOnChanges(): void {
     if (this.elementRef && this.scaleFactor > 1) {
-      if (this.time) {
-        clearInterval(this.time);
-      } else {
-        this.scaleComponent();
-      }
-      this.time = setTimeout(() => this.scaleComponent(), 100) as never;
+      this.scaleComponent();
     }
   }
 
@@ -48,10 +42,12 @@ export class ResourcesComponent implements OnChanges {
   }
 
   async addNewFile() {
-    console.log('click here');
     const modal = await this.modalController.create({
       component: AddResourceComponent,
       swipeToClose: true,
+      componentProps: {
+        owner: this.owner,
+      },
     });
     await modal.present();
   }

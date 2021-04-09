@@ -26,8 +26,7 @@
       "@pang/algolia": ["libs/algolia/src/index.ts"]
     },
     "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "types": ["node"]
+    "esModuleInterop": true
   },
   "exclude": ["node_modules", "tmp"]
 }

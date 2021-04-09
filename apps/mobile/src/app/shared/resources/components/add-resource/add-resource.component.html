@@ -44,6 +44,8 @@
         <span>
           <mat-icon style="vertical-align: middle">cloud_upload</mat-icon> Upload document
         </span>
+
+        <div class="load-file" [ngStyle]="{ height: completeUpload + 'px' }"></div>
       </label>
 
       <mat-slide-toggle formControlName="isPublic" color="primary" class="slide">
