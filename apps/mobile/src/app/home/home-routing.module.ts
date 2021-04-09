@@ -14,6 +14,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/notification/notification.module').then((m) => m.NotificationModule),
   },
+  {
+    path: 'community',
+    loadChildren: () => import('./pages/community/community.module').then((m) => m.CommunityModule),
+  },
 ];
 
 @NgModule({

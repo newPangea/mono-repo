@@ -1,4 +1,4 @@
-<div *ngIf="!hide" (click)="soon()" class="float-button preferences">
+<div *ngIf="!hide" class="float-button preferences">
   <img class="icon" src="assets/img/icon-filter.svg" alt="" />
 </div>
 
@@ -16,7 +16,7 @@
 </ng-container>
 
 <div class="menu-container">
-  <img (click)="soon()" class="teams" src="assets/img/icon-teams.svg" alt="" />
+  <img (click)="goToCommunity()" class="teams" src="assets/img/icon-teams.svg" alt="" />
   <img (click)="openProfile()" class="profile" src="assets/img/icon-profile.svg" alt="" />
 </div>
 
