@@ -1,0 +1,22 @@
+@import 'global';
+
+.template {
+  box-sizing: border-box;
+  padding: 64px 16px 31px;
+
+  &-header {
+    padding-bottom: 20px;
+    border-bottom: 1px solid $pinkishGrey;
+
+    .back {
+      @include circle(40px);
+      --icon-size: 30px;
+      color: $gray;
+      margin-right: 10px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      vertical-align: middle;
+    }
+  }
+}

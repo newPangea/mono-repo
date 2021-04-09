@@ -1,0 +1,59 @@
+@import 'global';
+
+:host {
+  display: block;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.fom {
+  display: grid;
+  .space {
+    margin-bottom: 10px;
+  }
+}
+
+.uploadFile {
+  @include body2;
+  color: gray;
+  height: 56px;
+  border-radius: 4px;
+  border: dashed 2px $borderInput;
+  background-color: $greyBackground;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &.update {
+    border-color: $primary;
+    color: $primary;
+  }
+
+  input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    position: absolute;
+  }
+
+  .load-file {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    background: rgba($color: $primary, $alpha: 0.4);
+    transition: height 0.5s ease-in;
+  }
+}
+
+.folder {
+  display: block;
+  --icon-size: 114px;
+  margin: 32px 0;
+  text-align: center;
+}
+
+.slide {
+  margin: 24px 0 34px;
+}

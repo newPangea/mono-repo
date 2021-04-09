@@ -1,0 +1,10 @@
+<div class="template">
+  <div class="template-header">
+    <button class="back" mat-ripple (click)="back.emit()">
+      <pang-icon url="assets/img/back.svg" name="back"></pang-icon>
+    </button>
+    <span class="subtitle">{{ title }}</span>
+  </div>
+
+  <ng-content select="[body]"></ng-content>
+</div>

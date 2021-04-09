@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="114" height="82" viewBox="0 0 114 82">
+    <defs>
+        <linearGradient id="ma7hqo1j0b" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#7F6472"/>
+            <stop offset="100%" stop-color="#982857"/>
+        </linearGradient>
+        <linearGradient id="rk72qrk7we" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#EC6485"/>
+            <stop offset="100%" stop-color="#C50720"/>
+        </linearGradient>
+        <path id="e1zdriihya" d="M0 0.173L100.996 0.173 100.996 81 0 81z"/>
+        <path id="q6tplxql5d" d="M0 0.002L100.996 0.002 100.996 50 0 50z"/>
+        <filter id="g8q4w6fapg">
+            <feColorMatrix in="SourceGraphic" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"/>
+        </filter>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <g transform="translate(-137 -140) translate(137 140) translate(0 .112)">
+                        <mask id="du6gxf5gvc" fill="#fff">
+                            <use xlink:href="#e1zdriihya"/>
+                        </mask>
+                        <path fill="url(#ma7hqo1j0b)" d="M6.561.173h24.751l8.567 10.41h53.589c3.624 0 6.561 2.96 6.561 6.612l.967 57.192c0 3.652-2.938 6.613-6.561 6.613H6.56C2.938 81 0 78.04 0 74.387V6.786C0 3.134 2.938.173 6.56.173" mask="url(#du6gxf5gvc)"/>
+                    </g>
+                    <path fill="#E2E2E2" d="M15.262 20.112h70.475c2.907 0 5.263 2.46 5.263 5.493v27.014c0 3.034-2.356 5.493-5.263 5.493H15.262c-2.906 0-5.262-2.46-5.262-5.493V25.605c0-3.034 2.356-5.493 5.262-5.493" transform="translate(-137 -140) translate(137 140)"/>
+                    <g transform="translate(-137 -140) translate(137 140) translate(0 31.112)">
+                        <mask id="csf71f9hvf" fill="#fff">
+                            <use xlink:href="#q6tplxql5d"/>
+                        </mask>
+                        <path fill="url(#rk72qrk7we)" d="M6.561.002h87.874c3.623 0 6.56 3.235 6.56 7.227v35.544c0 3.991-2.937 7.227-6.56 7.227H6.56C2.938 50 0 46.764 0 42.773V7.229C0 3.237 2.938.002 6.56.002" mask="url(#csf71f9hvf)"/>
+                    </g>
+                </g>
+                <g transform="translate(-137 -140) translate(137 140) translate(89 44.112)">
+                    <ellipse cx="12.5" cy="13.888" fill="#00B0F0" rx="12.5" ry="13"/>
+                    <g filter="url(#g8q4w6fapg)" transform="translate(3 4.888)">
+                        <g>
+                            <path fill="#000" fill-rule="nonzero" d="M9.8 13.867c0 2.393-3.814 2.393-3.814 0v-3.865H1.883c-2.51 0-2.51-3.635 0-3.635h4.103v-3.91c0-2.393 3.814-2.393 3.814 0v3.91h4.103c2.463 0 2.463 3.635 0 3.635H9.8v3.865z" transform="translate(1.5 .75)"/>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

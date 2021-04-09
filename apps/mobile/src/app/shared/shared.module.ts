@@ -14,7 +14,9 @@ import { BottomMenuComponent } from './components/bottom-menu/bottom-menu.compon
 import { ProfileComponent } from './modals/profile/profile.component';
 import { SchoolSearchResultComponent } from './components/school-search-result/school-search-result.component';
 import { SearchComponent } from './components/search/search.component';
+import { TemplateComponent } from './components/template/template.component';
 import { UserSearchResultComponent } from './components/user-search-result/user-search-result.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { UserSearchResultComponent } from './components/user-search-result/user-
     ProfileComponent,
     SchoolSearchResultComponent,
     SearchComponent,
+    TemplateComponent,
     UserSearchResultComponent,
   ],
   imports: [
@@ -34,12 +37,14 @@ import { UserSearchResultComponent } from './components/user-search-result/user-
     MatRippleModule,
     RouterModule,
     UiModule,
+    MatButtonModule,
   ],
   exports: [
     BottomMenuComponent,
     ProfileComponent,
     SchoolSearchResultComponent,
     SearchComponent,
+    TemplateComponent,
     UserSearchResultComponent,
   ],
 })

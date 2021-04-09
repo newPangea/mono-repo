@@ -310,7 +310,7 @@ export class GlobeComponent implements OnInit, OnDestroy, OnChanges {
       this.land = topojson.feature(this.world, this.world.objects.land);
       this.countries = topojson.feature(this.world, this.world.objects.countries);
       this.countryList = this.countries;
-      window.addEventListener('resize', this.scale);
+      window.addEventListener('resize', this.scale.bind(this));
       this.scale();
     });
   }
