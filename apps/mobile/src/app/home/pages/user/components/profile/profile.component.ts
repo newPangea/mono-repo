@@ -88,14 +88,17 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
         [0, 0],
         [this.width, this.height],
       ])
-      .scaleExtent(this.zoomLimit)
-      .on('zoom', this.zoomed.bind(this));
+      .scaleExtent(this.zoomLimit);
+    this.zoom.on('zoom', null);
+    this.zoom.on('zoom', this.zoomed.bind(this));
 
+    this.group.selectAll('.user-action').on('click', null);
     this.group
       .selectAll('.user-action')
       .on('click', (element) => this.zoomToElement(element, this.level1));
 
     this.root.call(this.zoom);
+    this.root.on('click', null);
     this.root.on('click', this.reset.bind(this));
   }
 

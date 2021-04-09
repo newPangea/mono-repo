@@ -22,7 +22,7 @@
         <span class="search-title">People results</span>
         <a *ngIf="!hide" class="link search-link">View all results</a>
       </div>
-      <button *ngFor="let user of hits" class="btn-user" (click)="userSelect.emit(user)">
+      <button *ngFor="let user of hits" class="btn-user" (click)="selectUser(user)">
         <pang-user-search-result [user]="user" [searchText]="searchText"></pang-user-search-result>
       </button>
     </div>

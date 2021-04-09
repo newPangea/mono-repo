@@ -86,4 +86,10 @@ export class SearchComponent implements AfterViewInit {
     const { height } = element.getBoundingClientRect();
     this.topPosition = topDistance + height;
   }
+
+  selectUser(user: UserAlgolia) {
+    setTimeout(() => {
+      this.userSelect.emit(user);
+    }, 300);
+  }
 }
