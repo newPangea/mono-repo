@@ -1,18 +1,22 @@
-import { AfterViewInit, Component, ElementRef, Input, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import * as d3 from 'd3';
 import { ModalController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
+
 import { ResourceService } from '@pang/core';
 import { ResourceInterface } from '@pang/interface';
+
+const { Keyboard, Device } = Plugins;
 
 @Component({
   templateUrl: './add-resource.component.html',
   styleUrls: ['./add-resource.component.scss'],
 })
-export class AddResourceComponent implements AfterViewInit {
+export class AddResourceComponent implements AfterViewInit, OnInit {
   @Input() owner: string;
 
   completeUpload = 0;
@@ -35,6 +39,17 @@ export class AddResourceComponent implements AfterViewInit {
       description: [],
       isPublic: [true],
       file: [],
+    });
+  }
+
+  ngOnInit(): void {
+    Device.getInfo().then((data) => {
+      if (data.platform !== 'web') {
+        Keyboard.addListener('keyboardDidShow', () => {
+          document.activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        Keyboard.setAccessoryBarVisible({ isVisible: true });
+      }
     });
   }
 
