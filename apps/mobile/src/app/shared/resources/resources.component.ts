@@ -1,5 +1,8 @@
 import { Component, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 
+import { ModalController } from '@ionic/angular';
+import { AddResourceComponent } from '@pang/mobile/app/shared/resources/components/add-resource/add-resource.component';
+
 @Component({
   selector: 'pang-resources',
   templateUrl: './resources.component.html',
@@ -9,7 +12,11 @@ export class ResourcesComponent implements OnChanges {
   @Input() scaleFactor = 1;
   @Input() maxScale: number;
 
-  constructor(private elementRef: ElementRef<HTMLElement>, private render: Renderer2) {}
+  constructor(
+    private elementRef: ElementRef<HTMLElement>,
+    private render: Renderer2,
+    public modalController: ModalController,
+  ) {}
 
   ngOnChanges(): void {
     if (this.elementRef && this.scaleFactor > 1) {
@@ -27,5 +34,14 @@ export class ResourcesComponent implements OnChanges {
         this.render.setStyle(element, 'height', height + 'px');
       }
     }
+  }
+
+  async addNewFile() {
+    console.log('click here');
+    const modal = await this.modalController.create({
+      component: AddResourceComponent,
+      swipeToClose: true,
+    });
+    await modal.present();
   }
 }

@@ -1,0 +1,58 @@
+<pang-template title="Add document" (back)="closeModal()">
+  <ng-container body>
+    <pang-icon url="assets/img/icon-folder.svg" name="folder" class="folder"></pang-icon>
+
+    <form autocomplete="off" class="fom" [formGroup]="fileGroup" (ngSubmit)="saveFile()">
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          aria-label="Name"
+          placeholder="Name (give a name to this document)"
+          formControlName="name"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Url</mat-label>
+        <input
+          matInput
+          aria-label="Name"
+          placeholder="URL (Vimeo or Youtube)"
+          formControlName="url"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <textarea
+          formControlName="description"
+          matInput
+          placeholder="Document’s description"
+          [mat-autosize]="false"
+          rows="5"
+        ></textarea>
+      </mat-form-field>
+
+      <label class="uploadFile" mat-ripple [class.update]="file">
+        <input
+          type="file"
+          formControlName="file"
+          #inpFile
+          (ngModelChange)="changeFile(inpFile.files)"
+          accept=".pdf,.docx,.xlsx,.ppt"
+        />
+        <span>
+          <mat-icon style="vertical-align: middle">cloud_upload</mat-icon> Upload document
+        </span>
+      </label>
+
+      <mat-slide-toggle formControlName="isPublic" color="primary" class="slide">
+        Make this document public
+      </mat-slide-toggle>
+
+      <button pang-button color="primary" [disabled]="fileGroup.invalid" [loading]="load">
+        Post this document
+      </button>
+    </form>
+  </ng-container>
+</pang-template>
