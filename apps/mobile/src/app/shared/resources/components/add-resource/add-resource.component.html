@@ -2,6 +2,12 @@
   <ng-container body>
     <pang-icon url="assets/img/icon-folder.svg" name="folder" class="folder"></pang-icon>
 
+    <mat-radio-group class="selectType" [(ngModel)]="resourceType">
+      <mat-radio-button [value]="resourceTypes.IMAGE" color="primary">Image</mat-radio-button>
+      <mat-radio-button [value]="resourceTypes.VIDEO" color="primary">Video</mat-radio-button>
+      <mat-radio-button [value]="resourceTypes.FILE" color="primary">Document</mat-radio-button>
+    </mat-radio-group>
+
     <form autocomplete="off" class="fom" [formGroup]="fileGroup" (ngSubmit)="saveFile()">
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
@@ -13,7 +19,7 @@
         />
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" *ngIf="resourceType == resourceTypes.VIDEO">
         <mat-label>Url</mat-label>
         <input
           matInput
@@ -33,13 +39,18 @@
         ></textarea>
       </mat-form-field>
 
-      <label class="uploadFile" mat-ripple [class.update]="file">
+      <label
+        class="uploadFile"
+        mat-ripple
+        [class.update]="file"
+        *ngIf="resourceType != resourceTypes.VIDEO"
+      >
         <input
           type="file"
           formControlName="file"
           #inpFile
           (ngModelChange)="changeFile(inpFile.files)"
-          accept=".pdf,.docx,.xlsx,.ppt"
+          [accept]="acceptType"
         />
         <span>
           <mat-icon style="vertical-align: middle">cloud_upload</mat-icon> Upload document

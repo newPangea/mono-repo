@@ -1,0 +1,33 @@
+@import 'global';
+.search {
+  padding: 14px 16px;
+  border-radius: 26px;
+  background-color: rgba(154, 161, 163, 0.1);
+  width: 100%;
+  margin: 19px 0 32px;
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: auto max-content;
+  gap: 5px;
+
+  input {
+    background: transparent;
+    border: none;
+    color: $gray;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: #b1b1b1;
+    }
+  }
+
+  .icon {
+    color: $warmGrey;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+}

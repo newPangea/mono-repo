@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -14,9 +14,11 @@ import { UiModule } from '@pang/ui';
 
 import { AddResourceComponent } from './components/add-resource/add-resource.component';
 import { ResourcesComponent } from './resources.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { ViewFilesComponent } from './components/view-files/view-files.component';
 
 @NgModule({
-  declarations: [ResourcesComponent, AddResourceComponent],
+  declarations: [ResourcesComponent, AddResourceComponent, ViewFilesComponent],
   exports: [ResourcesComponent],
   imports: [
     CommonModule,
@@ -29,6 +31,8 @@ import { ResourcesComponent } from './resources.component';
     ReactiveFormsModule,
     SharedModule,
     UiModule,
+    MatRadioModule,
+    FormsModule,
   ],
 })
 export class ResourcesModule {}

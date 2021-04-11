@@ -7,10 +7,11 @@ import * as d3 from 'd3';
 import { ModalController } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 
-import { ResourceService } from '@pang/core';
 import { ResourceInterface } from '@pang/interface';
+import { ResourceService } from '@pang/core';
+import { ResourceType } from '@pang/const';
 
-const { Keyboard, Device } = Plugins;
+const { Keyboard, Device, Modals } = Plugins;
 
 @Component({
   templateUrl: './add-resource.component.html',
@@ -23,6 +24,8 @@ export class AddResourceComponent implements AfterViewInit, OnInit {
   file: File;
   fileGroup: FormGroup;
   load = false;
+  resourceTypes = ResourceType;
+  resourceType: ResourceType = ResourceType.FILE;
 
   constructor(
     private elementRef: ElementRef<HTMLElement>,
@@ -62,24 +65,37 @@ export class AddResourceComponent implements AfterViewInit, OnInit {
   }
 
   async saveFile() {
-    this.load = true;
-    const { name, isPublic, description, url } = this.fileGroup.value;
-    const resource: ResourceInterface = {
-      uid: this.db.createId(),
-      name,
-      public: isPublic,
-      owner: this.owner,
-      description,
-      link: url,
-    };
-    if (this.file) {
-      const data = await this.uploadFile();
-      resource.url = data.url;
-      resource.ref = data.path;
+    try {
+      this.load = true;
+      const { name, isPublic, description, url } = this.fileGroup.value;
+      const resource: ResourceInterface = {
+        uid: this.db.createId(),
+        name,
+        public: isPublic,
+        owner: this.owner,
+        uploadBy: this.owner,
+        description,
+        link: url,
+        type: this.resourceType,
+        createAt: new Date(),
+        updateAt: new Date(),
+      };
+      if (this.file) {
+        const data = await this.uploadFile();
+        resource.url = data.url;
+        resource.ref = data.path;
+      }
+      await this.resourceService.resourceCollection().doc(resource.uid).set(resource);
+      this.load = false;
+      this.closeModal();
+    } catch (e) {
+      this.load = false;
+      console.log(e);
+      Modals.alert({
+        title: 'Error',
+        message: 'We had an error, please try again',
+      }).then();
     }
-    await this.resourceService.resourceCollection().doc(resource.uid).set(resource);
-    this.load = false;
-    this.closeModal();
   }
 
   uploadFile() {
@@ -96,5 +112,16 @@ export class AddResourceComponent implements AfterViewInit, OnInit {
 
   closeModal() {
     return this.modal.dismiss();
+  }
+
+  get acceptType() {
+    switch (this.resourceType) {
+      case ResourceType.IMAGE:
+        return 'image/*';
+      case ResourceType.FILE:
+        return '.pdf,.docx,.xlsx,.ppt';
+      default:
+        return '';
+    }
   }
 }
