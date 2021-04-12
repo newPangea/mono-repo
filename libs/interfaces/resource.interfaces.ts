@@ -14,6 +14,7 @@ export interface ResourceInterface {
   type: ResourceType;
   createAt: Date;
   updateAt: Date;
+  share?: string[];
 }
 
 export const ResourceConvert = {

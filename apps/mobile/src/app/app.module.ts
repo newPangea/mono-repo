@@ -35,6 +35,11 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/functions';
 import 'firebase/database';
+import { ResourcesEffects } from '@pang/mobile/app/state/resources/resources.effects';
+import {
+  resourcesFeatureKey,
+  resourcesReducer,
+} from '@pang/mobile/app/state/resources/resources.reducer';
 
 const app = firebase.initializeApp(environment.fire, 'myApp');
 if (environment.emulate) {
@@ -80,13 +85,14 @@ const routes: Routes = [
     BrowserModule,
     CoreModule,
     MatIconModule,
-    EffectsModule.forRoot([ConnectionEffects]),
+    EffectsModule.forRoot([ConnectionEffects, ResourcesEffects]),
     HttpClientModule,
     IonicModule.forRoot(),
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     StoreModule.forRoot(
       {
         [connectionFeatureKey]: ConnectionReducer,
+        [resourcesFeatureKey]: resourcesReducer,
       },
       {
         metaReducers: !environment.production ? [] : [],

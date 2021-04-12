@@ -12,7 +12,13 @@ import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 
 import { loadPendingConnection } from '@pang/mobile/app/state/connection/connection.actions';
+
 import { UserService } from '@pang/core';
+import {
+  loadResourcesDoc,
+  loadResourcesImage,
+  loadResourcesVideo,
+} from '@pang/mobile/app/state/resources/resources.actions';
 
 const { PushNotifications, Device, Modals } = Plugins;
 
@@ -30,6 +36,9 @@ export class AppComponent implements OnInit {
   ) {
     this.auth.authState.pipe(filter((user) => !!user)).subscribe(() => {
       this.store.dispatch(loadPendingConnection());
+      this.store.dispatch(loadResourcesVideo());
+      this.store.dispatch(loadResourcesImage());
+      this.store.dispatch(loadResourcesDoc());
     });
   }
 
