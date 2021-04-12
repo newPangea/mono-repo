@@ -1,8 +1,12 @@
 <pang-template title="Documents" (back)="closeModal()">
   <ng-container body>
     <label class="search">
-      <input type="text" placeholder="Search by name or author" />
+      <input type="text" placeholder="Search by name or author" [(ngModel)]="search" />
       <mat-icon class="icon">search</mat-icon>
     </label>
+
+    <ng-container *ngFor="let item of resources$ | async | filterResource: users:search">
+      <pang-item-resource [resource]="item" [user]="users[item.uploadBy]"></pang-item-resource>
+    </ng-container>
   </ng-container>
 </pang-template>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="79" height="77" viewBox="0 0 79 77">
+    <defs>
+        <linearGradient id="qeiqmzxmua" x1="50%" x2="50%" y1="0%" y2="100%">
+            <stop offset="0%" stop-color="#1EBDBC"/>
+            <stop offset="100%" stop-color="#4673EB"/>
+        </linearGradient>
+        <filter id="v9zgjm4x7b" width="160.5%" height="211.5%" x="-30.2%" y="-53.8%" filterUnits="objectBoundingBox">
+            <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+            <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="4"/>
+            <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
+        </filter>
+        <path id="pqfccjr5gc" d="M53.455.114l11.83 15.142-39.68 4.08L50.647-.232c.87-.68 2.127-.525 2.807.345z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g>
+            <g>
+                <g>
+                    <g>
+                        <path fill="url(#qeiqmzxmua)" d="M0 .792h36c5.523 0 10 4.477 10 10v41c0 1.105-.895 2-2 2H2c-1.105 0-2-.895-2-2" transform="translate(-16 -192) translate(16 212) translate(0 3)"/>
+                        <g transform="translate(-16 -192) translate(16 212) translate(0 3) rotate(-142 45.445 8.937)">
+                            <use fill="#000" filter="url(#v9zgjm4x7b)" xlink:href="#pqfccjr5gc"/>
+                            <use fill="#A5E4F8" xlink:href="#pqfccjr5gc"/>
+                        </g>
+                    </g>
+                    <text fill="#FFF" font-family="Inter-Medium, Inter" font-size="20" font-weight="400" transform="translate(-16 -192) translate(16 212) translate(0 3)">
+                        <tspan x="13.22" y="19.792">W</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
