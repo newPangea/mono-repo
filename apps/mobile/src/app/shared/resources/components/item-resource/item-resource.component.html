@@ -1,5 +1,5 @@
 <div class="resource-item">
-  <img src="assets/img/word-doc.svg" alt="doc type" style="width: 100%" (click)="openFile()" />
+  <img [src]="fileIcon" alt="doc type" style="width: 100%" (click)="openFile()" />
   <div class="resource-item__info">
     <span class="caption">Uploaded: {{ resource?.updateAt | date: 'shortDate' }}</span>
     <span class="body">{{ resource?.name }}</span>

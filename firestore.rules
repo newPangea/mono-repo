@@ -2,7 +2,7 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /connections/{connection} {
-    	allow write: if resource.data.from == request.auth.uid || resource.data.to == request.auth.uid;
+      allow write: if resource.data.from == request.auth.uid || resource.data.to == request.auth.uid;
       allow read, create: if request.auth != null;
     }
 
@@ -11,16 +11,17 @@ service cloud.firestore {
     }
 
     match /schools/{document=**} {
-      allow read, write: if request.auth != null;
-    }
+      allow write: if request.auth != null;
+      allow read: if true;
+      }
 
-    match /user/{document=**} {
-    	allow write: if resource.data.uid == request.auth.uid;
+      match /user/{document=**} {
+        allow write: if resource.data.uid == request.auth.uid;
       allow read, create: if request.auth != null;
     }
 
     match /resource/{document=**} {
-    	allow create: if request.auth != null;
+      allow create: if request.auth != null;
       allow read, write: if resource.data.public || resource.data.owner == request.auth.uid;
     }
   }

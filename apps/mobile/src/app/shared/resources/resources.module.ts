@@ -8,9 +8,9 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgModule } from '@angular/core';
 
+import { LoadingController } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { PreviewAnyFile } from '@ionic-native/preview-any-file/ngx';
-import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 import { AlgoliaModule } from '@pang/algolia';
 import { SharedModule } from '@pang/mobile/app/shared/shared.module';
@@ -46,6 +46,6 @@ import { ViewFilesComponent } from './components/view-files/view-files.component
     SharedModule,
     UiModule,
   ],
-  providers: [PreviewAnyFile, PhotoViewer],
+  providers: [PreviewAnyFile, LoadingController],
 })
 export class ResourcesModule {}
