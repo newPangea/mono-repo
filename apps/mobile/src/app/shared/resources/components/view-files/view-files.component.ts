@@ -2,12 +2,17 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AfterViewInit, Component, Input } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
-
-import { ResourceType } from '@pang/const';
-import { ResourceService } from '@pang/core';
-import { switchMap } from 'rxjs/operators';
-import { ResourceInterface } from '@pang/interface';
 import { Observable } from 'rxjs';
+import { first, map, switchMap, tap } from 'rxjs/operators';
+
+import { AlgoliaService } from '@pang/algolia';
+import { ResourceInterface, UserAlgolia } from '@pang/interface';
+import { ResourceService } from '@pang/core';
+import { ResourceType } from '@pang/const';
+import { environment } from '@pang/mobile/environments/environment';
+import { select, State } from '@ngrx/store';
+import { AppState } from '@pang/mobile/app/state/app.state';
+import { selectResourcesState } from '@pang/mobile/app/state/resources/resources.selectors';
 
 @Component({
   selector: 'pang-view-files',
@@ -19,11 +24,15 @@ export class ViewFilesComponent implements AfterViewInit {
   @Input() owner: string;
 
   resources$: Observable<ResourceInterface[]>;
+  search: string;
+  users: { [key: string]: UserAlgolia } = {};
 
   constructor(
-    private modal: ModalController,
+    private algolia: AlgoliaService,
     private auth: AngularFireAuth,
+    private modal: ModalController,
     private resources: ResourceService,
+    private state: State<AppState>,
   ) {}
 
   ngAfterViewInit(): void {
@@ -32,26 +41,28 @@ export class ViewFilesComponent implements AfterViewInit {
 
   loadFies() {
     this.resources$ = this.auth.user.pipe(
+      first(),
       switchMap(({ uid }) => {
         if (uid === this.owner) {
-          return this.resources
-            .resourceCollection((ref) =>
-              ref.where('owner', '==', uid).where('type', '==', this.typeFile),
-            )
-            .valueChanges();
+          return this.state.pipe(
+            select(selectResourcesState),
+            map((data) => data[this.typeFile]),
+          );
         } else {
-          return this.resources
-            .resourceCollection((ref) =>
-              ref
-                .where('owner', '==', this.owner)
-                .where('type', '==', this.typeFile)
-                .where('public', '==', true),
-            )
-            .valueChanges();
+          return this.resources.getResources(this.owner, this.typeFile);
         }
       }),
+      tap((resources) =>
+        resources.forEach(async (resource) => {
+          if (!this.users[resource.uploadBy]) {
+            this.users[resource.uploadBy] = await this.algolia.getHit(
+              environment.userAlgoliaIndex,
+              resource.uploadBy,
+            );
+          }
+        }),
+      ),
     );
-    this.resources$.subscribe(console.log);
   }
 
   closeModal() {

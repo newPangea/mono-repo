@@ -1,6 +1,28 @@
 {
   "indexes": [
     {
+      "collectionGroup": "resource",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "share",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "public",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "type",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "owner",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "schools",
       "queryScope": "COLLECTION",
       "fields": [

@@ -1,0 +1,29 @@
+<div class="resource-item">
+  <img src="assets/img/word-doc.svg" alt="doc type" style="width: 100%" />
+  <div class="resource-item__info">
+    <span class="caption">Uploaded: {{ resource?.updateAt | date: 'shortDate' }}</span>
+    <span class="body">{{ resource?.name }}</span>
+    <span class="user-data">
+      <pang-avatar-with-label [size]="24" [userAvatar]="user?.imgUrl"></pang-avatar-with-label>
+      <span class="caption">By {{ user?.name }}</span>
+    </span>
+  </div>
+  <button class="button-icon" mat-ripple *ngIf="isOwner; else notOwner">
+    <pang-icon url="assets/img/icon-more-options.svg" name="more"></pang-icon>
+  </button>
+  <ng-template #notOwner>
+    <button
+      class="button-icon"
+      mat-ripple
+      *ngIf="isShare; else notShare"
+      (click)="removeResource()"
+    >
+      <pang-icon url="assets/img/icon-book-mark-selected.svg" name="select"></pang-icon>
+    </button>
+    <ng-template #notShare>
+      <button class="button-icon" mat-ripple (click)="addResource()">
+        <pang-icon url="assets/img/icon-book-mark-unselected.svg" name="unSelect"></pang-icon>
+      </button>
+    </ng-template>
+  </ng-template>
+</div>
