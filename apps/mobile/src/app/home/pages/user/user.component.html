@@ -1,6 +1,6 @@
 <div class="content">
   <div class="user">
-    <button mat-icon-button pangGoBack class="user-back">
+    <button mat-icon-button (click)="goBack()" class="user-back">
       <pang-icon url="assets/img/icon-back.svg" name="back"></pang-icon>
     </button>
     <pang-user-profile *ngIf="user" [user]="user"></pang-user-profile>
