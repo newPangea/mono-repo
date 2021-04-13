@@ -1,8 +1,16 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { ResourceInterface, UserAlgolia } from '@pang/interface';
-import { AlgoliaService } from '@pang/algolia';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Component, Input, OnChanges } from '@angular/core';
+
+import { PreviewAnyFile } from '@ionic-native/preview-any-file/ngx';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+
+import { AlgoliaService } from '@pang/algolia';
+import { Plugins } from '@capacitor/core';
+import { ResourceInterface, UserAlgolia } from '@pang/interface';
 import { ResourceService } from '@pang/core';
+import { ResourceType } from '@pang/const';
+
+const { App } = Plugins;
 
 @Component({
   selector: 'pang-item-resource',
@@ -18,7 +26,9 @@ export class ItemResourceComponent implements OnChanges {
   constructor(
     private algolia: AlgoliaService,
     private auth: AngularFireAuth,
+    private previewAnyFile: PreviewAnyFile,
     private resourceService: ResourceService,
+    private photoViewer: PhotoViewer,
   ) {}
 
   ngOnChanges(): void {
@@ -47,5 +57,19 @@ export class ItemResourceComponent implements OnChanges {
       .resourceCollection()
       .doc(this.resource.uid)
       .update({ share: this.resource.share.filter((res) => res !== this.uid) });
+  }
+
+  openFile() {
+    switch (this.resource.type) {
+      case ResourceType.FILE:
+        this.previewAnyFile.preview(this.resource.url).then();
+        break;
+      case ResourceType.IMAGE:
+        this.photoViewer.show(this.resource.url, this.resource.name, { share: true });
+        break;
+      case ResourceType.VIDEO:
+        App.openUrl({ url: this.resource.link }).then();
+        break;
+    }
   }
 }
