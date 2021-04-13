@@ -1,14 +1,15 @@
 import { Directive, HostListener } from '@angular/core';
-import { Location } from '@angular/common';
+import { NavigationService } from '../services/navigation.service';
+import { Router } from '@angular/router';
 
 @Directive({
   selector: 'button[pangGoBack], a[pangGoBack]',
 })
 export class GoBackDirective {
-  constructor(private location: Location) {}
+  constructor(private router: Router, private navigation: NavigationService) {}
 
   @HostListener('click')
   goBack() {
-    this.location.back();
+    this.navigation.goBack();
   }
 }

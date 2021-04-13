@@ -27,6 +27,12 @@ import {
 import { ConnectionEffects } from '@pang/mobile/app/state/connection/connection.effects';
 import { CoreModule } from '@pang/core';
 import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.guard';
+import { UiModule } from '@pang/ui';
+import { ResourcesEffects } from '@pang/mobile/app/state/resources/resources.effects';
+import {
+  resourcesFeatureKey,
+  resourcesReducer,
+} from '@pang/mobile/app/state/resources/resources.reducer';
 
 import { AppComponent } from './app.component';
 
@@ -35,11 +41,6 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/functions';
 import 'firebase/database';
-import { ResourcesEffects } from '@pang/mobile/app/state/resources/resources.effects';
-import {
-  resourcesFeatureKey,
-  resourcesReducer,
-} from '@pang/mobile/app/state/resources/resources.reducer';
 
 const app = firebase.initializeApp(environment.fire, 'myApp');
 if (environment.emulate) {
@@ -104,6 +105,7 @@ const routes: Routes = [
     ),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot(),
+    UiModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

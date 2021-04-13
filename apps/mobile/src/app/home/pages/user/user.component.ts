@@ -1,4 +1,4 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Component } from '@angular/core';
 import { Hit } from '@algolia/client-search';
 import { map, switchMap } from 'rxjs/operators';
@@ -18,11 +18,7 @@ import { environment } from '@pang/mobile/environments/environment';
 export class UserComponent {
   user: Hit<UserAlgolia>;
 
-  constructor(
-    private route: ActivatedRoute,
-    private algolia: AlgoliaService,
-    private router: Router,
-  ) {
+  constructor(private route: ActivatedRoute, private algolia: AlgoliaService) {
     this.route.params
       .pipe(
         map((data) => data.id),
@@ -31,9 +27,5 @@ export class UserComponent {
       .subscribe(({ hits }) => {
         this.user = hits[0];
       });
-  }
-
-  goBack() {
-    this.router.navigate(['/home']);
   }
 }
