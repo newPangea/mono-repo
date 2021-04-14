@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -19,6 +20,7 @@ import { UiModule } from '@pang/ui';
 import { AddResourceComponent } from './components/add-resource/add-resource.component';
 import { FilterResourcePipe } from './pipe/filter-resource.pipe';
 import { ItemResourceComponent } from './components/item-resource/item-resource.component';
+import { OptionResourceComponent } from './components/option-resource/option-resource.component';
 import { ResourcesComponent } from './resources.component';
 import { ViewFilesComponent } from './components/view-files/view-files.component';
 
@@ -27,6 +29,7 @@ import { ViewFilesComponent } from './components/view-files/view-files.component
     AddResourceComponent,
     FilterResourcePipe,
     ItemResourceComponent,
+    OptionResourceComponent,
     ResourcesComponent,
     ViewFilesComponent,
   ],
@@ -36,6 +39,7 @@ import { ViewFilesComponent } from './components/view-files/view-files.component
     CommonModule,
     FormsModule,
     IonicModule,
+    MatBottomSheetModule,
     MatButtonModule,
     MatIconModule,
     MatInputModule,
