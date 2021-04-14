@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="search-box" style="position: relative">
+    <input
+      class="search-input"
+      type="text"
+      placeholder="Search by name"
+      aria-label="Search by name"
+      autocomplete="off"
+      [ngModel]="filterKey"
+      (ngModelChange)="onFilterKeyChange($event)"
+      #input
+    />
+    <mat-icon matSuffix class="search-icon">search</mat-icon>
+  </div>
+  <p class="sub">You can only add people of your connections</p>
+  <div *ngIf="selectedMembers && selectedMembers.length > 0" class="selected">
+    <div *ngFor="let item of selectedMembers" class="member">
+      <div class="grouped-with-close">
+        <pang-avatar-with-label [size]="39" [userAvatar]="item.avatar"></pang-avatar-with-label>
+        <mat-icon matSuffix class="close-icon" (click)="remove(item)">close</mat-icon>
+      </div>
+    </div>
+  </div>
+  <div class="members-container">
+    <div class="secuential" *ngFor="let item of filteredItems; let i = index">
+      <pang-avatar-with-label [size]="39" [userAvatar]="item.avatar"></pang-avatar-with-label>
+      <div>
+        <p class="name">{{ item.name }}</p>
+        <p class="sub">
+          {{ item.address ? item.address[item.address.length - 2] : '' }},
+          {{ item.address ? item.address[item.address.length - 1] : '' }}
+        </p>
+      </div>
+      <mat-checkbox
+        class="example-margin"
+        [(ngModel)]="item.checked"
+        (change)="toggleMember(item, $event)"
+      ></mat-checkbox>
+    </div>
+  </div>
+  <div class="add-container">
+    <button
+      pang-button
+      color="primary"
+      [disabled]="selectedMembers.length == 0"
+      (click)="addMembers()"
+    >
+      Add ({{ selectedMembers.length }}) members
+    </button>
+  </div>
+</div>

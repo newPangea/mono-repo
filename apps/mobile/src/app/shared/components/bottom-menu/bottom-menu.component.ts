@@ -26,7 +26,6 @@ export class BottomMenuComponent implements OnInit {
   constructor(
     private bottomSheet: MatBottomSheet,
     private router: Router,
-    private snackBar: MatSnackBar,
     private state: State<AppState>,
   ) {}
 

@@ -8,7 +8,7 @@ import { TypedAction } from '@ngrx/store/src/models';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 
 import * as ConnectionActions from './connection.actions';
-import { ConnectionInterface } from '@pang/interface';
+import { ConnectionInterface, User } from '@pang/interface';
 import { ConnectionService } from '@pang/core';
 
 @Injectable()
@@ -18,6 +18,12 @@ export class ConnectionEffects {
     { connection: ConnectionInterface[] } & TypedAction<string>
   > &
     CreateEffectMetadata;
+
+  private loadMyConnections$: Observable<
+    { connection: ConnectionInterface[] } & TypedAction<string>
+  > &
+    CreateEffectMetadata;
+  user: User;
 
   constructor(
     private actions$: Actions,
@@ -33,6 +39,18 @@ export class ConnectionEffects {
           this.connection.getPendingConnections().pipe(
             takeUntil(this.logOut$),
             map((connection) => ConnectionActions.setPendingConnection({ connection })),
+          ),
+        ),
+      );
+    });
+
+    this.loadMyConnections$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(ConnectionActions.loadConnections),
+        switchMap(() =>
+          this.connection.getMyConnections().pipe(
+            takeUntil(this.logOut$),
+            map((connection) => ConnectionActions.setConnections({ connection })),
           ),
         ),
       );

@@ -11,3 +11,8 @@ export const selectConnectionNotification = createSelector(
   selectConnectionState,
   (data) => data.notifications.connections,
 );
+
+export const selectMyConnections = createSelector(
+  selectConnectionState,
+  (data) => data.connections,
+);

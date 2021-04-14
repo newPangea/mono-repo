@@ -1,0 +1,30 @@
+<div class="teams">
+  <button class="teams-button" mat-ripple>
+    <pang-icon url="assets/icons/icon-team.svg" name="teams"></pang-icon>
+    <span class="text">Teams</span>
+  </button>
+
+  <div *ngIf="hasTeams">
+    <div style="display: flex">
+      <button mat-ripple class="circle" style="margin-right: 59px">
+        <pang-icon url="assets/img/icon-image.svg" name="image"></pang-icon>
+        <span class="text-blue">Images</span>
+      </button>
+      <button mat-ripple class="circle">
+        <pang-icon url="assets/img/icon-file.svg" name="file"></pang-icon>
+        <span class="text-blue">Documents</span>
+      </button>
+    </div>
+
+    <button mat-ripple class="circle">
+      <pang-icon url="assets/img/icon-videos.svg" name="video"></pang-icon>
+      <span class="text-blue">Videos</span>
+    </button>
+  </div>
+  <div class="noTeams" *ngIf="!hasTeams">
+    <p>No teams created</p>
+    <button pang-button color="primary" style="width: 100%" (click)="createTeam()">
+      Create a team
+    </button>
+  </div>
+</div>

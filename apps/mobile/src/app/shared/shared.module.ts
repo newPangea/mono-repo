@@ -17,6 +17,9 @@ import { SearchComponent } from './components/search/search.component';
 import { TemplateComponent } from './components/template/template.component';
 import { UserSearchResultComponent } from './components/user-search-result/user-search-result.component';
 import { MatButtonModule } from '@angular/material/button';
+import { AddMembersNewTeamComponent } from './modals/add-members-new-team/add-members-new-team.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { AddResourcesNewTeamComponent } from './modals/add-resources-new-team/add-resources-new-team.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,8 @@ import { MatButtonModule } from '@angular/material/button';
     SearchComponent,
     TemplateComponent,
     UserSearchResultComponent,
+    AddMembersNewTeamComponent,
+    AddResourcesNewTeamComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +43,7 @@ import { MatButtonModule } from '@angular/material/button';
     RouterModule,
     UiModule,
     MatButtonModule,
+    MatCheckboxModule,
   ],
   exports: [
     BottomMenuComponent,
@@ -46,6 +52,8 @@ import { MatButtonModule } from '@angular/material/button';
     SearchComponent,
     TemplateComponent,
     UserSearchResultComponent,
+    AddMembersNewTeamComponent,
+    AddResourcesNewTeamComponent,
   ],
 })
 export class SharedModule {}

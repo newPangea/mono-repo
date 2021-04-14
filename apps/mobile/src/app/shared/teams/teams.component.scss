@@ -1,0 +1,73 @@
+@import 'global';
+
+:host {
+  display: block;
+  transform-origin: left top;
+}
+
+.teams {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  &-button {
+    --icon-size: 40px;
+    color: $white;
+    background: transparent;
+    border: none;
+    position: relative;
+    width: 90px;
+    height: 90px;
+    &:after {
+      content: '+';
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: $secondary;
+      color: $white;
+      position: absolute;
+      z-index: 99;
+      top: 28px;
+      right: 0;
+      font-size: 18px;
+      line-height: 20px;
+    }
+  }
+
+  .text {
+    @include body2;
+    color: white;
+    display: block;
+  }
+
+  .text-blue {
+    @include body2;
+    color: $primary;
+    display: block;
+  }
+
+  .circle {
+    @include circle(128px);
+    box-shadow: 0 5px 24px 0 rgba(90, 90, 90, 0.46);
+    border: solid 1px $blue2;
+    background-image: linear-gradient(to bottom, #f2f2f2 39%, $white);
+    --icon-size: 40px;
+    color: $primary;
+  }
+}
+
+.noTeams {
+  position: relative;
+  bottom: 28%;
+  p {
+    @include text($subtitleSize, $white, bold);
+  }
+  button {
+    @include text($bodySize, $white, 500);
+    margin-top: 10px;
+    height: 38px;
+  }
+}

@@ -22,18 +22,6 @@
   transform: translateY(-0.59375em) scale(0.6);
 }
 
-//::ng-deep .mat-form-field-underline {
-//  display: none;
-//}
-//
-//::ng-deep .mat-progress-bar-fill::after {
-//  background-color: $buttonText;
-//}
-//
-//::ng-deep .mat-progress-bar-buffer {
-//  background: $primary;
-//}
-
 .mat-form-field-appearance-fill .mat-form-field-subscript-wrapper {
   padding: 0 1em;
   margin-top: 4px;
@@ -58,5 +46,16 @@ mat-drawer-container {
 
 .profile_sheet {
   border-radius: 15px 15px 0 0;
-  padding: 26px !important;
+  padding: 26px 0 26px 0 !important;
+  max-height: none !important;
+  overflow: unset !important;
+}
+
+.create-team {
+  z-index: 1 !important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: $primary;
 }
