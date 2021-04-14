@@ -8,7 +8,7 @@
       <span class="caption">By {{ user?.name }}</span>
     </span>
   </div>
-  <button class="button-icon" mat-ripple *ngIf="isOwner; else notOwner">
+  <button class="button-icon" mat-ripple *ngIf="isOwner; else notOwner" (click)="openOptions()">
     <pang-icon url="assets/img/icon-more-options.svg" name="more"></pang-icon>
   </button>
   <ng-template #notOwner>

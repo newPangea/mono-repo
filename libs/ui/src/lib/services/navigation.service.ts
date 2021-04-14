@@ -19,7 +19,6 @@ export class NavigationService {
           this.isBack = false;
         } else {
           this.history.push(event.urlAfterRedirects);
-          console.log(this.history);
         }
       }
     });

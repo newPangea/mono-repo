@@ -68,6 +68,7 @@ export class ResourcesComponent implements OnChanges {
         owner: this.owner,
         typeFile: ResourceType.IMAGE,
       },
+      cssClass: 'ionic-modal',
     });
     await modal.present();
   }
@@ -80,6 +81,7 @@ export class ResourcesComponent implements OnChanges {
         owner: this.owner,
         typeFile: ResourceType.FILE,
       },
+      cssClass: 'ionic-modal',
     });
     await modal.present();
   }
@@ -92,6 +94,7 @@ export class ResourcesComponent implements OnChanges {
         owner: this.owner,
         typeFile: ResourceType.VIDEO,
       },
+      cssClass: 'ionic-modal',
     });
     await modal.present();
   }

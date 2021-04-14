@@ -1,5 +1,6 @@
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Component, Input, OnChanges } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 import { LoadingController } from '@ionic/angular';
 import { PreviewAnyFile } from '@ionic-native/preview-any-file/ngx';
@@ -9,6 +10,10 @@ import { Plugins } from '@capacitor/core';
 import { ResourceInterface, UserAlgolia } from '@pang/interface';
 import { ResourceService } from '@pang/core';
 import { ResourceType } from '@pang/const';
+import { OptionResourceComponent } from '@pang/mobile/app/shared/resources/components/option-resource/option-resource.component';
+import { filter } from 'rxjs/operators';
+import { ResourceOptions } from '@pang/mobile/app/shared/resources/constants/resource-options';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 const { App, Modals } = Plugins;
 
@@ -26,9 +31,11 @@ export class ItemResourceComponent implements OnChanges {
   constructor(
     private algolia: AlgoliaService,
     private auth: AngularFireAuth,
-    public loadingController: LoadingController,
+    private bottomSheet: MatBottomSheet,
     private previewAnyFile: PreviewAnyFile,
     private resourceService: ResourceService,
+    public loadingController: LoadingController,
+    private storage: AngularFireStorage,
   ) {}
 
   ngOnChanges(): void {
@@ -86,6 +93,32 @@ export class ItemResourceComponent implements OnChanges {
         });
         break;
     }
+  }
+
+  openOptions() {
+    this.bottomSheet
+      .open(OptionResourceComponent, {
+        hasBackdrop: true,
+        panelClass: 'bottom-sheet-panel',
+      })
+      .afterDismissed()
+      .pipe(filter((data) => !!data))
+      .subscribe((data) => {
+        switch (data.type) {
+          case ResourceOptions.DELETE:
+            if (data.value) {
+              this.deleteResource();
+            }
+            break;
+        }
+      });
+  }
+
+  deleteResource() {
+    if (this.resource.ref) {
+      this.storage.ref(this.resource.ref).delete();
+    }
+    this.resourceService.resourceCollection().doc(this.resource.uid).delete();
   }
 
   get fileIcon() {
