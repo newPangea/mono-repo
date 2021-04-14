@@ -9,6 +9,7 @@ import { User } from '@pang/interface';
 
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pang-profile',
@@ -26,6 +27,7 @@ export class ProfileComponent implements OnInit {
     private fireStore: AngularFirestore,
     private bottomSheetRef: MatBottomSheetRef<ProfileComponent>,
     private snackBar: MatSnackBar,
+    private router: Router,
     @Inject(MAT_BOTTOM_SHEET_DATA)
     public data: {
       user: string;
@@ -55,7 +57,9 @@ export class ProfileComponent implements OnInit {
     this.snackBar.open('Available in the next update', 'close', { duration: 2000 });
   }
 
-  logout() {
-    this.snackBar.open('Under development', 'close', { duration: 2000 });
+  async logout() {
+    await this.auth.signOut();
+    await this.router.navigate(['/']);
+    this.bottomSheetRef.dismiss();
   }
 }

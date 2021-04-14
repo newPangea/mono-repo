@@ -40,9 +40,10 @@ export class ResourcesEffects {
     return this.actions$.pipe(
       ofType(ResourcesActions.loadResourcesVideo),
       switchMap(() =>
-        this.resourcesService
-          .getMyResource(ResourceType.VIDEO)
-          .pipe(map((resources) => ResourcesActions.setResourcesVideo({ resources }))),
+        this.resourcesService.getMyResource(ResourceType.VIDEO).pipe(
+          takeUntil(this.logOut$),
+          map((resources) => ResourcesActions.setResourcesVideo({ resources })),
+        ),
       ),
     );
   });
