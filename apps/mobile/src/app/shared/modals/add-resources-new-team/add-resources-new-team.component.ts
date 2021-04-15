@@ -1,7 +1,7 @@
 import { Component, Inject, Input, OnDestroy, OnInit, ViewChildren } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Observable, of, Subject, Subscription } from 'rxjs';
 
 import { select, State } from '@ngrx/store';
@@ -9,6 +9,7 @@ import { select, State } from '@ngrx/store';
 import { AppState } from '@pang/mobile/app/state/app.state';
 
 import { ResourceType } from '@pang/const';
+import { switchMap } from 'rxjs/operators';
 import { selectResourcesState } from '@pang/mobile/app/state/resources/resources.selectors';
 import { User, UserAlgolia } from '@pang/interface';
 
