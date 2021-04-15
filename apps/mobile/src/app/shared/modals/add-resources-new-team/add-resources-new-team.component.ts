@@ -1,19 +1,20 @@
-import { Component, Inject, Input, OnDestroy, OnInit, ViewChildren } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { Observable, of, Subject, Subscription } from 'rxjs';
-
 import { select, State } from '@ngrx/store';
+import { switchMap } from 'rxjs/operators';
 
 import { AppState } from '@pang/mobile/app/state/app.state';
-
+import { ResourceInterface, User, UserAlgolia } from '@pang/interface';
 import { ResourceType } from '@pang/const';
-import { switchMap } from 'rxjs/operators';
 import { selectResourcesState } from '@pang/mobile/app/state/resources/resources.selectors';
-import { User, UserAlgolia } from '@pang/interface';
 
 import { AddMembersNewTeamComponent } from '../add-members-new-team/add-members-new-team.component';
+import { FilterKey } from '../interfaces/filter-key';
+import { ResourcesTeam } from '../interfaces/resources';
 
 @Component({
   selector: 'pang-add-resources-new-team',
@@ -21,50 +22,25 @@ import { AddMembersNewTeamComponent } from '../add-members-new-team/add-members-
   styleUrls: ['./add-resources-new-team.component.scss'],
 })
 export class AddResourcesNewTeamComponent implements OnInit, OnDestroy {
-  resources: {
-    type: number;
-    name: string;
-    createdAt: string;
-    uid: string;
-    icon: string;
-    checked: boolean;
-  }[] = [];
-  resources$: Observable<any>;
-  @ViewChildren('myItem') item;
   @Input() owner: string;
   @Input() typeFile: ResourceType;
-  inputs$ = new Subject<any>();
-  resourcesSubscription: Subscription;
-  users: { [key: string]: UserAlgolia } = {};
+
+  filteredItems: ResourcesTeam[] = [];
   filterKey: string;
-  selectedResources: {
-    type: number;
-    name: string;
-    createdAt: string;
-    uid: string;
-    icon: string;
-    checked: boolean;
-  }[] = [];
-  filteredItems: {
-    type: number;
-    name: string;
-    createdAt: string;
-    uid: string;
-    icon: string;
-    checked: boolean;
-  }[] = [];
-
-  constructor(
-    private state: State<AppState>,
-    private bottomSheetRef: MatBottomSheetRef<AddMembersNewTeamComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA)
-    public data: {
-      resources;
-    },
-  ) {}
-
+  inputs$ = new Subject<FilterKey>();
+  resources: ResourcesTeam[] = [];
+  resources$: Observable<ResourceInterface[]>;
+  resourcesSubscription: Subscription;
+  selectedResources: ResourcesTeam[] = [];
+  users: { [key: string]: UserAlgolia } = {};
   user$: Observable<User>;
   user: User;
+
+  constructor(
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { resources: ResourcesTeam[] },
+    private bottomSheetRef: MatBottomSheetRef<AddMembersNewTeamComponent>,
+    private state: State<AppState>,
+  ) {}
 
   ngOnInit(): void {
     this.selectedResources = this.data.resources;
@@ -78,14 +54,13 @@ export class AddResourcesNewTeamComponent implements OnInit, OnDestroy {
     });
   }
 
-  getFilteredData(inputs: Observable<any>) {
+  getFilteredData(inputs: Observable<FilterKey>) {
     return inputs.pipe(
       debounceTime(0),
       distinctUntilChanged((p, q) => p.filterKey === q.filterKey),
       switchMap((input) => {
         const key = input.filterKey.trim();
 
-        // Filter the data.
         const result = this.resources.filter((item) =>
           item.name.toLowerCase().includes(key.toLowerCase()),
         );
@@ -95,13 +70,10 @@ export class AddResourcesNewTeamComponent implements OnInit, OnDestroy {
     );
   }
 
-  toggleResources(resource, event) {
+  toggleResources(resource: ResourcesTeam, event: MatCheckboxChange) {
     if (event.checked == true) {
       this.selectedResources.push({
-        type: resource.avatar,
-        name: resource.name,
-        createdAt: resource.createdAt,
-        uid: resource.uid,
+        ...resource,
         icon: resource.icon,
         checked: resource.checked,
       });
@@ -115,26 +87,26 @@ export class AddResourcesNewTeamComponent implements OnInit, OnDestroy {
   }
 
   getResources() {
-    this.resources$ = this.state.pipe(select(selectResourcesState));
+    this.resources$ = this.state.pipe(
+      select(selectResourcesState),
+      map((data) => [
+        ...data[ResourceType.FILE],
+        ...data[ResourceType.VIDEO],
+        ...data[ResourceType.IMAGE],
+      ]),
+    );
 
-    this.resourcesSubscription = this.resources$.subscribe((resources) => {
-      for (let i = 0; i < 3; i++) {
-        resources[i].forEach((element) => {
-          this.resources.push({
-            type: element.type,
-            name: element.name,
-            createdAt: element.createAt,
-            uid: element.uid,
-            icon: this.getfileIcon(element),
-            checked: false,
-          });
-        });
-      }
+    this.resourcesSubscription = this.resources$.subscribe((respond) => {
+      this.resources = respond.map((data) => ({
+        ...data,
+        icon: this.getfileIcon(data),
+        checked: false,
+      }));
       this.activateChecks(this.resources);
     });
   }
 
-  remove(resource) {
+  remove(resource: ResourcesTeam) {
     this.selectedResources.forEach((element, index) => {
       if (element.uid == resource.uid) {
         this.selectedResources.splice(index, 1);
@@ -147,7 +119,7 @@ export class AddResourcesNewTeamComponent implements OnInit, OnDestroy {
     });
   }
 
-  getfileIcon(resource) {
+  getfileIcon(resource: ResourceInterface) {
     switch (resource.type) {
       case ResourceType.IMAGE:
         return 'assets/img/Image.svg';
@@ -164,12 +136,12 @@ export class AddResourcesNewTeamComponent implements OnInit, OnDestroy {
     }
   }
 
-  onFilterKeyChange(key) {
+  onFilterKeyChange(key: string) {
     this.filterKey = key;
     this.inputs$.next({ filterKey: this.filterKey });
   }
 
-  activateChecks(resources) {
+  activateChecks(resources: ResourcesTeam[]) {
     if (this.selectedResources && this.selectedResources.length > 0) {
       this.selectedResources.forEach((selected) => {
         resources.forEach((user) => {

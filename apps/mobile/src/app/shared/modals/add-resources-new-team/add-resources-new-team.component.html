@@ -16,9 +16,9 @@
     <div *ngFor="let item of selectedResources" class="resource">
       <div class="grouped-with-close">
         <pang-icon [url]="item.icon" name="item.icon" class="docIcon"></pang-icon>
-        <mat-icon matSuffix class="close-icon" icon-size="20" (click)="remove(item)"
-          >close</mat-icon
-        >
+        <mat-icon matSuffix class="close-icon" icon-size="20" (click)="remove(item)">
+          close
+        </mat-icon>
       </div>
     </div>
   </div>
@@ -30,6 +30,7 @@
       </div>
       <mat-checkbox
         class="example-margin"
+        color="primary"
         [(ngModel)]="item.checked"
         (change)="toggleResources(item, $event)"
       ></mat-checkbox>

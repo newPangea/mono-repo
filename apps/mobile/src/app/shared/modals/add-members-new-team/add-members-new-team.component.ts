@@ -15,6 +15,10 @@ import { ConnectionInterface, User, UserAlgolia } from '@pang/interface';
 import { environment } from '@pang/mobile/environments/environment';
 import { FIRESTORE_COLLECTION } from '@pang/const';
 import { selectMyConnections } from '@pang/mobile/app/state/connection/connection.selectors';
+import { MemberData } from '../interfaces/member-interface';
+import { FilterKey } from '../interfaces/filter-key';
+import { SelectedMembers } from '../interfaces/selected-members';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'pang-add-members-new-team',
@@ -27,28 +31,13 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
   connectionsSubscription: Subscription;
   load = true;
 
-  inputs$ = new Subject<any>();
+  inputs$ = new Subject<FilterKey>();
   hits: Array<Hit<UserAlgolia>> = [];
   filterKey: string;
-  filteredItems: {
-    name: string;
-    address: string[];
-    avatar: string;
-    checked: boolean;
-    uid: string;
-  }[] = [];
-  arrayTransformed;
-  selectedMembers: {
-    avatar: string;
-    uid: string;
-  }[] = [];
-  users: {
-    name: string;
-    address: string[];
-    avatar: string;
-    checked: boolean;
-    uid: string;
-  }[] = [];
+  filteredItems: MemberData[] = [];
+  arrayTransformed: string;
+  selectedMembers: SelectedMembers[] = [];
+  users: MemberData[] = [];
 
   constructor(
     private algoliaService: AlgoliaService,
@@ -110,7 +99,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
     });
   }
 
-  remove(member) {
+  remove(member: MemberData) {
     this.selectedMembers.forEach((element, index) => {
       if (element.uid == member.uid) {
         this.selectedMembers.splice(index, 1);
@@ -123,7 +112,8 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
     });
   }
 
-  toggleMember(user, event) {
+  toggleMember(user: SelectedMembers, event: MatCheckboxChange) {
+    console.log(event);
     if (event.checked == true) {
       this.selectedMembers.push({
         avatar: user.avatar,
@@ -174,7 +164,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
     }
   }
 
-  activateChecks(users) {
+  activateChecks(users: MemberData[]) {
     if (this.selectedMembers && this.selectedMembers.length > 0) {
       this.selectedMembers.forEach((selected) => {
         users.forEach((user) => {
@@ -196,7 +186,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
     });
   }
 
-  onFilterKeyChange(key) {
+  onFilterKeyChange(key: string) {
     this.filterKey = key;
     this.inputs$.next({ filterKey: this.filterKey });
   }
@@ -211,7 +201,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
     this.bottomSheetRef.dismiss();
   }
 
-  getFilteredData(inputs: Observable<any>) {
+  getFilteredData(inputs: Observable<FilterKey>) {
     return inputs.pipe(
       debounceTime(0),
       distinctUntilChanged((p, q) => p.filterKey === q.filterKey),

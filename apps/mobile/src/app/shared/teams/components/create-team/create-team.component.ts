@@ -13,6 +13,7 @@ import { Team } from '@pang/models';
 import { AddMembersNewTeamComponent } from '../../../modals/add-members-new-team/add-members-new-team.component';
 import { AddResourcesNewTeamComponent } from '../../../modals/add-resources-new-team/add-resources-new-team.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ResourcesTeam } from '../../../modals/interfaces/resources';
 
 @Component({
   selector: 'pang-create-team',
@@ -26,10 +27,7 @@ export class CreateTeamComponent implements OnInit {
     avatar: string;
     uid: string;
   }[] = [];
-  resources: {
-    avatar: string;
-    uid: string;
-  }[] = [];
+  resources: ResourcesTeam[] = [];
   incomplete = true;
   resource: ResourceInterface;
 
