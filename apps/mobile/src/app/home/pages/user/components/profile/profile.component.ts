@@ -111,8 +111,9 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
   zoomToElement(event: MouseEvent, levelZoom: number) {
     event.stopPropagation();
     const target = event.currentTarget as HTMLDivElement;
-    const x = target.offsetLeft + target.offsetWidth / 2;
-    const y = target.offsetTop + target.offsetHeight / 2;
+    const { x, y } = target.getClientRects()[0];
+    const xValue = x + target.offsetWidth / 2;
+    const yValue = y + target.offsetHeight / 2;
 
     this.root
       .transition()
@@ -122,7 +123,7 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
         d3Zoom.zoomIdentity
           .translate(this.width / 2, this.height / 2)
           .scale(levelZoom)
-          .translate(-x, -y),
+          .translate(-xValue, -yValue),
       );
   }
 
