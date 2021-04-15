@@ -17,3 +17,5 @@ xcrun altool --upload-app -f "$buildPath/App.ipa" -u ruedagato@gmail.com -p $1
 git add .
 git commit -m "v$version"
 git push
+git tag -a $version -m "v$version"
+git push --tags
