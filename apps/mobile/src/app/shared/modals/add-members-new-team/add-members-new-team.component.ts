@@ -1,24 +1,22 @@
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Component, Inject, OnDestroy, OnInit, ViewChildren } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
-import { debounceTime, distinctUntilChanged, switchMap, take } from 'rxjs/operators';
-import { select, State } from '@ngrx/store';
-import { Observable, of, Subject, Subscription } from 'rxjs';
-
+import { debounceTime, distinctUntilChanged, first, switchMap } from 'rxjs/operators';
 import { Hit } from '@algolia/client-search';
+import { Observable, of, Subject, Subscription } from 'rxjs';
+import { select, State } from '@ngrx/store';
 
 import { AlgoliaService } from '@pang/algolia';
 import { AppState } from '@pang/mobile/app/state/app.state';
 import { ConnectionInterface, User, UserAlgolia } from '@pang/interface';
 import { environment } from '@pang/mobile/environments/environment';
-import { FIRESTORE_COLLECTION } from '@pang/const';
 import { selectMyConnections } from '@pang/mobile/app/state/connection/connection.selectors';
-import { MemberData } from '../interfaces/member-interface';
+
 import { FilterKey } from '../interfaces/filter-key';
+import { MemberData } from '../interfaces/member-interface';
 import { SelectedMembers } from '../interfaces/selected-members';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'pang-add-members-new-team',
@@ -27,37 +25,34 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 })
 export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
   $connections: Observable<ConnectionInterface[]>;
-  @ViewChildren('myItem') item;
-  connectionsSubscription: Subscription;
-  load = true;
-
-  inputs$ = new Subject<FilterKey>();
-  hits: Array<Hit<UserAlgolia>> = [];
-  filterKey: string;
-  filteredItems: MemberData[] = [];
   arrayTransformed: string;
+  connectionsSubscription: Subscription;
+  filteredItems: MemberData[] = [];
+  filterKey: string;
+  hits: Array<Hit<UserAlgolia>> = [];
+  inputs$ = new Subject<FilterKey>();
+  load = true;
   selectedMembers: SelectedMembers[] = [];
+  uid: string;
+  user: User;
+  user$: Observable<User>;
   users: MemberData[] = [];
 
   constructor(
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { members: MemberData[] },
     private algoliaService: AlgoliaService,
     private auth: AngularFireAuth,
     private bottomSheetRef: MatBottomSheetRef<AddMembersNewTeamComponent>,
-    private fireStore: AngularFirestore,
     private state: State<AppState>,
-    @Inject(MAT_BOTTOM_SHEET_DATA)
-    public data: {
-      members;
-    },
-  ) {}
-
-  user$: Observable<User>;
-  user: User;
+  ) {
+    this.auth.currentUser.then(({ uid }) => {
+      this.uid = uid;
+      this.getConnectionsState(this.uid);
+    });
+  }
 
   ngOnInit(): void {
     this.selectedMembers = this.data.members;
-
-    this.getUserInfo();
 
     this.filterKey = '';
     this.filteredItems = this.users;
@@ -71,25 +66,14 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
     this.bottomSheetRef.dismiss(this.selectedMembers);
   }
 
-  async getUserInfo() {
-    const user = await this.auth.currentUser;
-    this.user$ = this.fireStore
-      .collection<User>(FIRESTORE_COLLECTION.user)
-      .doc(user.uid)
-      .valueChanges();
-    this.user = await this.user$.pipe(take(1)).toPromise();
-    this.getConnectionsState(this.user);
-  }
-
-  getConnectionsState(user: User) {
-    this.$connections = this.state.pipe(select(selectMyConnections));
-    this.connectionsSubscription = this.$connections.subscribe((connections) => {
+  getConnectionsState(uid: string) {
+    this.state.pipe(first(), select(selectMyConnections)).subscribe((connections) => {
       const keys = [];
       connections.forEach((element) => {
-        if (element.from != user.uid) {
+        if (element.from != uid) {
           keys.push(element.from);
         }
-        if (element.to != user.uid) {
+        if (element.to != uid) {
           keys.push(element.to);
         }
       });
@@ -113,18 +97,13 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
   }
 
   toggleMember(user: SelectedMembers, event: MatCheckboxChange) {
-    console.log(event);
     if (event.checked == true) {
       this.selectedMembers.push({
         avatar: user.avatar,
         uid: user.uid,
       });
     } else {
-      this.selectedMembers.forEach((element, index) => {
-        if (element.uid == user.uid) {
-          this.selectedMembers.splice(index, 1);
-        }
-      });
+      this.selectedMembers = this.selectedMembers.filter((element) => element.uid !== user.uid);
     }
   }
 
@@ -148,7 +127,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
   }
 
   algoliaSearchData(keys: string) {
-    if (keys && keys != '') {
+    if (!!keys) {
       this.algoliaService
         .search<UserAlgolia>(environment.userAlgoliaIndex, '', {
           facetFilters: keys,
@@ -208,7 +187,6 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
       switchMap((input) => {
         const key = input.filterKey.trim();
 
-        // Filter the data.
         const result = this.users.filter((item) =>
           item.name.toLowerCase().includes(key.toLowerCase()),
         );

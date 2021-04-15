@@ -78,11 +78,9 @@ export class AddResourcesNewTeamComponent implements OnInit, OnDestroy {
         checked: resource.checked,
       });
     } else {
-      this.selectedResources.forEach((element, index) => {
-        if (element.uid == resource.uid) {
-          this.selectedResources.splice(index, 1);
-        }
-      });
+      this.selectedResources = this.selectedResources.filter(
+        (element) => element.uid !== resource.uid,
+      );
     }
   }
 
