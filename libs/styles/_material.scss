@@ -59,3 +59,11 @@ mat-drawer-container {
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
   background-color: $primary;
 }
+
+.ionic-modal {
+  z-index: 1000 !important;
+}
+
+.bottom-sheet-panel {
+  border-radius: 12px 12px 0 0;
+}

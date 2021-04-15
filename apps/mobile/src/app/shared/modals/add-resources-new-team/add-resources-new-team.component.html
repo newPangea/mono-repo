@@ -1,1 +1,48 @@
-<p>add-resources-new-team works!</p>
+<div class="container">
+  <div class="search-box" style="position: relative">
+    <input
+      class="search-input"
+      type="text"
+      placeholder="Search by name"
+      aria-label="Search by name"
+      autocomplete="off"
+      [ngModel]="filterKey"
+      (ngModelChange)="onFilterKeyChange($event)"
+      #input
+    />
+    <mat-icon matSuffix class="search-icon">search</mat-icon>
+  </div>
+  <div *ngIf="selectedResources && selectedResources.length > 0" class="selected">
+    <div *ngFor="let item of selectedResources" class="resource">
+      <div class="grouped-with-close">
+        <pang-icon [url]="item.icon" name="item.icon" class="docIcon"></pang-icon>
+        <mat-icon matSuffix class="close-icon" icon-size="20" (click)="remove(item)"
+          >close</mat-icon
+        >
+      </div>
+    </div>
+  </div>
+  <div class="resources-container">
+    <div class="secuential" *ngFor="let item of filteredItems; let i = index">
+      <pang-icon [url]="item.icon" name="item.icon"></pang-icon>
+      <div>
+        <p class="name">{{ item.name }}</p>
+      </div>
+      <mat-checkbox
+        class="example-margin"
+        [(ngModel)]="item.checked"
+        (change)="toggleResources(item, $event)"
+      ></mat-checkbox>
+    </div>
+  </div>
+  <div class="add-container">
+    <button
+      pang-button
+      color="primary"
+      [disabled]="selectedResources.length == 0"
+      (click)="addResources()"
+    >
+      Add ({{ selectedResources.length }}) resources
+    </button>
+  </div>
+</div>

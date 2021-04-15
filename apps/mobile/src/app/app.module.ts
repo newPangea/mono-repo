@@ -27,6 +27,12 @@ import {
 import { ConnectionEffects } from '@pang/mobile/app/state/connection/connection.effects';
 import { CoreModule } from '@pang/core';
 import { IsUserCompleteGuard } from '@pang/mobile/app/guards/is-user-complete.guard';
+import { UiModule } from '@pang/ui';
+import { ResourcesEffects } from '@pang/mobile/app/state/resources/resources.effects';
+import {
+  resourcesFeatureKey,
+  resourcesReducer,
+} from '@pang/mobile/app/state/resources/resources.reducer';
 
 import { AppComponent } from './app.component';
 
@@ -80,13 +86,14 @@ const routes: Routes = [
     BrowserModule,
     CoreModule,
     MatIconModule,
-    EffectsModule.forRoot([ConnectionEffects]),
+    EffectsModule.forRoot([ConnectionEffects, ResourcesEffects]),
     HttpClientModule,
     IonicModule.forRoot(),
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     StoreModule.forRoot(
       {
         [connectionFeatureKey]: ConnectionReducer,
+        [resourcesFeatureKey]: resourcesReducer,
       },
       {
         metaReducers: !environment.production ? [] : [],
@@ -98,6 +105,7 @@ const routes: Routes = [
     ),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot(),
+    UiModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

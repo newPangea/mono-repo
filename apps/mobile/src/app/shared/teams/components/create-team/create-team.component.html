@@ -29,12 +29,34 @@
         </div>
         <div class="secuential">
           <p class="select">Add resources</p>
-          <p (click)="addResources()" class="action">Add resources</p>
+          <p *ngIf="resources && resources.length == 0" class="action" (click)="addResources()">
+            Add resources
+          </p>
+          <p *ngIf="resources && resources.length > 0" class="action" (click)="addResources()">
+            Add more
+          </p>
+        </div>
+        <div *ngIf="resources && resources.length > 0" class="selected2">
+          <div *ngFor="let item of resources" class="member">
+            <div class="grouped-with-close">
+              <pang-icon [url]="item.icon" name="item.icon" class="docIcon"></pang-icon>
+              <mat-icon matSuffix class="close-icon2" (click)="removeResource(item)"
+                >close</mat-icon
+              >
+            </div>
+          </div>
         </div>
       </div>
     </form>
     <div class="create-container">
-      <button pang-button color="primary" [disabled]="teamGroup.invalid">Create team</button>
+      <button
+        pang-button
+        color="primary"
+        (click)="createTeam()"
+        [disabled]="teamGroup.invalid || members.length == 0"
+      >
+        Create team
+      </button>
     </div>
   </ng-container>
 </pang-template>

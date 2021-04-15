@@ -1,5 +1,5 @@
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
@@ -15,7 +15,14 @@ import {
   loadConnections,
   loadPendingConnection,
 } from '@pang/mobile/app/state/connection/connection.actions';
+
 import { UserService } from '@pang/core';
+import { NavigationService } from '@pang/ui';
+import {
+  loadResourcesDoc,
+  loadResourcesImage,
+  loadResourcesVideo,
+} from '@pang/mobile/app/state/resources/resources.actions';
 
 const { PushNotifications, Device, Modals } = Plugins;
 
@@ -30,21 +37,29 @@ export class AppComponent implements OnInit {
     private auth: AngularFireAuth,
     private router: Router,
     private store: Store,
+    private ngZone: NgZone,
+    private navigate: NavigationService,
   ) {
     this.auth.authState.pipe(filter((user) => !!user)).subscribe(() => {
       this.store.dispatch(loadPendingConnection());
       this.store.dispatch(loadConnections());
+      this.store.dispatch(loadResourcesVideo());
+      this.store.dispatch(loadResourcesImage());
+      this.store.dispatch(loadResourcesDoc());
     });
+    this.navigate.initService();
   }
 
   ngOnInit(): void {
     Device.getInfo().then((data) => {
       if (data.platform !== 'web') {
-        PushNotifications.addListener('registration', async (token: PushNotificationToken) => {
-          const user = await this.auth.currentUser;
-          if (user) {
-            await this.userService.updateUser(user.uid, { token: token.value });
-          }
+        PushNotifications.addListener('registration', (token: PushNotificationToken) => {
+          this.ngZone.run(async () => {
+            const user = await this.auth.currentUser;
+            if (user) {
+              await this.userService.updateUser(user.uid, { token: token.value });
+            }
+          });
         });
 
         PushNotifications.addListener('registrationError', (error) => {
@@ -54,31 +69,35 @@ export class AppComponent implements OnInit {
         PushNotifications.addListener(
           'pushNotificationReceived',
           (notification: PushNotification) => {
-            switch (notification.data.event) {
-              case 'connection':
-                Modals.confirm({
-                  cancelButtonTitle: 'Close',
-                  title: 'request Connection',
-                  message: 'You have a new request connection',
-                  okButtonTitle: 'View',
-                }).then(({ value }) => {
-                  if (value) {
-                    this.router.navigate(['/home/notification']);
-                  }
-                });
-                break;
-            }
+            this.ngZone.run(() => {
+              switch (notification.data.event) {
+                case 'connection':
+                  Modals.confirm({
+                    cancelButtonTitle: 'Close',
+                    title: 'request Connection',
+                    message: 'You have a new request connection',
+                    okButtonTitle: 'View',
+                  }).then(({ value }) => {
+                    if (value) {
+                      this.router.navigate(['/home/notification']);
+                    }
+                  });
+                  break;
+              }
+            });
           },
         );
 
         PushNotifications.addListener(
           'pushNotificationActionPerformed',
           ({ notification }: PushNotificationActionPerformed) => {
-            switch (notification.data.event) {
-              case 'connection':
-                this.router.navigate(['/home/notification/']);
-                break;
-            }
+            this.ngZone.run(() => {
+              switch (notification.data.event) {
+                case 'connection':
+                  this.router.navigate(['/home/notification']);
+                  break;
+              }
+            });
           },
         );
       }

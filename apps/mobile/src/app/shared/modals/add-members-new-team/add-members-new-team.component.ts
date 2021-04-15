@@ -1,17 +1,20 @@
-import { Component, Inject, OnDestroy, OnInit, ViewChildren } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { select, State } from '@ngrx/store';
-import { AlgoliaService } from '@pang/algolia';
-import { FIRESTORE_COLLECTION } from '@pang/const';
-import { ConnectionInterface, User, UserAlgolia } from '@pang/interface';
-import { AppState } from '@pang/mobile/app/state/app.state';
-import { selectMyConnections } from '@pang/mobile/app/state/connection/connection.selectors';
-import { environment } from '@pang/mobile/environments/environment';
-import { Observable, of, Subject, Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, take } from 'rxjs/operators';
-import { Hit } from '@algolia/client-search';
+import { Component, Inject, OnDestroy, OnInit, ViewChildren } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+
+import { debounceTime, distinctUntilChanged, switchMap, take } from 'rxjs/operators';
+import { select, State } from '@ngrx/store';
+import { Observable, of, Subject, Subscription } from 'rxjs';
+
+import { Hit } from '@algolia/client-search';
+
+import { AlgoliaService } from '@pang/algolia';
+import { AppState } from '@pang/mobile/app/state/app.state';
+import { ConnectionInterface, User, UserAlgolia } from '@pang/interface';
+import { environment } from '@pang/mobile/environments/environment';
+import { FIRESTORE_COLLECTION } from '@pang/const';
+import { selectMyConnections } from '@pang/mobile/app/state/connection/connection.selectors';
 
 @Component({
   selector: 'pang-add-members-new-team',
@@ -42,11 +45,11 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
   }[] = [];
 
   constructor(
-    private state: State<AppState>,
-    private auth: AngularFireAuth,
-    private fireStore: AngularFirestore,
     private algoliaService: AlgoliaService,
+    private auth: AngularFireAuth,
     private bottomSheetRef: MatBottomSheetRef<AddMembersNewTeamComponent>,
+    private fireStore: AngularFirestore,
+    private state: State<AppState>,
     @Inject(MAT_BOTTOM_SHEET_DATA)
     public data: {
       members;
@@ -58,6 +61,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.selectedMembers = this.data.members;
+
     this.getUserInfo();
 
     this.filterKey = '';
@@ -194,6 +198,10 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
     if (this.connectionsSubscription) {
       this.connectionsSubscription.unsubscribe();
     }
+  }
+
+  close(): void {
+    this.bottomSheetRef.dismiss();
   }
 
   getFilteredData(inputs: Observable<any>) {

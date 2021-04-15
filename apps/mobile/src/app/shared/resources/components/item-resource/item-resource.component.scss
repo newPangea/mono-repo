@@ -1,0 +1,34 @@
+@import 'global';
+
+.resource-item {
+  display: grid;
+  grid-template-columns: 46px auto max-content;
+  gap: 16px;
+  padding: 15px 0;
+  border-bottom: 1px solid $pinkishGrey;
+  align-items: center;
+
+  &__info {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+
+    .caption {
+      @include caption;
+      color: $warmGrey2;
+    }
+
+    .user-data {
+      display: grid;
+      grid-template-columns: max-content auto;
+      gap: 5px;
+      align-items: center;
+    }
+  }
+
+  .button-icon {
+    @include circle(40px);
+    background: transparent;
+    border: none;
+  }
+}
