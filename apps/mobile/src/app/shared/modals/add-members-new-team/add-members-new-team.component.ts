@@ -25,6 +25,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
   $connections: Observable<ConnectionInterface[]>;
   @ViewChildren('myItem') item;
   connectionsSubscription: Subscription;
+  load = true;
 
   inputs$ = new Subject<any>();
   hits: Array<Hit<UserAlgolia>> = [];
@@ -164,6 +165,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
           });
           this.activateChecks(this.users);
         });
+      this.load = false;
     }
   }
 

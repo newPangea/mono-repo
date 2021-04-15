@@ -11,7 +11,7 @@
   height: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 
   &-button {
     --icon-size: 40px;
@@ -52,6 +52,16 @@
   .circle {
     @include circle(128px);
     border: solid 1px $blue2;
+
+    box-shadow: 0 5px 12px 0 rgba(101, 93, 10, 0.46);
+    background-image: linear-gradient(to bottom, #119eb6, #97955a);
+    --icon-size: 40px;
+    color: $white;
+  }
+  .circle2 {
+    @include circle(128px);
+    margin-top: 10px;
+    border: solid 1px $blue2;
     box-shadow: 0 5px 12px 0 rgba(101, 93, 10, 0.46);
     background-image: linear-gradient(to bottom, #119eb6, #97955a);
     --icon-size: 40px;
@@ -78,8 +88,4 @@
     margin-top: 10px;
     height: 38px;
   }
-}
-
-.hasTeams {
-  padding-bottom: 20vh;
 }

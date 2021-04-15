@@ -13,6 +13,7 @@
     <mat-icon matSuffix class="search-icon">search</mat-icon>
   </div>
   <p class="sub">You can only add people of your connections</p>
+  <mat-spinner style="margin: auto" *ngIf="load"></mat-spinner>
   <div *ngIf="selectedMembers && selectedMembers.length > 0" class="selected">
     <div *ngFor="let item of selectedMembers" class="member">
       <div class="grouped-with-close">

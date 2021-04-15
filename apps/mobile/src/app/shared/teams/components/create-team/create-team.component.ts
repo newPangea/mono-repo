@@ -12,6 +12,7 @@ import { Team } from '@pang/models';
 
 import { AddMembersNewTeamComponent } from '../../../modals/add-members-new-team/add-members-new-team.component';
 import { AddResourcesNewTeamComponent } from '../../../modals/add-resources-new-team/add-resources-new-team.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'pang-create-team',
@@ -39,6 +40,7 @@ export class CreateTeamComponent implements OnInit {
     private resourceService: ResourceService,
     private teamService: TeamService,
     public builder: FormBuilder,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +78,7 @@ export class CreateTeamComponent implements OnInit {
           });
       });
     }
+    this.snackBar.open('"' + name + '" has been uploaded', 'close', { duration: 2000 });
     this.closeModal();
   }
 

@@ -8,6 +8,7 @@ import { TeamService } from '@pang/core';
 import { Team } from '@pang/models';
 
 import { CreateTeamComponent } from './components/create-team/create-team.component';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'pang-teams',
@@ -21,19 +22,23 @@ export class TeamsComponent implements OnInit, OnDestroy {
   teamSubscription: Subscription;
   hasTeams = false;
   teams: Team[];
+  uid: string;
 
   constructor(
+    private auth: AngularFireAuth,
     private elementRef: ElementRef<HTMLElement>,
     private render: Renderer2,
     public modalController: ModalController,
     private teamService: TeamService,
-  ) {}
+  ) {
+    this.auth.currentUser.then(({ uid }) => (this.uid = uid));
+  }
 
   ngOnInit(): void {
     if (this.elementRef && this.scaleFactor > 1) {
       this.scaleComponent();
     }
-    this.teamSubscription = this.teamService.getMyTeams().subscribe((teams) => {
+    this.teamSubscription = this.teamService.getMyTeams(this.owner).subscribe((teams) => {
       this.teams = teams;
       console.log(teams);
     });
