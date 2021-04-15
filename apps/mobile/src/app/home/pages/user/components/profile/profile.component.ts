@@ -110,10 +110,17 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
 
   zoomToElement(event: MouseEvent, levelZoom: number) {
     event.stopPropagation();
+    const root = this.group.node();
     const target = event.currentTarget as HTMLDivElement;
+    const rootSize = root.getClientRects()[0];
+
     const { x, y } = target.getClientRects()[0];
-    const xValue = x + target.offsetWidth / 2;
-    const yValue = y + target.offsetHeight / 2;
+
+    const xRelative = (x - rootSize.x) / this.scaleFactor;
+    const yRelative = (y - rootSize.y) / this.scaleFactor;
+
+    const xValue = xRelative + target.offsetWidth / 2;
+    const yValue = yRelative + target.offsetHeight / 2;
 
     this.root
       .transition()
