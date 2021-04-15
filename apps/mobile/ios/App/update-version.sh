@@ -63,9 +63,10 @@ if [[ -n $1 ]] && [[ $1 == "--reflect-commits" ]]; then
 	fi
 else
 	status=$("${git}" status --porcelain)
-	if [[ ${#status} != 0 ]] && [[ $status != *"M ${plist}"* ]]; then
-		mainBundleVersion=$((${mainBundleVersion} + 1))
-	fi
+	mainBundleVersion=$((${mainBundleVersion} + 1))
+#	if [[ ${#status} != 0 ]] && [[ $status != *"M ${plist}"* ]]; then
+#		mainBundleVersion=$((${mainBundleVersion} + 1))
+#	fi
 fi
 
 # Update all of the Info.plist files we discovered
