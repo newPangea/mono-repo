@@ -29,9 +29,14 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
 
   inputs$ = new Subject<any>();
   hits: Array<Hit<UserAlgolia>> = [];
-  filterKey;
-  items;
-  filteredItems;
+  filterKey: string;
+  filteredItems: {
+    name: string;
+    address: string[];
+    avatar: string;
+    checked: boolean;
+    uid: string;
+  }[] = [];
   arrayTransformed;
   selectedMembers: {
     avatar: string;

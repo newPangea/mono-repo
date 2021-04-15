@@ -17,14 +17,14 @@
 # if it's not in the same folder as the script is called from (the project root if called as a
 # build phase run script).
 #
-#xcodeproj="Project.xcodeproj"
+# xcodeproj=$1
 
 ##
 # We have to define an Info.plist as the source of truth. This is typically the one for the main
 # target. If not set, the script will try to guess the correct file from the list it gathers from
 # the xcodeproj file, but this can be overriden by setting the path here.
 #
-#plist="Project/Info.plist"
+# plist=$2
 
 # We use PlistBuddy to handle the Info.plist values. Here we define where it lives.
 plistBuddy="/usr/libexec/PlistBuddy"
@@ -83,4 +83,5 @@ while read -r thisPlist; do
 		echo "Updating \"${thisPlist}\" with marketing version ${mainBundleShortVersionString}…"
 		"${plistBuddy}" -c "Set :CFBundleShortVersionString ${mainBundleShortVersionString}" "${thisPlist}"
 	fi
+  echo "$mainBundleShortVersionString.$mainBundleVersion"
 done <<< "${plists}"

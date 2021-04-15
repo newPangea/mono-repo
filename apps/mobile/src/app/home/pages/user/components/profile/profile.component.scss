@@ -123,21 +123,20 @@ $circleSize: 596px;
 
   &-resources {
     position: absolute;
-    top: 300px;
-    left: 25px;
+    top: 230px;
+    left: 120px;
   }
 
   &-connection {
     position: absolute;
-    top: 300px;
-    right: 25px;
+    top: 230px;
+    right: 120px;
   }
 
   &-teams {
-    position: relative;
-    top: 450px;
-    margin-left: auto;
-    margin-right: auto;
+    position: absolute;
+    top: 500px;
+    left: 33.333%;
   }
 }
 

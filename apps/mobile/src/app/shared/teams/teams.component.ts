@@ -1,4 +1,12 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
 
@@ -15,7 +23,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.scss'],
 })
-export class TeamsComponent implements OnInit, OnDestroy {
+export class TeamsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() scaleFactor = 1;
   @Input() maxScale: number;
   @Input() owner: string;
@@ -34,14 +42,21 @@ export class TeamsComponent implements OnInit, OnDestroy {
     this.auth.currentUser.then(({ uid }) => (this.uid = uid));
   }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     if (this.elementRef && this.scaleFactor > 1) {
       this.scaleComponent();
     }
+  }
+
+  ngOnInit(): void {
     this.teamSubscription = this.teamService.getMyTeams(this.owner).subscribe((teams) => {
       this.teams = teams;
       console.log(teams);
     });
+  }
+
+  seeTeam(event) {
+    event.stopPropagation();
   }
 
   scaleComponent() {

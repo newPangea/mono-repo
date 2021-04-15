@@ -65,10 +65,10 @@ ion-modal {
   width: 10px;
   height: 10px;
   padding: 4px;
-  background-color: #ff535b;
+  background-color: $alert;
   border-radius: 20px;
   font-size: 10px;
-  color: white;
+  color: $white;
   position: absolute;
   left: 26px;
   bottom: 24px;
@@ -77,10 +77,10 @@ ion-modal {
   width: 10px;
   height: 10px;
   padding: 4px;
-  background-color: #ff535b;
+  background-color: $alert;
   border-radius: 20px;
   font-size: 10px;
-  color: white;
+  color: $white;
   position: absolute;
   left: 20px;
   bottom: 20px;

@@ -1,5 +1,3 @@
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, Inject, Input, OnDestroy, OnInit, ViewChildren } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 
@@ -8,9 +6,8 @@ import { Observable, of, Subject, Subscription } from 'rxjs';
 
 import { select, State } from '@ngrx/store';
 
-import { AlgoliaService } from '@pang/algolia';
 import { AppState } from '@pang/mobile/app/state/app.state';
-import { ResourceService } from '@pang/core';
+
 import { ResourceType } from '@pang/const';
 import { selectResourcesState } from '@pang/mobile/app/state/resources/resources.selectors';
 import { User, UserAlgolia } from '@pang/interface';
@@ -38,7 +35,7 @@ export class AddResourcesNewTeamComponent implements OnInit, OnDestroy {
   inputs$ = new Subject<any>();
   resourcesSubscription: Subscription;
   users: { [key: string]: UserAlgolia } = {};
-  filterKey;
+  filterKey: string;
   selectedResources: {
     type: number;
     name: string;
@@ -47,7 +44,14 @@ export class AddResourcesNewTeamComponent implements OnInit, OnDestroy {
     icon: string;
     checked: boolean;
   }[] = [];
-  filteredItems;
+  filteredItems: {
+    type: number;
+    name: string;
+    createdAt: string;
+    uid: string;
+    icon: string;
+    checked: boolean;
+  }[] = [];
 
   constructor(
     private state: State<AppState>,
