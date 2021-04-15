@@ -12,7 +12,7 @@ cd ../..
 
 xcodebuild -workspace $xcworkspace -scheme App -sdk iphoneos -configuration AppStoreDistribution archive -archivePath $buildPath/App.xcarchive
 xcodebuild -exportArchive -archivePath $buildPath/App.xcarchive -exportOptionsPlist $appPath/exportOption.plist -exportPath $buildPath
-xcrun altool --upload-app -f "$buildPath/App.ipa" -u ruedagato@gmail.com -p myvh-zphe-rnhs-bysl
+xcrun altool --upload-app -f "$buildPath/App.ipa" -u ruedagato@gmail.com -p $1
 
 git add .
 git commit -m "v$version"
