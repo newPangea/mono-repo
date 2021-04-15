@@ -1,0 +1,43 @@
+<div class="wrapper_container">
+  <div class="toolbar-container">
+    <div class="chat-users-container">
+      <div class="user-status-avatar-container" *ngFor="let member of [1, 1, 1, 1]">
+        <div class="status" [ngClass]="{ 'status--active': true, 'status--inactive': false }">
+          &nbsp;
+        </div>
+      </div>
+      <div class="other-users-quantity">
+        <p class="other-users-quantity__label">12+</p>
+      </div>
+    </div>
+  </div>
+  <div class="chat-body-container">
+    <div
+      *ngFor="let message of [1, 1, 1, 1, 1, 1, 1, 1]; let isEven = even"
+      class="message"
+      [ngClass]="{ 'message--mine': isEven, 'message--from-others': !isEven }"
+    >
+      <div class="message__header">
+        <div class="message__header__user-avatar">&nbsp;</div>
+        <p class="message__header__username">Sarah Spenser</p>
+      </div>
+      <div class="message__body">
+        <p class="message__body__text">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        </p>
+      </div>
+      <div class="message__footer">
+        <p class="message__footer__hour">1:48 p.m</p>
+      </div>
+    </div>
+  </div>
+  <div class="chat-new-message">
+    <mat-form-field appearance="fill">
+      <input matInput type="text" placeholder="Write a reply…" />
+      <mat-icon matSuffix>attach_file</mat-icon>
+    </mat-form-field>
+    <button class="chat-new-message__button" mat-raised-button color="primary">
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</div>

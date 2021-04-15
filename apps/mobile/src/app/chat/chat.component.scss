@@ -1,0 +1,141 @@
+@import 'global';
+$matFormFieldBottomPadding: 1.34375em;
+
+@mixin user-sphere {
+  width: 39px;
+  height: 39px;
+  border-radius: 100%;
+}
+
+.wrapper_container {
+  height: 100vh;
+  padding: 16px 16px 23px 16px;
+  display: grid;
+  grid-template-rows: max-content auto max-content;
+  box-sizing: border-box;
+  .toolbar-container {
+    padding-bottom: 15.5px;
+    border-bottom: 1px solid $odd;
+    .chat-users-container {
+      display: grid;
+      align-items: center;
+      grid-template-columns: repeat(auto-fill, 40px);
+      gap: 16px;
+    }
+  }
+  .chat-body-container {
+    padding-top: 20.5px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    .message {
+      box-sizing: border-box;
+      width: fit-content;
+      max-width: 70%;
+      padding: 8px 17px 13px 16px;
+      border-radius: 15px;
+      margin-top: 12px;
+      &:first-of-type {
+        margin-top: 0px;
+      }
+      &:last-of-type {
+        margin-bottom: 34.5px;
+      }
+      &__header {
+        display: grid;
+        grid-template-columns: max-content auto;
+        align-items: center;
+        column-gap: 4px;
+        &__user-avatar {
+          background-image: url('https://picsum.photos/300');
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          width: 16px;
+          height: 16px;
+          border-radius: 100%;
+        }
+        &__username {
+          @include text(8px, $gray, 500);
+        }
+      }
+      &__body {
+        margin-top: 4px;
+        &__text {
+          @include text(10px, $gray10, 500);
+        }
+      }
+      &__footer {
+        margin-top: 4px;
+        display: flex;
+        justify-content: flex-end;
+        &__hour {
+          @include text(8px, $gray4, 500);
+        }
+      }
+      &--mine {
+        border-radius: 15px 0px 15px 15px;
+        background-color: $student;
+        align-self: flex-end;
+        .message__header__username,
+        .message__body__text,
+        .message__footer__hour {
+          color: $white;
+        }
+      }
+      &--from-others {
+        border-radius: 0px 15px 15px 15px;
+        background-color: $odd;
+      }
+    }
+  }
+  .chat-new-message {
+    padding-top: 19.5px;
+    margin-bottom: -$matFormFieldBottomPadding;
+    display: grid;
+    grid-template-columns: auto max-content;
+    column-gap: 12px;
+    border-top: 1px solid $odd;
+    &__button {
+      height: calc(100% - #{$matFormFieldBottomPadding});
+      mat-icon {
+        color: $white;
+      }
+    }
+  }
+}
+
+.user-status-avatar-container {
+  background-image: url('https://picsum.photos/300');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @include user-sphere;
+  position: relative;
+  .status {
+    position: absolute;
+    bottom: 2px;
+    right: 3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    &--active {
+      background-color: $student;
+    }
+    &--inactive {
+      background-color: $alert;
+    }
+  }
+}
+
+.other-users-quantity {
+  @include user-sphere;
+  background-color: $gray8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  &__label {
+    @include text(14px, $gray9, 500);
+  }
+}
