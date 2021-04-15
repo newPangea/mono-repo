@@ -13,10 +13,10 @@ import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 import { TeamService } from '@pang/core';
-import { Team } from '@pang/models';
 
 import { CreateTeamComponent } from './components/create-team/create-team.component';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { TeamInterface } from '@pang/interface';
 
 @Component({
   selector: 'pang-teams',
@@ -29,7 +29,7 @@ export class TeamsComponent implements OnInit, OnDestroy, OnChanges {
   @Input() owner: string;
   teamSubscription: Subscription;
   hasTeams = false;
-  teams: Team[];
+  teams: TeamInterface[];
   uid: string;
 
   constructor(
@@ -51,12 +51,7 @@ export class TeamsComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     this.teamSubscription = this.teamService.getMyTeams(this.owner).subscribe((teams) => {
       this.teams = teams;
-      console.log(teams);
     });
-  }
-
-  seeTeam(event) {
-    event.stopPropagation();
   }
 
   scaleComponent() {

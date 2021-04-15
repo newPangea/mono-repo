@@ -29,7 +29,7 @@ export class ResourceService {
     );
   }
   getResourceByKey(key: string) {
-    return this.resourceCollection((ref) => ref.where('uid', '==', key)).valueChanges();
+    return this.resourceCollection().doc(key).valueChanges();
   }
 
   getAllMyResource() {
@@ -43,10 +43,6 @@ export class ResourceService {
         return directResource;
       }),
     );
-  }
-
-  addToTeam(key: string, teamKey: string[]) {
-    return this.resourceCollection().doc(key).update({ team: teamKey });
   }
 
   getResources(owner: string, typeFile: ResourceType) {

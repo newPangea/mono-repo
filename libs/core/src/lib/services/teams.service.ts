@@ -2,7 +2,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, QueryFn } from '@angular/fire/firestore';
 import { FIRESTORE_COLLECTION } from '@pang/const';
-import { Team } from '@pang/models';
+import { TeamConvert, TeamInterface } from '@pang/interface';
 
 @Injectable({
   providedIn: 'root',
@@ -11,13 +11,15 @@ export class TeamService {
   public didLogout: EventEmitter<void> = new EventEmitter();
 
   readonly teamCollection = (queryFn?: QueryFn) => {
-    const reference = this.db.firestore.collection(FIRESTORE_COLLECTION.team);
-    return this.db.collection<Team>(reference, queryFn);
+    const reference = this.db.firestore
+      .collection(FIRESTORE_COLLECTION.team)
+      .withConverter(TeamConvert);
+    return this.db.collection<TeamInterface>(reference, queryFn);
   };
 
   constructor(private db: AngularFirestore, private auth: AngularFireAuth) {}
 
-  add(team: Team) {
+  add(team: TeamInterface) {
     return this.db.collection(FIRESTORE_COLLECTION.team).doc(team.key).set(Object.assign({}, team));
   }
 

@@ -1,18 +1,17 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ModalController } from '@ionic/angular';
 
-import { take } from 'rxjs/operators';
-
-import { GeneralService, ResourceService, TeamService } from '@pang/core';
-import { ResourceInterface } from '@pang/interface';
-import { Team } from '@pang/models';
+import { ResourceInterface, TeamInterface } from '@pang/interface';
+import { ResourceService, TeamService } from '@pang/core';
 
 import { AddMembersNewTeamComponent } from '../../../modals/add-members-new-team/add-members-new-team.component';
 import { AddResourcesNewTeamComponent } from '../../../modals/add-resources-new-team/add-resources-new-team.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MemberData } from '../../../modals/interfaces/member-interface';
 import { ResourcesTeam } from '../../../modals/interfaces/resources';
 
 @Component({
@@ -22,26 +21,23 @@ import { ResourcesTeam } from '../../../modals/interfaces/resources';
 })
 export class CreateTeamComponent implements OnInit {
   @Input() owner: string;
-  teamGroup: FormGroup;
-  members: {
-    avatar: string;
-    uid: string;
-  }[] = [];
-  resources: ResourcesTeam[] = [];
+
   incomplete = true;
+  members: MemberData[] = [];
   resource: ResourceInterface;
+  resources: ResourcesTeam[] = [];
+  teamGroup: FormGroup;
 
   constructor(
     private bottomSheet: MatBottomSheet,
-    private generalService: GeneralService,
+    private db: AngularFirestore,
+    private elementRef: ElementRef<HTMLDivElement>,
     private modal: ModalController,
+    private render: Renderer2,
     private resourceService: ResourceService,
+    private snackBar: MatSnackBar,
     private teamService: TeamService,
     public builder: FormBuilder,
-    private snackBar: MatSnackBar,
-
-    private elementRef: ElementRef<HTMLDivElement>,
-    private render: Renderer2,
   ) {}
 
   ngOnInit(): void {
@@ -53,31 +49,29 @@ export class CreateTeamComponent implements OnInit {
   }
 
   createTeam() {
-    console.log('creando');
     const { name } = this.teamGroup.value;
     const members = [];
     this.members.forEach((element) => {
       members.push(element.uid);
     });
     members.push(this.owner);
-    const teamID = this.generalService.getFirestoreId();
-    const team = new Team(teamID, name, members);
-    console.log('adding team');
+
+    const team: TeamInterface = {
+      key: this.db.createId(),
+      name,
+      members,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
     this.teamService.add(team);
     if (this.resources && this.resources.length > 0) {
-      this.resources.forEach((element) => {
-        this.resourceService
-          .getResourceByKey(element.uid)
-          .pipe(take(1))
-          .subscribe((resource) => {
-            this.resource = resource[0];
-            if (this.resource && this.resource.team && this.resource.team.length > 0) {
-              this.resource.team.push(element.uid);
-            } else {
-              this.resource.team = [element.uid];
-            }
-            this.resourceService.addToTeam(this.resource.uid, this.resource.team);
-          });
+      this.resources.forEach((resource) => {
+        if (!resource.team) {
+          resource.team = [];
+        }
+        resource.team.push(team.key);
+
+        this.resourceService.resourceCollection().doc(resource.uid).update({ team: resource.team });
       });
     }
     this.snackBar.open('"' + name + '" has been uploaded', 'close', { duration: 2000 });
@@ -92,7 +86,6 @@ export class CreateTeamComponent implements OnInit {
       },
     });
     aux.afterDismissed().subscribe((members) => {
-      console.log(members);
       this.addSelectedMembers(members);
     });
   }
@@ -105,24 +98,23 @@ export class CreateTeamComponent implements OnInit {
       },
     });
     aux.afterDismissed().subscribe((resources) => {
-      console.log(resources);
       this.addSelectedResources(resources);
     });
   }
 
-  addSelectedMembers(members) {
+  addSelectedMembers(members: MemberData[]) {
     if (members && members.length > 0) {
       this.members = members;
     }
   }
 
-  addSelectedResources(resources) {
+  addSelectedResources(resources: ResourcesTeam[]) {
     if (resources && resources.length > 0) {
       this.resources = resources;
     }
   }
 
-  remove(member) {
+  remove(member: MemberData) {
     this.members.forEach((element, index) => {
       if (element.uid == member.uid) {
         this.members.splice(index, 1);
@@ -130,7 +122,7 @@ export class CreateTeamComponent implements OnInit {
     });
   }
 
-  removeResource(resource) {
+  removeResource(resource: ResourcesTeam) {
     this.resources.forEach((element, index) => {
       if (element.uid == resource.uid) {
         this.resources.splice(index, 1);

@@ -6,7 +6,7 @@
 
   <div class="hasTeams" *ngIf="teams && teams.length > 0">
     <div style="display: flex">
-      <button class="user-action" mat-ripple class="circle" (click)="seeTeam($event)">
+      <button class="user-action" mat-ripple class="circle">
         <pang-icon url="assets/icons/icon-team.svg" name="team"></pang-icon>
         <span class="text">{{ teams[0].name }}</span>
       </button>
