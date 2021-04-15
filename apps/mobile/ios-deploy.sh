@@ -2,6 +2,7 @@ appPath=$(PWD)/ios/App
 xcworkspace=$(PWD)/ios/App/App.xcworkspace
 buildPath=$PWD/ios/build
 
+ng run mobile:build:qa
 npx cap sync ios
 cd ios/App
 OUTPUT=$(./update-version.sh)
