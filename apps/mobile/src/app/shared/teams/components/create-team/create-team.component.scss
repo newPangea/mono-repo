@@ -2,7 +2,6 @@
 
 :host {
   display: block;
-  height: 100vh;
   overflow: scroll;
 }
 
@@ -89,7 +88,7 @@ ion-modal {
 .create-container {
   position: absolute;
   bottom: 16px;
-  width: 100vw;
+  width: 100%;
   text-align: center;
   display: flex;
 }

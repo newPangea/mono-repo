@@ -40,9 +40,9 @@
           <div *ngFor="let item of resources" class="member">
             <div class="grouped-with-close">
               <pang-icon [url]="item.icon" name="item.icon" class="docIcon"></pang-icon>
-              <mat-icon matSuffix class="close-icon2" (click)="removeResource(item)"
-                >close</mat-icon
-              >
+              <mat-icon matSuffix class="close-icon2" (click)="removeResource(item)">
+                close
+              </mat-icon>
             </div>
           </div>
         </div>

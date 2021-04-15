@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
@@ -39,13 +39,17 @@ export class CreateTeamComponent implements OnInit {
     private teamService: TeamService,
     public builder: FormBuilder,
     private snackBar: MatSnackBar,
+
+    private elementRef: ElementRef<HTMLDivElement>,
+    private render: Renderer2,
   ) {}
 
   ngOnInit(): void {
-    console.log(this.owner);
     this.teamGroup = this.builder.group({
       name: ['', Validators.required],
     });
+
+    this.render.setStyle(this.elementRef.nativeElement, 'height', window.innerHeight + 'px');
   }
 
   createTeam() {

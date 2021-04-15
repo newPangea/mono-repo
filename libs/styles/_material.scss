@@ -55,10 +55,10 @@ mat-drawer-container {
   z-index: 1 !important;
 }
 
-::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
-.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-  background-color: $primary;
-}
+// ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+// .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+//   background-color: $primary;
+// }
 
 .ionic-modal {
   z-index: 1000 !important;
