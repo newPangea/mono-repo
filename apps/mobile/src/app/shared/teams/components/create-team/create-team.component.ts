@@ -1,17 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ModalController } from '@ionic/angular';
 
-import { take } from 'rxjs/operators';
-
-import { GeneralService, ResourceService, TeamService } from '@pang/core';
-import { ResourceInterface } from '@pang/interface';
-import { Team } from '@pang/models';
+import { ResourceService, TeamService } from '@pang/core';
+import { ResourceInterface, TeamInterface } from '@pang/interface';
 
 import { AddMembersNewTeamComponent } from '../../../modals/add-members-new-team/add-members-new-team.component';
 import { AddResourcesNewTeamComponent } from '../../../modals/add-resources-new-team/add-resources-new-team.component';
+import { MemberData } from '../../../modals/interfaces/member-interface';
+import { ResourcesTeam } from '../../../modals/interfaces/resources';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'pang-create-team',
@@ -20,45 +22,48 @@ import { AddResourcesNewTeamComponent } from '../../../modals/add-resources-new-
 })
 export class CreateTeamComponent implements OnInit {
   @Input() owner: string;
-  teamGroup: FormGroup;
-  members: {
-    avatar: string;
-    uid: string;
-  }[] = [];
-  resources: {
-    avatar: string;
-    uid: string;
-  }[] = [];
+
   incomplete = true;
+  members: MemberData[] = [];
   resource: ResourceInterface;
+  resources: ResourcesTeam[] = [];
+  teamGroup: FormGroup;
 
   constructor(
     private bottomSheet: MatBottomSheet,
-    private generalService: GeneralService,
-    private modal: ModalController,
-    private resourceService: ResourceService,
     private teamService: TeamService,
+    private resourceService: ResourceService,
+    private db: AngularFirestore,
+    private elementRef: ElementRef<HTMLDivElement>,
+    private modal: ModalController,
+    private render: Renderer2,
+    private snackBar: MatSnackBar,
     public builder: FormBuilder,
   ) {}
 
   ngOnInit(): void {
-    console.log(this.owner);
     this.teamGroup = this.builder.group({
       name: ['', Validators.required],
     });
+
+    this.render.setStyle(this.elementRef.nativeElement, 'height', window.innerHeight + 'px');
   }
 
   createTeam() {
-    console.log('creando');
     const { name } = this.teamGroup.value;
     const members = [];
     this.members.forEach((element) => {
       members.push(element.uid);
     });
     members.push(this.owner);
-    const teamID = this.generalService.getFirestoreId();
-    const team = new Team(teamID, name, members);
-    console.log('adding team');
+
+    const team: TeamInterface = {
+      key: this.db.createId(),
+      name,
+      members,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
     this.teamService.add(team);
     if (this.resources && this.resources.length > 0) {
       this.resources.forEach((element) => {
@@ -68,14 +73,15 @@ export class CreateTeamComponent implements OnInit {
           .subscribe((resource) => {
             this.resource = resource[0];
             if (this.resource && this.resource.team && this.resource.team.length > 0) {
-              this.resource.team.push(element.uid);
+              this.resource.team.push(team.key);
             } else {
-              this.resource.team = [element.uid];
+              this.resource.team = [team.key];
             }
             this.resourceService.addToTeam(this.resource.uid, this.resource.team);
           });
       });
     }
+    this.snackBar.open('"' + name + '" has been uploaded', 'close', { duration: 2000 });
     this.closeModal();
   }
 
@@ -87,7 +93,6 @@ export class CreateTeamComponent implements OnInit {
       },
     });
     aux.afterDismissed().subscribe((members) => {
-      console.log(members);
       this.addSelectedMembers(members);
     });
   }
@@ -100,24 +105,26 @@ export class CreateTeamComponent implements OnInit {
       },
     });
     aux.afterDismissed().subscribe((resources) => {
-      console.log(resources);
       this.addSelectedResources(resources);
     });
   }
 
-  addSelectedMembers(members) {
+  addSelectedMembers(members: MemberData[]) {
     if (members && members.length > 0) {
       this.members = members;
     }
   }
 
-  addSelectedResources(resources) {
+  addSelectedResources(resources: ResourcesTeam[]) {
+    console.log(resources, 'resources receive');
+
     if (resources && resources.length > 0) {
       this.resources = resources;
+      console.log(this.resources, 'resources assign');
     }
   }
 
-  remove(member) {
+  remove(member: MemberData) {
     this.members.forEach((element, index) => {
       if (element.uid == member.uid) {
         this.members.splice(index, 1);
@@ -125,7 +132,7 @@ export class CreateTeamComponent implements OnInit {
     });
   }
 
-  removeResource(resource) {
+  removeResource(resource: ResourcesTeam) {
     this.resources.forEach((element, index) => {
       if (element.uid == resource.uid) {
         this.resources.splice(index, 1);

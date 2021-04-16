@@ -134,10 +134,9 @@ $circleSize: 596px;
   }
 
   &-teams {
-    position: relative;
-    top: 450px;
-    margin-left: auto;
-    margin-right: auto;
+    position: absolute;
+    top: 500px;
+    left: 33.333%;
   }
 }
 

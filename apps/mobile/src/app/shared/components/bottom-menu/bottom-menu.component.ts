@@ -27,6 +27,7 @@ export class BottomMenuComponent implements OnInit {
     private bottomSheet: MatBottomSheet,
     private router: Router,
     private state: State<AppState>,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +38,7 @@ export class BottomMenuComponent implements OnInit {
   }
 
   goToCommunity() {
-    this.router.navigate(['/home/community']);
+    this.snackBar.open('Under development', 'close', { duration: 2000 });
   }
 
   goToGlobe() {

@@ -29,24 +29,11 @@ export class ResourceService {
     );
   }
   getResourceByKey(key: string) {
-    return this.resourceCollection((ref) => ref.where('uid', '==', key)).valueChanges();
+    return this.resourceCollection().doc(key).valueChanges();
   }
 
-  getAllMyResource() {
-    return this.auth.user.pipe(
-      first(),
-      switchMap(({ uid }) => {
-        let directResource: Observable<ResourceInterface[]>;
-        directResource = this.resourceCollection((ref) =>
-          ref.where('owner', '==', uid).orderBy('createAt', 'desc'),
-        ).valueChanges();
-        return directResource;
-      }),
-    );
-  }
-
-  addToTeam(key: string, teamKey: string[]) {
-    return this.resourceCollection().doc(key).update({ team: teamKey });
+  addToTeam(key: string, team: string[]) {
+    return this.resourceCollection().doc(key).update({ team: team });
   }
 
   getResources(owner: string, typeFile: ResourceType) {
