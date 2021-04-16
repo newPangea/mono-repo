@@ -66,19 +66,12 @@ export class CreateTeamComponent implements OnInit {
     };
     this.teamService.add(team);
     if (this.resources && this.resources.length > 0) {
-      this.resources.forEach((element) => {
-        this.resourceService
-          .getResourceByKey(element.uid)
-          .pipe(take(1))
-          .subscribe((resource) => {
-            this.resource = resource[0];
-            if (this.resource && this.resource.team && this.resource.team.length > 0) {
-              this.resource.team.push(team.key);
-            } else {
-              this.resource.team = [team.key];
-            }
-            this.resourceService.addToTeam(this.resource.uid, this.resource.team);
-          });
+      this.resources.forEach((resource) => {
+        if (!resource.team) {
+          resource.team = [];
+        }
+        resource.team = [...resource.team, team.key];
+        this.resourceService.resourceCollection().doc(resource.uid).update({ team: resource.team });
       });
     }
     this.snackBar.open('"' + name + '" has been uploaded', 'close', { duration: 2000 });
@@ -116,11 +109,8 @@ export class CreateTeamComponent implements OnInit {
   }
 
   addSelectedResources(resources: ResourcesTeam[]) {
-    console.log(resources, 'resources receive');
-
     if (resources && resources.length > 0) {
       this.resources = resources;
-      console.log(this.resources, 'resources assign');
     }
   }
 

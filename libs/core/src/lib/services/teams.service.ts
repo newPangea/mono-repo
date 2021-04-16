@@ -18,7 +18,7 @@ export class TeamService {
   constructor(private db: AngularFirestore, private auth: AngularFireAuth) {}
 
   add(team: TeamInterface) {
-    return this.db.collection(FIRESTORE_COLLECTION.team).doc(team.key).set(Object.assign({}, team));
+    return this.teamCollection().doc(team.key).set(team);
   }
 
   getMyTeams(owner: string) {
