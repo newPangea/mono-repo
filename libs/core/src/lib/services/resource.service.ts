@@ -32,6 +32,10 @@ export class ResourceService {
     return this.resourceCollection().doc(key).valueChanges();
   }
 
+  addToTeam(key: string, team: string[]) {
+    return this.resourceCollection().doc(key).update({ team: team });
+  }
+
   getResources(owner: string, typeFile: ResourceType) {
     return this.auth.user.pipe(
       first(),
