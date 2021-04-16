@@ -1,15 +1,20 @@
 {
   "projects": {
-    "default": "newpangea-dev"
+    "default": "newpangea-dev",
+    "pro": "newpangea-49835"
   },
   "targets": {
     "newpangea-dev": {
       "hosting": {
         "dashboard": [
           "newpangea-dev"
-        ],
-        "ui": [
-          "newpangea-ui"
+        ]
+      }
+    },
+    "newpangea-49835": {
+      "hosting": {
+        "dashboard": [
+          "newpangea"
         ]
       }
     }
