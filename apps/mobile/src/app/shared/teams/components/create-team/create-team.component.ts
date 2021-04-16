@@ -13,7 +13,6 @@ import { AddMembersNewTeamComponent } from '../../../modals/add-members-new-team
 import { AddResourcesNewTeamComponent } from '../../../modals/add-resources-new-team/add-resources-new-team.component';
 import { MemberData } from '../../../modals/interfaces/member-interface';
 import { ResourcesTeam } from '../../../modals/interfaces/resources';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'pang-create-team',
