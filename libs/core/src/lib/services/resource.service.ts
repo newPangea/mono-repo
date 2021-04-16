@@ -32,19 +32,6 @@ export class ResourceService {
     return this.resourceCollection().doc(key).valueChanges();
   }
 
-  getAllMyResource() {
-    return this.auth.user.pipe(
-      first(),
-      switchMap(({ uid }) => {
-        let directResource: Observable<ResourceInterface[]>;
-        directResource = this.resourceCollection((ref) =>
-          ref.where('owner', '==', uid).orderBy('createAt', 'desc'),
-        ).valueChanges();
-        return directResource;
-      }),
-    );
-  }
-
   getResources(owner: string, typeFile: ResourceType) {
     return this.auth.user.pipe(
       first(),

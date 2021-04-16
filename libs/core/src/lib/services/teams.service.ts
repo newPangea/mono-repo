@@ -8,8 +8,6 @@ import { TeamConvert, TeamInterface } from '@pang/interface';
   providedIn: 'root',
 })
 export class TeamService {
-  public didLogout: EventEmitter<void> = new EventEmitter();
-
   readonly teamCollection = (queryFn?: QueryFn) => {
     const reference = this.db.firestore
       .collection(FIRESTORE_COLLECTION.team)
