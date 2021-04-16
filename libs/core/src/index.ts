@@ -4,3 +4,5 @@ export * from './lib/services/message.service';
 export * from './lib/services/resource.service';
 export * from './lib/services/school.service';
 export * from './lib/services/user.service';
+export * from './lib/services/teams.service';
+export * from './lib/services/general.service';

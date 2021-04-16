@@ -11,7 +11,10 @@ import {
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 
-import { loadPendingConnection } from '@pang/mobile/app/state/connection/connection.actions';
+import {
+  loadConnections,
+  loadPendingConnection,
+} from '@pang/mobile/app/state/connection/connection.actions';
 
 import { UserService } from '@pang/core';
 import { NavigationService } from '@pang/ui';
@@ -39,6 +42,7 @@ export class AppComponent implements OnInit {
   ) {
     this.auth.authState.pipe(filter((user) => !!user)).subscribe(() => {
       this.store.dispatch(loadPendingConnection());
+      this.store.dispatch(loadConnections());
       this.store.dispatch(loadResourcesVideo());
       this.store.dispatch(loadResourcesImage());
       this.store.dispatch(loadResourcesDoc());

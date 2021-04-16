@@ -76,6 +76,7 @@ export class AddResourceComponent implements AfterViewInit, OnInit {
         uploadBy: this.owner,
         description,
         link: url,
+        team: null,
         type: this.resourceType,
         createAt: new Date(),
         updateAt: new Date(),

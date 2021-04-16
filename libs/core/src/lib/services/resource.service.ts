@@ -28,6 +28,26 @@ export class ResourceService {
       switchMap(({ uid }) => this.getResources(uid, typeFile)),
     );
   }
+  getResourceByKey(key: string) {
+    return this.resourceCollection((ref) => ref.where('uid', '==', key)).valueChanges();
+  }
+
+  getAllMyResource() {
+    return this.auth.user.pipe(
+      first(),
+      switchMap(({ uid }) => {
+        let directResource: Observable<ResourceInterface[]>;
+        directResource = this.resourceCollection((ref) =>
+          ref.where('owner', '==', uid).orderBy('createAt', 'desc'),
+        ).valueChanges();
+        return directResource;
+      }),
+    );
+  }
+
+  addToTeam(key: string, teamKey: string[]) {
+    return this.resourceCollection().doc(key).update({ team: teamKey });
+  }
 
   getResources(owner: string, typeFile: ResourceType) {
     return this.auth.user.pipe(

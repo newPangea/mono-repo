@@ -1,0 +1,25 @@
+<div class="teams">
+  <button class="teams-button" mat-ripple>
+    <pang-icon url="assets/icons/icon-team.svg" name="teams"></pang-icon>
+    <span class="text">Teams</span>
+  </button>
+
+  <div class="hasTeams" *ngIf="teams && teams.length > 0">
+    <div style="display: flex">
+      <button mat-ripple class="circle" style="margin-right: 59px">
+        <pang-icon url="assets/icons/icon-team.svg" name="team"></pang-icon>
+        <span class="text">{{ teams[0].name }}</span>
+      </button>
+      <button mat-ripple class="circle-white" (click)="createTeam()">
+        <pang-icon url="assets/icons/icon-plus-primary.svg" name="plus"></pang-icon>
+        <span class="text-blue">Add team</span>
+      </button>
+    </div>
+  </div>
+  <div class="noTeams" *ngIf="teams && teams.length == 0">
+    <p>No teams created</p>
+    <button pang-button color="primary" style="width: 100%" (click)="createTeam()">
+      Create a team
+    </button>
+  </div>
+</div>

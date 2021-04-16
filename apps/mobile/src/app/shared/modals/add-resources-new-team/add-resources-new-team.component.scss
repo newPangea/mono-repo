@@ -1,0 +1,131 @@
+@import 'global';
+
+.container {
+  height: 80vh;
+}
+
+.search {
+  width: 100%;
+
+  &-input {
+    height: 52px;
+    border-radius: 26px;
+    border: solid 1px #ffffff;
+    background-color: rgba(154, 161, 163, 0.1);
+    width: 100%;
+    padding: 0 40px 0 16px;
+    box-sizing: border-box;
+    transition: all 0.5s ease-out;
+    font-size: 17px;
+
+    &::placeholder {
+      color: #b1b1b1;
+      font-size: 17px;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.focus {
+      border-radius: 0;
+      border-color: transparent;
+      background-color: $white;
+      &::placeholder {
+        color: $subText;
+      }
+    }
+  }
+  &-icon {
+    color: #b1b1b1;
+    position: absolute;
+    right: 36px;
+    top: 14px;
+    transition: all 0.5s ease-out;
+
+    &.focus {
+      color: $secondary;
+    }
+  }
+}
+
+.sub {
+  @include text($captionSize, $gray8, 500);
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.secuential {
+  display: grid;
+  grid-gap: 0;
+  grid-template-columns: 50px auto 10px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  .name {
+    @include text($subtitle2Size, $black, bold);
+  }
+  .sub {
+    text-align: left;
+    @include text($body2Size, $gray, 500);
+  }
+}
+
+.resources-container {
+  overflow-y: scroll;
+  height: auto;
+  max-height: 46vh;
+  padding: 0 26px 0 26px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.selected {
+  background-color: rgba(216, 216, 216, 0.2);
+  margin: 17px 0 20px;
+  padding: 13px 139px 11px 16px;
+  display: flex;
+  overflow-x: scroll;
+}
+
+.resource {
+  padding-right: 10px;
+}
+
+.search-box {
+  padding-left: 26px;
+  padding-right: 26px;
+}
+
+.grouped-with-close {
+  position: relative;
+}
+
+.close-icon {
+  width: 10px;
+  height: 10px;
+  padding: 4px;
+  background-color: #ff535b;
+  border-radius: 20px;
+  font-size: 10px;
+  color: white;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+}
+
+.add-container {
+  position: absolute;
+  bottom: 16px;
+  width: 100%;
+  text-align: center;
+}
+
+.btn-basic {
+  width: 90%;
+}
+
+.docIcon {
+  --icon-size: 34px;
+  --vertical-align: bottom;
+}

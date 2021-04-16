@@ -1,0 +1,62 @@
+<pang-template title="Create a team" (back)="closeModal()">
+  <ng-container body>
+    <form autocomplete="off" class="fom" [formGroup]="teamGroup" (ngSubmit)="createTeam()">
+      <mat-form-field appearance="fill">
+        <mat-label>Name of the team</mat-label>
+        <input matInput aria-label="Name" formControlName="name" />
+      </mat-form-field>
+
+      <div class="action-group">
+        <div class="secuential">
+          <p class="select">Select members</p>
+          <p *ngIf="members && members.length == 0" class="action" (click)="addMembers()">
+            Add members
+          </p>
+          <p *ngIf="members && members.length > 0" class="action" (click)="addMembers()">
+            Add more
+          </p>
+        </div>
+        <div *ngIf="members && members.length > 0" class="selected">
+          <div *ngFor="let item of members" class="member">
+            <div class="grouped-with-close">
+              <pang-avatar-with-label
+                [size]="39"
+                [userAvatar]="item.avatar"
+              ></pang-avatar-with-label>
+              <mat-icon matSuffix class="close-icon" (click)="remove(item)">close</mat-icon>
+            </div>
+          </div>
+        </div>
+        <div class="secuential">
+          <p class="select">Add resources</p>
+          <p *ngIf="resources && resources.length == 0" class="action" (click)="addResources()">
+            Add resources
+          </p>
+          <p *ngIf="resources && resources.length > 0" class="action" (click)="addResources()">
+            Add more
+          </p>
+        </div>
+        <div *ngIf="resources && resources.length > 0" class="selected2">
+          <div *ngFor="let item of resources" class="member">
+            <div class="grouped-with-close">
+              <pang-icon [url]="item.icon" name="item.icon" class="docIcon"></pang-icon>
+              <mat-icon matSuffix class="close-icon2" (click)="removeResource(item)"
+                >close</mat-icon
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="create-container">
+      <button
+        pang-button
+        color="primary"
+        (click)="createTeam()"
+        [disabled]="teamGroup.invalid || members.length == 0"
+      >
+        Create team
+      </button>
+    </div>
+  </ng-container>
+</pang-template>

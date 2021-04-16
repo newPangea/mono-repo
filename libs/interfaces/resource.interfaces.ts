@@ -12,6 +12,7 @@ export interface ResourceInterface {
   owner: string;
   uploadBy: string;
   type: ResourceType;
+  team: string[];
   createAt: Date;
   updateAt: Date;
   share?: string[];

@@ -5,4 +5,5 @@ export const FIRESTORE_COLLECTION = {
   school: 'schools',
   connection: 'connections',
   resource: 'resource',
+  team: 'teams',
 };

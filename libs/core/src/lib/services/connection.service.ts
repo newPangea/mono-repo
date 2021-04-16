@@ -5,7 +5,8 @@ import { QueryFn } from '@angular/fire/firestore/interfaces';
 
 import { ConnectionStatus, FIRESTORE_COLLECTION } from '@pang/const';
 import { ConnectionInterface } from '@pang/interface';
-import { filter, first, switchMap, takeUntil } from 'rxjs/operators';
+import { filter, first, map, switchMap, takeUntil } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -44,5 +45,25 @@ export class ConnectionService {
     return this.connection((ref) =>
       ref.where('to', '==', to).where('from', '==', from),
     ).valueChanges();
+  }
+
+  getMyConnections() {
+    const logOut = this.auth.authState.pipe(filter((user) => !user));
+    return this.auth.user.pipe(
+      first(),
+      takeUntil(logOut),
+      switchMap(({ uid }) => {
+        const fromConnections = this.connection((ref) =>
+          ref.where('from', '==', uid).where('status', '==', ConnectionStatus.ACCEPTED),
+        ).valueChanges();
+
+        const toConnections = this.connection((ref) =>
+          ref.where('to', '==', uid).where('status', '==', ConnectionStatus.ACCEPTED),
+        ).valueChanges();
+        return combineLatest([fromConnections, toConnections]).pipe(
+          map(([fConnection, tConnection]) => [...fConnection, ...tConnection]),
+        );
+      }),
+    );
   }
 }

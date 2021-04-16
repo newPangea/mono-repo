@@ -66,6 +66,7 @@ export class SearchComponent implements AfterViewInit {
       .then(({ hits }) => {
         this.openList = !!text;
         this.hits = hits;
+        console.log(this.hits);
         this.calculateDistance();
       });
   }

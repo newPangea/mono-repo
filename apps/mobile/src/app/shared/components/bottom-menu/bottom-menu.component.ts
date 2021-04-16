@@ -26,7 +26,6 @@ export class BottomMenuComponent implements OnInit {
   constructor(
     private bottomSheet: MatBottomSheet,
     private router: Router,
-    private snackBar: MatSnackBar,
     private state: State<AppState>,
   ) {}
 
@@ -37,8 +36,8 @@ export class BottomMenuComponent implements OnInit {
       .pipe(map((connections) => connections.length));
   }
 
-  soon() {
-    this.snackBar.open('Available in the next update', 'close', { duration: 2000 });
+  goToCommunity() {
+    this.router.navigate(['/home/community']);
   }
 
   goToGlobe() {

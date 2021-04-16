@@ -1,5 +1,9 @@
 @import 'global';
 
+.container {
+  padding: 0 26px;
+}
+
 .secuential {
   display: grid;
   grid-gap: 15px;
