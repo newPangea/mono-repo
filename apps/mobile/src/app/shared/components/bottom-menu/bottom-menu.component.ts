@@ -38,7 +38,7 @@ export class BottomMenuComponent implements OnInit {
   }
 
   goToCommunity() {
-    this.snackBar.open('Under development', 'close', { duration: 2000 });
+    this.router.navigate(['/home/community']);
   }
 
   goToGlobe() {
