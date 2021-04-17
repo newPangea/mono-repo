@@ -12,8 +12,6 @@ import { ResourceType } from '@pang/const';
   styleUrls: ['./resources.component.scss'],
 })
 export class ResourcesComponent implements AfterViewInit {
-  @Input() scaleFactor = 1;
-  @Input() maxScale: number;
   @Input() owner: string;
 
   uid: string;
