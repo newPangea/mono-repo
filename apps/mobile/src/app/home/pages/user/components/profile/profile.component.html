@@ -62,26 +62,26 @@
           <span class="user-action__text">Connections</span>
         </div>
       </div>
-    </div>
 
-    <div class="user-action user-teams">
-      <div class="user-action__data hideZoom">
-        <pang-icon
-          class="icons"
-          url="assets/icons/icon-team.svg"
-          color="primary"
-          name="teams"
-        ></pang-icon>
-        <span class="user-action__text">Teams</span>
+      <div class="user-action user-teams">
+        <div class="user-action__data hideZoom">
+          <pang-icon
+            class="icons"
+            url="assets/icons/icon-team.svg"
+            color="primary"
+            name="teams"
+          ></pang-icon>
+          <span class="user-action__text">Teams</span>
+        </div>
+
+        <pang-teams
+          @root
+          *ngIf="showLevel1"
+          [scaleFactor]="scaleFactor"
+          [maxScale]="this.level1"
+          [owner]="user.uid"
+        ></pang-teams>
       </div>
-
-      <pang-teams
-        @root
-        *ngIf="showLevel1"
-        [scaleFactor]="scaleFactor"
-        [maxScale]="this.level1"
-        [owner]="user.uid"
-      ></pang-teams>
     </div>
   </div>
 </div>
