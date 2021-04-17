@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
 import { AddResourceComponent } from '@pang/mobile/app/shared/resources/components/add-resource/add-resource.component';
@@ -11,7 +11,7 @@ import { ResourceType } from '@pang/const';
   templateUrl: './resources.component.html',
   styleUrls: ['./resources.component.scss'],
 })
-export class ResourcesComponent implements OnChanges {
+export class ResourcesComponent implements AfterViewInit {
   @Input() scaleFactor = 1;
   @Input() maxScale: number;
   @Input() owner: string;
@@ -26,27 +26,16 @@ export class ResourcesComponent implements OnChanges {
   ) {
     this.auth.currentUser.then(({ uid }) => (this.uid = uid));
   }
-
-  ngOnChanges(): void {
-    if (this.elementRef && this.scaleFactor > 1) {
+  ngAfterViewInit(): void {
+    if (this.elementRef) {
       this.scaleComponent();
     }
   }
 
   scaleComponent() {
     const element = this.elementRef.nativeElement;
-    const { width, height } = element.parentElement.getClientRects()[0];
-    if (this.maxScale) {
-      if (this.scaleFactor <= this.maxScale) {
-        this.render.setStyle(element, 'transform', `scale(${1 / this.scaleFactor})`);
-        this.render.setStyle(element, 'width', width + 'px');
-        this.render.setStyle(element, 'height', height + 'px');
-      }
-    } else {
-      this.render.setStyle(element, 'transform', `scale(${1 / this.scaleFactor})`);
-      this.render.setStyle(element, 'width', width + 'px');
-      this.render.setStyle(element, 'height', height + 'px');
-    }
+    const factor = element.parentElement.offsetWidth / 600;
+    this.render.setStyle(element, 'transform', `scale(${factor})`);
   }
 
   async addNewFile() {

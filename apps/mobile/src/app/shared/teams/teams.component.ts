@@ -33,7 +33,7 @@ export class TeamsComponent implements OnInit, OnDestroy, OnChanges {
   hasTeams = false;
   teams: TeamInterface[];
   uid: string;
-  level2: number;
+  level2 = USER_CONST.levelZoom.level2;
 
   constructor(
     private auth: AngularFireAuth,
@@ -61,14 +61,12 @@ export class TeamsComponent implements OnInit, OnDestroy, OnChanges {
     const element = this.elementRef.nativeElement;
     const { width, height } = element.parentElement.getClientRects()[0];
     if (this.maxScale) {
-      this.level2 = USER_CONST.levelZoom.level2 / this.maxScale;
       if (this.scaleFactor <= this.maxScale) {
         this.render.setStyle(element, 'transform', `scale(${1 / this.scaleFactor})`);
         this.render.setStyle(element, 'width', width + 'px');
         this.render.setStyle(element, 'height', height + 'px');
       }
     } else {
-      this.level2 = null;
       this.render.setStyle(element, 'transform', `scale(${1 / this.scaleFactor})`);
       this.render.setStyle(element, 'width', width + 'px');
       this.render.setStyle(element, 'height', height + 'px');
@@ -93,7 +91,7 @@ export class TeamsComponent implements OnInit, OnDestroy, OnChanges {
     await modal.present();
   }
 
-  get innerScale() {
-    return this.scaleFactor < this.maxScale ? 1 : this.scaleFactor / this.maxScale;
+  get changeState() {
+    return this.scaleFactor < this.level2 - 3;
   }
 }

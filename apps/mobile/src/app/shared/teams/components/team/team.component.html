@@ -1,1 +1,8 @@
-<h1 class="title">Hola</h1>
+<div class="team">
+  <div *ngIf="changeState" class="team-text">
+    <pang-icon url="assets/icons/icon-team.svg" name="team"></pang-icon>
+    <span class="text">{{ team?.name }}</span>
+  </div>
+
+  <pang-resources *ngIf="!changeState"></pang-resources>
+</div>

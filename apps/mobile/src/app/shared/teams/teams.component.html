@@ -6,13 +6,8 @@
 
   <div class="hasTeams" *ngIf="teams && teams.length > 0">
     <div style="display: flex">
-      <div class="user-action" class="circle">
-        <!-- <pang-icon url="assets/icons/icon-team.svg" name="team"></pang-icon>
-        <span class="text">{{ teams[0].name }}</span> -->
+      <pang-team [team]="teams[0]" [changeState]="changeState"></pang-team>
 
-        <pang-team [maxScale]="level2" [scaleFactor]="innerScale"></pang-team>
-        <!-- <pang-resources [maxScale]="maxScale" [scaleFactor]="1"></pang-resources> -->
-      </div>
       <button
         *ngIf="uid === owner && teams.length < 4"
         mat-ripple
