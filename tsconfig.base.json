@@ -28,5 +28,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true
   },
+  "angularCompilerOptions": {
+    "strictTemplates": true
+  },
   "exclude": ["node_modules", "tmp"]
 }
