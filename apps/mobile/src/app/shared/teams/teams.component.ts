@@ -18,6 +18,8 @@ import { CreateTeamComponent } from './components/create-team/create-team.compon
 import { AngularFireAuth } from '@angular/fire/auth';
 import { TeamInterface } from '@pang/interface';
 
+import { USER_CONST } from '../../home/pages/user/user.constants';
+
 @Component({
   selector: 'pang-teams',
   templateUrl: './teams.component.html',
@@ -31,6 +33,7 @@ export class TeamsComponent implements OnInit, OnDestroy, OnChanges {
   hasTeams = false;
   teams: TeamInterface[];
   uid: string;
+  level2: number;
 
   constructor(
     private auth: AngularFireAuth,
@@ -58,12 +61,14 @@ export class TeamsComponent implements OnInit, OnDestroy, OnChanges {
     const element = this.elementRef.nativeElement;
     const { width, height } = element.parentElement.getClientRects()[0];
     if (this.maxScale) {
+      this.level2 = USER_CONST.levelZoom.level2 / this.maxScale;
       if (this.scaleFactor <= this.maxScale) {
         this.render.setStyle(element, 'transform', `scale(${1 / this.scaleFactor})`);
         this.render.setStyle(element, 'width', width + 'px');
         this.render.setStyle(element, 'height', height + 'px');
       }
     } else {
+      this.level2 = null;
       this.render.setStyle(element, 'transform', `scale(${1 / this.scaleFactor})`);
       this.render.setStyle(element, 'width', width + 'px');
       this.render.setStyle(element, 'height', height + 'px');
@@ -86,5 +91,9 @@ export class TeamsComponent implements OnInit, OnDestroy, OnChanges {
       cssClass: 'create-team',
     });
     await modal.present();
+  }
+
+  get innerScale() {
+    return this.scaleFactor < this.maxScale ? 1 : this.scaleFactor / this.maxScale;
   }
 }

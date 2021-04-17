@@ -27,6 +27,8 @@ import {
 } from '@pang/mobile/app/home/pages/user/user.animation';
 import { codeToName } from '@pang/utils';
 
+import { USER_CONST } from '../../user.constants';
+
 @Component({
   selector: 'pang-user-profile',
   templateUrl: './profile.component.html',
@@ -50,8 +52,8 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
   private zoom: ZoomBehavior<ZoomedElementBaseType, unknown>;
   private subscribe: Subscription;
 
-  readonly level1 = 5;
-  private readonly zoomLimit: [number, number] = [1, 10];
+  readonly level1 = USER_CONST.levelZoom.level1;
+  private readonly zoomLimit: [number, number] = [1, 45];
   private readonly opacityScale: ScaleLinear<number, number, never>;
   private readonly deltaLevel = 1;
 

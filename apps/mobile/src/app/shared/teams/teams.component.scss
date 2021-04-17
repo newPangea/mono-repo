@@ -51,7 +51,6 @@
 
   .circle {
     @include circle(128px);
-    border: solid 1px $blue2;
 
     box-shadow: 0 5px 12px 0 rgba(101, 93, 10, 0.46);
     background-image: linear-gradient(to bottom, #119eb6, #97955a);

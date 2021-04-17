@@ -14,9 +14,11 @@ import { UiModule } from '@pang/ui';
 
 import { TeamsComponent } from './teams.component';
 import { CreateTeamComponent } from './components/create-team/create-team.component';
+import { TeamComponent } from './components/team/team.component';
+import { ResourcesModule } from '../resources/resources.module';
 
 @NgModule({
-  declarations: [TeamsComponent, CreateTeamComponent],
+  declarations: [TeamsComponent, CreateTeamComponent, TeamComponent],
   exports: [TeamsComponent, CreateTeamComponent],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { CreateTeamComponent } from './components/create-team/create-team.compon
     MatRippleModule,
     MatSlideToggleModule,
     ReactiveFormsModule,
+    ResourcesModule,
     SharedModule,
     UiModule,
   ],
