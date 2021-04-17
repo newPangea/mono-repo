@@ -1,8 +1,8 @@
 <div class="team">
-  <div *ngIf="changeState" class="team-text">
+  <div *ngIf="changeState" class="team-text" @root>
     <pang-icon url="assets/icons/icon-team.svg" name="team"></pang-icon>
     <span class="text">{{ team?.name }}</span>
   </div>
 
-  <pang-resources *ngIf="!changeState"></pang-resources>
+  <pang-resources *ngIf="!changeState" @root [team]="team"></pang-resources>
 </div>

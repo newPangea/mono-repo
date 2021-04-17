@@ -1,3 +1,4 @@
+import { Hit } from '@algolia/client-search';
 import {
   AfterViewInit,
   Component,
@@ -7,26 +8,23 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
-import * as d3 from 'd3';
-import * as d3Zoom from 'd3-zoom';
-import { Hit } from '@algolia/client-search';
-import { Subscription } from 'rxjs';
-import { ScaleLinear, ZoomBehavior, ZoomedElementBaseType } from 'd3';
-import { first, switchMap } from 'rxjs/operators';
-
 import { AngularFireAuth } from '@angular/fire/auth';
-import { ConnectionInterface, UserAlgolia } from '@pang/interface';
-import { ConnectionService, UserService } from '@pang/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConnectionStatus } from '@pang/const';
+import { ConnectionService, UserService } from '@pang/core';
+import { ConnectionInterface, UserAlgolia } from '@pang/interface';
 import {
   circleAnimation2,
   info,
   resourceAnimation,
 } from '@pang/mobile/app/home/pages/user/user.animation';
+import { ZoomService } from '@pang/mobile/app/services/zoom.service';
 import { codeToName } from '@pang/utils';
-
+import * as d3 from 'd3';
+import { ScaleLinear, ZoomBehavior, ZoomedElementBaseType } from 'd3';
+import * as d3Zoom from 'd3-zoom';
+import { Subscription } from 'rxjs';
+import { first, switchMap } from 'rxjs/operators';
 import { USER_CONST } from '../../user.constants';
 
 @Component({
@@ -56,15 +54,20 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
   private readonly zoomLimit: [number, number] = [1, 45];
   private readonly opacityScale: ScaleLinear<number, number, never>;
   private readonly deltaLevel = 1;
+  private suscribeZoom: Subscription;
 
   constructor(
     private userService: UserService,
     private snack: MatSnackBar,
     private connectionService: ConnectionService,
     private auth: AngularFireAuth,
+    private zoomService: ZoomService,
   ) {
     this.opacityScale = d3.scaleLinear().domain([1, 4]).range([1, 0]);
     this.auth.currentUser.then((user) => (this.uid = user.uid));
+    this.suscribeZoom = this.zoomService.$element.subscribe((element) =>
+      this.goToElement(element, USER_CONST.levelZoom.level2),
+    );
   }
 
   ngOnChanges(): void {
@@ -108,21 +111,23 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
     if (this.subscribe) {
       this.subscribe.unsubscribe();
     }
+    this.suscribeZoom.unsubscribe();
   }
 
   zoomToElement(event: MouseEvent, levelZoom: number) {
     event.stopPropagation();
-    const root = this.group.node();
     const target = event.currentTarget as HTMLDivElement;
+    this.goToElement(target, levelZoom);
+  }
+
+  goToElement(target: HTMLElement, levelZoom: number) {
+    const root = this.group.node();
     const rootSize = root.getClientRects()[0];
-
-    const { x, y } = target.getClientRects()[0];
-
+    const { x, y, width, height } = target.getClientRects()[0];
     const xRelative = (x - rootSize.x) / this.scaleFactor;
     const yRelative = (y - rootSize.y) / this.scaleFactor;
-
-    const xValue = xRelative + target.offsetWidth / 2;
-    const yValue = yRelative + target.offsetHeight / 2;
+    const xValue = xRelative + width / this.scaleFactor / 2;
+    const yValue = yRelative + height / this.scaleFactor / 2;
 
     this.root
       .transition()

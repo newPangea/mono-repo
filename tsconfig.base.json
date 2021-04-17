@@ -29,7 +29,7 @@
     "esModuleInterop": true
   },
   "angularCompilerOptions": {
-    "strictTemplates": true
+    "strictTemplates": false
   },
   "exclude": ["node_modules", "tmp"]
 }

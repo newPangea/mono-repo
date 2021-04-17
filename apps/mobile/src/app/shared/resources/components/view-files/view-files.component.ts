@@ -22,6 +22,7 @@ import { selectResourcesState } from '@pang/mobile/app/state/resources/resources
 export class ViewFilesComponent implements AfterViewInit {
   @Input() typeFile: ResourceType;
   @Input() owner: string;
+  @Input() team: string;
 
   resources$: Observable<ResourceInterface[]>;
   search: string;
@@ -36,20 +37,22 @@ export class ViewFilesComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this.loadFies();
+    this.loadFiles();
   }
 
-  loadFies() {
+  loadFiles() {
     this.resources$ = this.auth.user.pipe(
       first(),
       switchMap(({ uid }) => {
-        if (uid === this.owner) {
+        if (!this.team && uid === this.owner) {
           return this.state.pipe(
             select(selectResourcesState),
             map((data) => data[this.typeFile]),
           );
-        } else {
+        } else if (!this.team) {
           return this.resources.getResources(this.owner, this.typeFile);
+        } else {
+          return this.resources.getTeamResources(this.team, this.typeFile);
         }
       }),
       tap((resources) =>

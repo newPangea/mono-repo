@@ -6,8 +6,7 @@
 
   <div class="hasTeams" *ngIf="teams && teams.length > 0">
     <div style="display: flex">
-      <pang-team [team]="teams[0]" [changeState]="changeState"></pang-team>
-
+      <pang-team [team]="teams[0]" [changeState]="changeState" [owner]="owner"></pang-team>
       <button
         *ngIf="uid === owner && teams.length < 4"
         mat-ripple
@@ -28,14 +27,20 @@
         <span class="text-blue">See all</span>
       </button>
     </div>
-    <button *ngIf="teams.length > 1" mat-ripple class="circle2">
-      <pang-icon url="assets/icons/icon-team.svg" name="team"></pang-icon>
-      <span class="text">{{ teams[1].name }}</span>
-    </button>
-    <button *ngIf="teams.length > 2" mat-ripple class="circle2" style="margin-left: 59px">
-      <pang-icon url="assets/icons/icon-team.svg" name="team"></pang-icon>
-      <span class="text">{{ teams[2].name }}</span>
-    </button>
+    <div style="display: flex; justify-content: space-between; margin-top: 10px">
+      <pang-team
+        *ngIf="teams.length > 1"
+        [team]="teams[1]"
+        [changeState]="changeState"
+        [owner]="owner"
+      ></pang-team>
+      <pang-team
+        *ngIf="teams.length > 2"
+        [team]="teams[2]"
+        [changeState]="changeState"
+        [owner]="owner"
+      ></pang-team>
+    </div>
   </div>
   <div class="noTeams" *ngIf="teams && teams.length == 0">
     <p>No teams created</p>

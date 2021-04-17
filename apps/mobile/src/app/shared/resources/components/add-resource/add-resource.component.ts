@@ -19,6 +19,7 @@ const { Keyboard, Device, Modals } = Plugins;
 })
 export class AddResourceComponent implements AfterViewInit, OnInit {
   @Input() owner: string;
+  @Input() team: string;
 
   completeUpload = 0;
   file: File;
@@ -76,7 +77,7 @@ export class AddResourceComponent implements AfterViewInit, OnInit {
         uploadBy: this.owner,
         description,
         link: url,
-        team: [],
+        team: !!this.team ? [this.team] : [],
         type: this.resourceType,
         createAt: new Date(),
         updateAt: new Date(),
@@ -101,7 +102,7 @@ export class AddResourceComponent implements AfterViewInit, OnInit {
 
   uploadFile() {
     const percent = d3.scaleLinear().domain([0, 100]).range([0, 56]);
-    const path = `files/${this.owner}/${this.file.name}`;
+    const path = `files/${this.team ? 'team' : 'myFiles'}/${this.owner}/${this.file.name}`;
 
     const ref = this.storage.ref(path);
     const task = ref.put(this.file);

@@ -20,6 +20,9 @@ export const TeamConvert = {
     return {
       ...data,
       createdAt: (data.createdAt as firebase.default.firestore.Timestamp).toDate(),
+      updatedAt: data.updatedAt
+        ? (data.updatedAt as firebase.default.firestore.Timestamp).toDate()
+        : null,
     };
   },
 };

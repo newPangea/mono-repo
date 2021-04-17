@@ -36,6 +36,15 @@ export class ResourceService {
     return this.resourceCollection().doc(key).update({ team: team });
   }
 
+  getTeamResources(team: string, typeFile: ResourceType) {
+    return this.resourceCollection((ref) =>
+      ref
+        .where('team', 'array-contains', team)
+        .where('type', '==', typeFile)
+        .where('public', '==', true),
+    ).valueChanges();
+  }
+
   getResources(owner: string, typeFile: ResourceType) {
     return this.auth.user.pipe(
       first(),
