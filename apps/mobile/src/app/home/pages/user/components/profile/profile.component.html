@@ -49,13 +49,7 @@
           <span class="user-action__text">Resources</span>
         </div>
 
-        <pang-resources
-          @root
-          *ngIf="showLevel1"
-          [scaleFactor]="scaleFactor"
-          [maxScale]="this.level1"
-          [owner]="user.uid"
-        ></pang-resources>
+        <pang-resources @root *ngIf="showLevel1" [owner]="user.uid"></pang-resources>
       </div>
 
       <div class="user-action user-connection">
