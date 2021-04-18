@@ -1,24 +1,9 @@
-<div class="community">
-  <div class="container">
-    <div class="search">
-      <pang-search
-        (userSelect)="goToUser($event)"
-        (schoolSelect)="goToSchool($event)"
-      ></pang-search>
-    </div>
-    <div class="community-body">
-      <div class="user-avatar circle">
-        <pang-avatar-with-label
-          class="user-avatar__image"
-          [size]="110"
-          [userAvatar]="user.imgUrl"
-          *ngIf="user"
-        ></pang-avatar-with-label>
-        <span class="user-badge"> Student 🇨🇦 </span>
-      </div>
-    </div>
+<div class="content">
+  <div class="user">
+    <button mat-icon-button pangGoBack class="user-back">
+      <pang-icon url="assets/img/icon-back.svg" name="back"></pang-icon>
+    </button>
+    <pang-user-community *ngIf="user" [user]="user"></pang-user-community>
   </div>
-  <div class="bottom-menu">
-    <pang-bottom-menu></pang-bottom-menu>
-  </div>
+  <pang-bottom-menu></pang-bottom-menu>
 </div>

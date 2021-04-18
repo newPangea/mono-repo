@@ -162,6 +162,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
       avatar: user.imgUrl,
       checked: false,
       uid: user.uid,
+      country: user.country.code,
     });
   }
 

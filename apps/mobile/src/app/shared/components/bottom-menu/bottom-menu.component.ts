@@ -13,6 +13,7 @@ import { AppState } from '@pang/mobile/app/state/app.state';
 import { selectConnectionNotification } from '@pang/mobile/app/state/connection/connection.selectors';
 
 import { ProfileComponent } from '../../modals/profile/profile.component';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'pang-bottom-menu',
@@ -22,13 +23,16 @@ import { ProfileComponent } from '../../modals/profile/profile.component';
 export class BottomMenuComponent implements OnInit {
   $notification: Observable<number>;
   hide: boolean;
+  uid: string;
 
   constructor(
     private bottomSheet: MatBottomSheet,
     private router: Router,
     private state: State<AppState>,
-    private snackBar: MatSnackBar,
-  ) {}
+    private auth: AngularFireAuth,
+  ) {
+    this.auth.currentUser.then((user) => (this.uid = user.uid));
+  }
 
   ngOnInit(): void {
     this.hide = HIDDEN_SECTIONS.bottomMenuFilter;
@@ -38,7 +42,7 @@ export class BottomMenuComponent implements OnInit {
   }
 
   goToCommunity() {
-    this.router.navigate(['/home/community']);
+    this.router.navigate(['/home/community', this.uid]);
   }
 
   goToGlobe() {

@@ -10,9 +10,10 @@ import { SharedModule } from '../../../shared/shared.module';
 
 import { CommunityComponent } from './community.component';
 import { CommunityRoutingModule } from './community-routing.module';
+import { UserCommunityComponent } from './components/user-community/user-community.component';
 
 @NgModule({
-  declarations: [CommunityComponent],
+  declarations: [CommunityComponent, UserCommunityComponent],
   imports: [
     CommonModule,
     CoreModule,

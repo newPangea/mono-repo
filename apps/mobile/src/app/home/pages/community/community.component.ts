@@ -1,51 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Router } from '@angular/router';
-import { FIRESTORE_COLLECTION } from '@pang/const';
-import { User, UserAlgolia } from '@pang/interface';
-import { School } from '@pang/models';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { Hit } from '@algolia/client-search';
+import { map, switchMap } from 'rxjs/operators';
+import { from } from 'rxjs';
+
+import { AlgoliaService } from '@pang/algolia';
+import { UserAlgolia } from '@pang/interface';
+
+import { environment } from '@pang/mobile/environments/environment';
+import { circleAnimation2, info } from '@pang/mobile/app/home/pages/user/user.animation';
 
 @Component({
   selector: 'pang-community',
   templateUrl: './community.component.html',
   styleUrls: ['./community.component.scss'],
+  animations: [circleAnimation2, info],
 })
-export class CommunityComponent implements OnInit {
-  school: School;
-  sLatitude: number;
-  sLongitude: number;
-  user: User;
-  user$: Observable<User>;
+export class CommunityComponent {
+  user: Hit<UserAlgolia>;
 
-  constructor(
-    private auth: AngularFireAuth,
-    private router: Router,
-    private fireStore: AngularFirestore,
-  ) {}
-
-  ngOnInit(): void {
-    this.getUserInfo();
-  }
-
-  async getUserInfo() {
-    const user = await this.auth.currentUser;
-    this.user$ = this.fireStore
-      .collection<User>(FIRESTORE_COLLECTION.user)
-      .doc(user.uid)
-      .valueChanges();
-    this.user = await this.user$.pipe(take(1)).toPromise();
-  }
-
-  goToUser(user: UserAlgolia) {
-    this.router.navigate(['/home/user/', user.uid]);
-  }
-
-  goToSchool(school: School) {
-    this.school = school;
-    this.sLatitude = this.school.latitude;
-    this.sLongitude = this.school.longitude;
+  constructor(private route: ActivatedRoute, private algolia: AlgoliaService) {
+    this.route.params
+      .pipe(
+        map((data) => data.id),
+        switchMap((id) => from(this.algolia.search<UserAlgolia>(environment.userAlgoliaIndex, id))),
+      )
+      .subscribe(({ hits }) => {
+        this.user = hits[0];
+      });
   }
 }
