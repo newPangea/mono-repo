@@ -1,6 +1,6 @@
 <pang-welcome-container>
   <ng-container marcoHeader>
-    <button pangGoBack class='back'>
+    <button pangGoBack class="back">
       <img src="assets/img/icon-back.svg" />
     </button>
     <h1 class="header-title">Login</h1>
@@ -22,9 +22,16 @@
       <div class="forgot-password-container">
         <p class="forgot-password-container__label">Forgot password?</p>
       </div>
-      <button class="submit-button" pang-button color="primary" [loading]="loading" [disabled]="signFom.invalid">
+      <button
+        class="submit-button"
+        pang-button
+        color="primary"
+        [loading]="loading"
+        [disabled]="signFom.invalid"
+      >
         Login
       </button>
     </form>
+    <span class="error">{{ error }}</span>
   </ng-container>
 </pang-welcome-container>

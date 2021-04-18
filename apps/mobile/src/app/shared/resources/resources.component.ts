@@ -1,20 +1,20 @@
-import { Component, ElementRef, Input, OnChanges, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, Renderer2 } from '@angular/core';
 
 import { ModalController } from '@ionic/angular';
 import { AddResourceComponent } from '@pang/mobile/app/shared/resources/components/add-resource/add-resource.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ViewFilesComponent } from '@pang/mobile/app/shared/resources/components/view-files/view-files.component';
 import { ResourceType } from '@pang/const';
+import { TeamInterface } from '@pang/interface';
 
 @Component({
   selector: 'pang-resources',
   templateUrl: './resources.component.html',
   styleUrls: ['./resources.component.scss'],
 })
-export class ResourcesComponent implements OnChanges {
-  @Input() scaleFactor = 1;
-  @Input() maxScale: number;
+export class ResourcesComponent implements AfterViewInit {
   @Input() owner: string;
+  @Input() team: TeamInterface;
 
   uid: string;
 
@@ -26,27 +26,16 @@ export class ResourcesComponent implements OnChanges {
   ) {
     this.auth.currentUser.then(({ uid }) => (this.uid = uid));
   }
-
-  ngOnChanges(): void {
-    if (this.elementRef && this.scaleFactor > 1) {
+  ngAfterViewInit(): void {
+    if (this.elementRef) {
       this.scaleComponent();
     }
   }
 
   scaleComponent() {
     const element = this.elementRef.nativeElement;
-    const { width, height } = element.parentElement.getClientRects()[0];
-    if (this.maxScale) {
-      if (this.scaleFactor <= this.maxScale) {
-        this.render.setStyle(element, 'transform', `scale(${1 / this.scaleFactor})`);
-        this.render.setStyle(element, 'width', width + 'px');
-        this.render.setStyle(element, 'height', height + 'px');
-      }
-    } else {
-      this.render.setStyle(element, 'transform', `scale(${1 / this.scaleFactor})`);
-      this.render.setStyle(element, 'width', width + 'px');
-      this.render.setStyle(element, 'height', height + 'px');
-    }
+    const factor = element.parentElement.offsetWidth / 600;
+    this.render.setStyle(element, 'transform', `scale(${factor})`);
   }
 
   async addNewFile() {
@@ -54,7 +43,8 @@ export class ResourcesComponent implements OnChanges {
       component: AddResourceComponent,
       swipeToClose: true,
       componentProps: {
-        owner: this.owner,
+        owner: this.team ? this.uid : this.owner,
+        team: this.team?.key,
       },
     });
     await modal.present();
@@ -67,6 +57,7 @@ export class ResourcesComponent implements OnChanges {
       componentProps: {
         owner: this.owner,
         typeFile: ResourceType.IMAGE,
+        team: this.team?.key,
       },
       cssClass: 'ionic-modal',
     });
@@ -80,6 +71,7 @@ export class ResourcesComponent implements OnChanges {
       componentProps: {
         owner: this.owner,
         typeFile: ResourceType.FILE,
+        team: this.team?.key,
       },
       cssClass: 'ionic-modal',
     });
@@ -93,9 +85,14 @@ export class ResourcesComponent implements OnChanges {
       componentProps: {
         owner: this.owner,
         typeFile: ResourceType.VIDEO,
+        team: this.team?.key,
       },
       cssClass: 'ionic-modal',
     });
     await modal.present();
+  }
+
+  get canUpload() {
+    return this.owner === this.uid || this.team?.members.includes(this.uid);
   }
 }

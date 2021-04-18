@@ -18,6 +18,8 @@ import { CreateTeamComponent } from './components/create-team/create-team.compon
 import { AngularFireAuth } from '@angular/fire/auth';
 import { TeamInterface } from '@pang/interface';
 
+import { USER_CONST } from '../../home/pages/user/user.constants';
+
 @Component({
   selector: 'pang-teams',
   templateUrl: './teams.component.html',
@@ -31,6 +33,7 @@ export class TeamsComponent implements OnInit, OnDestroy, OnChanges {
   hasTeams = false;
   teams: TeamInterface[];
   uid: string;
+  level2 = USER_CONST.levelZoom.level2;
 
   constructor(
     private auth: AngularFireAuth,
@@ -86,5 +89,9 @@ export class TeamsComponent implements OnInit, OnDestroy, OnChanges {
       cssClass: 'create-team',
     });
     await modal.present();
+  }
+
+  get changeState() {
+    return this.scaleFactor < this.level2 - 3;
   }
 }
