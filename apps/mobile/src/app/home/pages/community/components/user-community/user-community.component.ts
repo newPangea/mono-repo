@@ -7,7 +7,8 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
+import { Router } from '@angular/router';
 
 import * as d3 from 'd3';
 import * as d3Zoom from 'd3-zoom';
@@ -16,7 +17,6 @@ import { Subscription } from 'rxjs';
 import { ScaleLinear, ZoomBehavior, ZoomedElementBaseType } from 'd3';
 import { first } from 'rxjs/operators';
 
-import { AngularFireAuth } from '@angular/fire/auth';
 import { ConnectionInterface, User, UserAlgolia } from '@pang/interface';
 import { selectMyConnections } from '@pang/mobile/app/state/connection/connection.selectors';
 import {
@@ -35,7 +35,20 @@ import { MemberData } from '@pang/mobile/app/shared/modals/interfaces/member-int
   selector: 'pang-user-community',
   templateUrl: './user-community.component.html',
   styleUrls: ['./user-community.component.scss'],
-  animations: [circleAnimation2, info, resourceAnimation],
+  animations: [
+    circleAnimation2,
+    info,
+    resourceAnimation,
+    trigger('listAnimation', [
+      transition('* => *', [
+        query(
+          ':enter',
+          [style({ opacity: 0 }), stagger(800, [animate('0.6s', style({ opacity: 1 }))])],
+          { optional: true },
+        ),
+      ]),
+    ]),
+  ],
 })
 export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestroy {
   @Input() user: Hit<UserAlgolia>;
@@ -52,26 +65,21 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
 
   private group: d3.Selection<HTMLDivElement, unknown, null, undefined>;
   private height: number;
+  private readonly deltaLevel = 1;
+  private readonly opacityScale: ScaleLinear<number, number, never>;
+  private readonly zoomLimit: [number, number] = [1, 10];
   private root: d3.Selection<HTMLDivElement, unknown, null, undefined>;
+  private subscribe: Subscription;
   private width: number;
   private zoom: ZoomBehavior<ZoomedElementBaseType, unknown>;
-  private subscribe: Subscription;
-
   readonly level1 = 5;
-  private readonly zoomLimit: [number, number] = [1, 10];
-  private readonly opacityScale: ScaleLinear<number, number, never>;
-  private readonly deltaLevel = 1;
 
   constructor(
     private state: State<AppState>,
-    private auth: AngularFireAuth,
+    private router: Router,
     private algoliaService: AlgoliaService,
   ) {
     this.opacityScale = d3.scaleLinear().domain([1, 4]).range([1, 0]);
-    this.auth.currentUser.then(({ uid }) => {
-      this.uid = uid;
-      this.getConnectionsState(this.uid);
-    });
   }
 
   ngOnChanges(): void {
@@ -81,6 +89,7 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
   }
 
   ngAfterViewInit(): void {
+    this.getConnectionsState(this.user.uid);
     const element = this.rootElement.nativeElement;
     this.width = element.clientWidth;
     this.height = element.clientHeight;
@@ -106,6 +115,10 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
     this.root.call(this.zoom);
     this.root.on('click', null);
     this.root.on('click', this.reset.bind(this));
+  }
+
+  goToUser(uid: string) {
+    this.router.navigate(['/home/user', uid]);
   }
 
   ngOnDestroy(): void {
@@ -155,6 +168,7 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
       checked: false,
       uid: user.uid,
       country: user.country.code,
+      role: this.getNameCode(user.code),
     });
   }
 
@@ -230,6 +244,10 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
 
   get nameCode() {
     return this.user ? codeToName(this.user.code) : '';
+  }
+
+  getNameCode(code: string) {
+    return code ? codeToName(code) : '';
   }
 
   get level1Style() {

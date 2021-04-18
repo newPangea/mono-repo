@@ -3,12 +3,12 @@
     <div class="user-spare circle">
       <div class="user-avatar circle">
         <pang-avatar-with-label
-          class="user-avatar__image"
+          class="user-avatar__image image{{ nameCode }}"
           [size]="94"
           [userAvatar]="user.imgUrl"
           *ngIf="user"
         ></pang-avatar-with-label>
-        <span class="user-badge">
+        <span class="user-badge badge{{ nameCode }}">
           {{ nameCode }}
         </span>
       </div>
@@ -21,89 +21,18 @@
             <img src="assets/img/icon-more-options.svg" />
           </button>
         </div>
-        <div class="user-connections" @info *ngIf="user?.objectID !== uid">
-          <button
-            pang-flat-button
-            (click)="cancelRequest($event)"
-            *ngIf="connection && connection.status == 0 && !request"
-          >
-            Cancel request
-          </button>
-          <span *ngIf="connection && connection.status == 1 && !request" class="text"
-            >Connected</span
-          >
-          <button
-            pang-flat-button
-            (click)="acceptRequest($event)"
-            *ngIf="request && request.status == 0 && !connection"
-          >
-            Accept request
-          </button>
-          <span *ngIf="request && request.status == 1 && !connection" class="text">Connected</span>
-          <button class="user-option">
-            <img src="assets/img/icon-more-options.svg" />
-          </button>
+      </div>
+
+      <div [@listAnimation]="users.length">
+        <div *ngFor="let item of users; let i = index" class="user-avatar{{ i + 2 }} circle">
+          <pang-avatar-with-label
+            class="user-avatar{{ i + 2 }}__image image{{ item.role }}"
+            [size]="94"
+            [userAvatar]="item.avatar ? item.avatar : ''"
+            (click)="goToUser(item.uid)"
+          ></pang-avatar-with-label>
+          <img class="flag" src="https://www.countryflags.io/{{ item.country }}/shiny/64.png" />
         </div>
-      </div>
-
-      <div class="user-avatar2 circle">
-        <pang-avatar-with-label
-          class="user-avatar2__image"
-          [size]="94"
-          [userAvatar]="user.imgUrl"
-          *ngIf="user"
-        ></pang-avatar-with-label>
-        <img class="flag" src="https://www.countryflags.io/cl/shiny/64.png" />
-      </div>
-
-      <div class="user-avatar3 circle">
-        <pang-avatar-with-label
-          class="user-avatar3__image"
-          [size]="94"
-          [userAvatar]="user.imgUrl"
-          *ngIf="user"
-        ></pang-avatar-with-label>
-        <img class="flag" src="https://www.countryflags.io/CO/shiny/64.png" />
-      </div>
-
-      <div class="user-avatar4 circle">
-        <pang-avatar-with-label
-          class="user-avatar4__image"
-          [size]="94"
-          [userAvatar]="user.imgUrl"
-          *ngIf="user"
-        ></pang-avatar-with-label>
-        <img class="flag" src="https://www.countryflags.io/US/shiny/64.png" />
-      </div>
-
-      <div class="user-avatar5 circle">
-        <pang-avatar-with-label
-          class="user-avatar5__image"
-          [size]="94"
-          [userAvatar]="user.imgUrl"
-          *ngIf="user"
-        ></pang-avatar-with-label>
-        <img class="flag" src="https://www.countryflags.io/GR/shiny/64.png" />
-      </div>
-
-      <div class="user-avatar6 circle">
-        <pang-avatar-with-label
-          class="user-avatar6__image"
-          [size]="94"
-          [userAvatar]="user.imgUrl"
-          *ngIf="user"
-        ></pang-avatar-with-label>
-        <img class="flag" src="https://www.countryflags.io/GB/shiny/64.png" />
-      </div>
-
-      <div class="user-avatar7 circle">
-        <pang-avatar-with-label
-          class="user-avatar7__image"
-          [size]="94"
-          [userAvatar]="user.imgUrl"
-          *ngIf="user"
-        ></pang-avatar-with-label>
-        <img class="flag" src="https://www.countryflags.io/FI/shiny/64.png" />
       </div>
 
       <div class="user-action user-connection" style="display: none">

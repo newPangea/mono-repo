@@ -4,5 +4,6 @@ export interface MemberData {
   avatar: string;
   checked: boolean;
   country: string;
+  role: string;
   uid: string;
 }

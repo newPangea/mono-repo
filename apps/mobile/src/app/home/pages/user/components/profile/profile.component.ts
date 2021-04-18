@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { ConnectionStatus } from '@pang/const';
 import { ConnectionService, UserService } from '@pang/core';
 import { ConnectionInterface, UserAlgolia } from '@pang/interface';
@@ -62,6 +63,7 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
     private connectionService: ConnectionService,
     private auth: AngularFireAuth,
     private zoomService: ZoomService,
+    private router: Router,
   ) {
     this.opacityScale = d3.scaleLinear().domain([1, 4]).range([1, 0]);
     this.auth.currentUser.then((user) => (this.uid = user.uid));
@@ -118,6 +120,10 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
     event.stopPropagation();
     const target = event.currentTarget as HTMLDivElement;
     this.goToElement(target, levelZoom);
+  }
+
+  goToCommunity() {
+    this.router.navigate(['/home/community', this.user.uid]);
   }
 
   goToElement(target: HTMLElement, levelZoom: number) {

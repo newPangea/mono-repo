@@ -43,7 +43,6 @@ $circleSize: 596px;
 
     &__image {
       border-radius: 50%;
-      border: solid 4px $blue2;
       display: block;
     }
   }
@@ -58,7 +57,6 @@ $circleSize: 596px;
 
     &__image {
       border-radius: 50%;
-      border: solid 4px $student;
       display: block;
     }
   }
@@ -73,7 +71,6 @@ $circleSize: 596px;
 
     &__image {
       border-radius: 50%;
-      border: solid 4px $expert;
       display: block;
     }
   }
@@ -88,7 +85,6 @@ $circleSize: 596px;
 
     &__image {
       border-radius: 50%;
-      border: solid 4px $teacher;
       display: block;
     }
   }
@@ -103,7 +99,6 @@ $circleSize: 596px;
 
     &__image {
       border-radius: 50%;
-      border: solid 4px $admin;
       display: block;
     }
   }
@@ -118,7 +113,6 @@ $circleSize: 596px;
 
     &__image {
       border-radius: 50%;
-      border: solid 4px $admin;
       display: block;
     }
   }
@@ -133,7 +127,6 @@ $circleSize: 596px;
 
     &__image {
       border-radius: 50%;
-      border: solid 4px $admin;
       display: block;
     }
   }
@@ -247,4 +240,44 @@ $circleSize: 596px;
   top: 30px;
   width: 100%;
   text-align: center;
+}
+
+.badgeStudent {
+  background-color: $student;
+}
+
+.badgeTeacher {
+  background-color: $teacher;
+}
+
+.badgeExpert {
+  background-color: $expert;
+}
+
+.badgeAdmin {
+  background-color: $admin;
+}
+
+.badgeParent {
+  background-color: $parent;
+}
+
+.imageStudent {
+  border: solid 4px $student;
+}
+
+.imageTeacher {
+  border: solid 4px $teacher;
+}
+
+.imageExpert {
+  border: solid 4px $expert;
+}
+
+.imageAdmin {
+  border: solid 4px $admin;
+}
+
+.imageParent {
+  border: solid 4px $parent;
 }
