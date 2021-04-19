@@ -88,6 +88,6 @@ export class SearchComponent implements AfterViewInit {
   }
 
   selectUser(user: UserAlgolia) {
-    this.userSelect.emit(user);
+    setTimeout(() => this.userSelect.emit(user), 100);
   }
 }
