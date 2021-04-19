@@ -1,0 +1,50 @@
+<div class="root" #root @circles>
+  <div id="group" class="group">
+    <div class="user-spare circle">
+      <div class="user-avatar circle">
+        <pang-avatar-with-label
+          class="user-avatar__image image{{ nameCode }}"
+          [size]="94"
+          [userAvatar]="user.imgUrl"
+          *ngIf="user"
+        ></pang-avatar-with-label>
+        <span class="user-badge badge{{ nameCode }}">
+          {{ nameCode }}
+        </span>
+      </div>
+
+      <div class="user-options">
+        <p class="user-name" @info>My connections</p>
+        <div class="more" @info>
+          <button pang-flat-button>Show more</button>
+          <button class="user-option">
+            <img src="assets/img/icon-more-options.svg" />
+          </button>
+        </div>
+      </div>
+
+      <div [@listAnimation]="users.length">
+        <div *ngFor="let item of users; let i = index" class="user-avatar{{ i + 2 }} circle">
+          <pang-avatar-with-label
+            class="user-avatar{{ i + 2 }}__image image{{ item.role }}"
+            [size]="94"
+            [userAvatar]="item.avatar ? item.avatar : ''"
+            (click)="goToUser(item.uid)"
+          ></pang-avatar-with-label>
+          <img class="flag" src="https://www.countryflags.io/{{ item.country }}/shiny/64.png" />
+        </div>
+      </div>
+
+      <div class="user-action user-connection" style="display: none">
+        <div class="user-action__data hideZoom">
+          <pang-icon
+            class="icons"
+            url="assets/img/icon-connections.svg"
+            name="connection"
+          ></pang-icon>
+          <span class="user-action__text">Connections</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

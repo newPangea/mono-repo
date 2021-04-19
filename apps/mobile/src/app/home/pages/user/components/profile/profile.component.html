@@ -52,7 +52,7 @@
         <pang-resources @root *ngIf="showLevel1" [owner]="user.uid"></pang-resources>
       </div>
 
-      <div class="user-action user-connection">
+      <div class="user-action user-connection" (click)="goToCommunity()">
         <div class="user-action__data hideZoom">
           <pang-icon
             class="icons"

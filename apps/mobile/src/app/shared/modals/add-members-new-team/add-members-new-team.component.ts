@@ -17,6 +17,7 @@ import { selectMyConnections } from '@pang/mobile/app/state/connection/connectio
 import { FilterKey } from '../interfaces/filter-key';
 import { MemberData } from '../interfaces/member-interface';
 import { SelectedMembers } from '../interfaces/selected-members';
+import { codeToName } from '@pang/utils';
 
 @Component({
   selector: 'pang-add-members-new-team',
@@ -162,6 +163,8 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
       avatar: user.imgUrl,
       checked: false,
       uid: user.uid,
+      country: user.country.code,
+      role: this.getNameCode(user.code),
     });
   }
 
@@ -178,6 +181,10 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
 
   close(): void {
     this.bottomSheetRef.dismiss();
+  }
+
+  getNameCode(code: string) {
+    return code ? codeToName(code) : '';
   }
 
   getFilteredData(inputs: Observable<FilterKey>) {
