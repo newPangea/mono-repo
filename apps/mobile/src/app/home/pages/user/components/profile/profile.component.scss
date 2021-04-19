@@ -60,12 +60,6 @@ $circleSize: 596px;
     text-align: center;
   }
 
-  &-info {
-    @include text($body2Size, $blue3, 500);
-    text-align: center;
-    text-decoration: underline;
-  }
-
   &-connections {
     display: grid;
     gap: 16px;
@@ -155,4 +149,16 @@ $circleSize: 596px;
   grid-gap: 15px;
   margin-bottom: 0px;
   grid-template-columns: auto auto;
+}
+
+.user-info {
+  @include text($body2Size, $blue3, 500);
+  text-align: center;
+  text-decoration: underline;
+  border: none;
+  background-color: transparent;
+}
+
+.grouped {
+  text-align: center;
 }

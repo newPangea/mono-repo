@@ -14,9 +14,9 @@
       </div>
 
       <div class="user-options">
-        <div>
+        <div class="grouped">
           <p class="user-name" @info>{{ user?.name }}</p>
-          <p class="user-info" (click)="seeBio(user)" @info>More info</p>
+          <button class="user-info" (click)="seeBio(user)" @info>More info</button>
         </div>
         <div class="user-connections" @info *ngIf="user?.objectID !== uid">
           <button pang-flat-button (click)="sendRequest($event)" *ngIf="!connection && !request">
