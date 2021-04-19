@@ -1,5 +1,9 @@
 @import 'global';
 
+:host {
+  display: block;
+}
+
 .team {
   @include circle(128px);
   --icon-size: 40px;
