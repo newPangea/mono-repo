@@ -34,6 +34,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { PreferencesFilterComponent } from '@pang/mobile/app/shared/modals/preferences-filter/preferences-filter.component';
 import { PreferenceInterface } from '@pang/mobile/app/shared/modals/interfaces/preferences-interface';
 import { UserService } from '@pang/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'pang-user-community',
@@ -88,6 +89,7 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
     private router: Router,
     private state: State<AppState>,
     private userService: UserService,
+    private snackBar: MatSnackBar,
   ) {
     this.opacityScale = d3.scaleLinear().domain([1, 4]).range([1, 0]);
   }
@@ -149,7 +151,17 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
     });
     aux.afterDismissed().subscribe((preferences) => {
       this.selectedPreferences = preferences;
-      this.filterByPreferences(this.selectedPreferences);
+      if (this.selectedPreferences && this.selectedPreferences.length > 0) {
+        this.snackBar.open('Showing users based on preferences selected', 'close', {
+          duration: 5000,
+        });
+        this.filterByPreferences(this.selectedPreferences);
+      } else {
+        this.snackBar.open('No filter selected, showing my connections', 'close', {
+          duration: 3000,
+        });
+        this.getConnectionsState(this.user.uid);
+      }
     });
   }
 
