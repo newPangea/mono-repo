@@ -62,6 +62,7 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
   hits: Array<Hit<UserAlgolia>> = [];
   users: MemberData[] = [];
   arrayTransformed: string;
+  stateSubscription: Subscription;
 
   private group: d3.Selection<HTMLDivElement, unknown, null, undefined>;
   private height: number;
@@ -128,20 +129,24 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
   }
 
   getConnectionsState(uid: string) {
-    this.state.pipe(first(), select(selectMyConnections)).subscribe((connections) => {
-      const keys = [];
-      connections.forEach((element) => {
-        if (element.from != uid) {
-          keys.push(element.from);
-        }
-        if (element.to != uid) {
-          keys.push(element.to);
+    this.stateSubscription = this.state
+      .pipe(select(selectMyConnections))
+      .subscribe((connections) => {
+        const keys = [];
+        connections.forEach((element) => {
+          if (element.from != uid) {
+            keys.push(element.from);
+          }
+          if (element.to != uid) {
+            keys.push(element.to);
+          }
+        });
+        if (keys.length > 0) {
+          const objectIDsArray = this.transformArray(keys);
+          this.algoliaSearchData(objectIDsArray);
+          this.stateSubscription.unsubscribe();
         }
       });
-
-      const objectIDsArray = this.transformArray(keys);
-      this.algoliaSearchData(objectIDsArray);
-    });
   }
 
   algoliaSearchData(keys: string) {

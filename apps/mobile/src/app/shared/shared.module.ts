@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AddMembersNewTeamComponent } from './modals/add-members-new-team/add-members-new-team.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddResourcesNewTeamComponent } from './modals/add-resources-new-team/add-resources-new-team.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AddResourcesNewTeamComponent } from './modals/add-resources-new-team/ad
     UiModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     BottomMenuComponent,
