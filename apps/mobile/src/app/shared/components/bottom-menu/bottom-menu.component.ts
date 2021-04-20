@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 import { HIDDEN_SECTIONS } from '@pang/const';
@@ -12,7 +11,6 @@ import { select, State } from '@ngrx/store';
 import { AppState } from '@pang/mobile/app/state/app.state';
 import { selectConnectionNotification } from '@pang/mobile/app/state/connection/connection.selectors';
 
-import { ProfileComponent } from '../../modals/profile/profile.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
@@ -50,11 +48,6 @@ export class BottomMenuComponent implements OnInit {
   }
 
   openProfile() {
-    this.bottomSheet.open(ProfileComponent, {
-      panelClass: 'profile_sheet',
-      data: {
-        user: 'user data',
-      },
-    });
+    this.router.navigate(['/home/user', this.uid]);
   }
 }

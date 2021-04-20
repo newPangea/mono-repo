@@ -1,7 +1,7 @@
 <div class="container">
   <div class="secuential">
     <p class="name">{{ user?.name }}</p>
-    <p (click)="soon()" class="photoAction">Change image</p>
+    <p *ngIf="user.uid == uid" (click)="soon()" class="photoAction">Change image</p>
   </div>
   <div class="schoolInfo">
     <div class="secuential2">
@@ -33,7 +33,7 @@
   <hr class="line" />
   <div class="secuential">
     <p class="name">About {{ firstName ? firstName[0] : '' }}</p>
-    <p (click)="soon()" class="photoAction">Edit information</p>
+    <p *ngIf="user.uid == uid" (click)="soon()" class="photoAction">Edit information</p>
   </div>
   <p class="bio">
     {{ user?.bio }}

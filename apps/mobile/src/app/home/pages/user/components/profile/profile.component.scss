@@ -53,7 +53,6 @@ $circleSize: 596px;
     width: minmax(100vw, $circleSize);
     margin: 100px auto 0;
     height: 100px;
-    padding: 16px;
   }
 
   &-name {
@@ -143,4 +142,23 @@ $circleSize: 596px;
 .icons {
   --icon-size: 60px;
   color: $white;
+}
+
+.secuential {
+  display: grid;
+  grid-gap: 15px;
+  margin-bottom: 0px;
+  grid-template-columns: auto auto;
+}
+
+.user-info {
+  @include text($body2Size, $blue3, 500);
+  text-align: center;
+  text-decoration: underline;
+  border: none;
+  background-color: transparent;
+}
+
+.grouped {
+  text-align: center;
 }

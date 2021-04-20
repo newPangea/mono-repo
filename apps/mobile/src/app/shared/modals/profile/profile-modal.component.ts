@@ -4,47 +4,39 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { FIRESTORE_COLLECTION } from '@pang/const';
 import { User } from '@pang/interface';
 
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'pang-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  templateUrl: './profile-modal.component.html',
+  styleUrls: ['./profile-modal.component.scss'],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileModalComponent implements OnInit {
   user$: Observable<User>;
   user: User;
   address: string[];
   firstName: string[];
+  uid: string;
 
   constructor(
     private auth: AngularFireAuth,
     private fireStore: AngularFirestore,
-    private bottomSheetRef: MatBottomSheetRef<ProfileComponent>,
+    private bottomSheetRef: MatBottomSheetRef<ProfileModalComponent>,
     private snackBar: MatSnackBar,
     private router: Router,
     @Inject(MAT_BOTTOM_SHEET_DATA)
     public data: {
-      user: string;
+      user: User;
     },
-  ) {}
-
-  ngOnInit() {
-    this.getUserInfo();
+  ) {
+    this.auth.currentUser.then(({ uid }) => (this.uid = uid));
   }
 
-  async getUserInfo() {
-    const user = await this.auth.currentUser;
-    this.user$ = this.fireStore
-      .collection<User>(FIRESTORE_COLLECTION.user)
-      .doc(user.uid)
-      .valueChanges();
-    this.user = await this.user$.pipe(take(1)).toPromise();
+  ngOnInit() {
+    this.user = this.data.user;
     this.address = this.user.school.addres.split(',');
     this.firstName = this.user.name.split(' ');
   }

@@ -9,17 +9,19 @@ import {
   ViewChild,
 } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ConnectionStatus } from '@pang/const';
 import { ConnectionService, UserService } from '@pang/core';
-import { ConnectionInterface, UserAlgolia } from '@pang/interface';
+import { ConnectionInterface, User, UserAlgolia } from '@pang/interface';
 import {
   circleAnimation2,
   info,
   resourceAnimation,
 } from '@pang/mobile/app/home/pages/user/user.animation';
 import { ZoomService } from '@pang/mobile/app/services/zoom.service';
+import { ProfileModalComponent } from '@pang/mobile/app/shared/modals/profile/profile-modal.component';
 import { codeToName } from '@pang/utils';
 import * as d3 from 'd3';
 import { ScaleLinear, ZoomBehavior, ZoomedElementBaseType } from 'd3';
@@ -58,12 +60,13 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
   private suscribeZoom: Subscription;
 
   constructor(
-    private userService: UserService,
-    private snack: MatSnackBar,
-    private connectionService: ConnectionService,
     private auth: AngularFireAuth,
-    private zoomService: ZoomService,
+    private bottomSheet: MatBottomSheet,
+    private connectionService: ConnectionService,
     private router: Router,
+    private snack: MatSnackBar,
+    private userService: UserService,
+    private zoomService: ZoomService,
   ) {
     this.opacityScale = d3.scaleLinear().domain([1, 4]).range([1, 0]);
     this.auth.currentUser.then((user) => (this.uid = user.uid));
@@ -211,6 +214,15 @@ export class ProfileComponent implements AfterViewInit, OnChanges, OnDestroy {
       });
 
     this.subscribe.add(subscribeRequest);
+  }
+
+  seeBio(user: User) {
+    this.bottomSheet.open(ProfileModalComponent, {
+      panelClass: 'profile_sheet',
+      data: {
+        user: user,
+      },
+    });
   }
 
   get nameCode() {

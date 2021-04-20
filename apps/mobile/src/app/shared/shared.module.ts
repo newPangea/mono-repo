@@ -11,7 +11,7 @@ import { CoreModule } from '@pang/core';
 import { UiModule } from '@pang/ui';
 
 import { BottomMenuComponent } from './components/bottom-menu/bottom-menu.component';
-import { ProfileComponent } from './modals/profile/profile.component';
+import { ProfileModalComponent } from './modals/profile/profile-modal.component';
 import { SchoolSearchResultComponent } from './components/school-search-result/school-search-result.component';
 import { SearchComponent } from './components/search/search.component';
 import { TemplateComponent } from './components/template/template.component';
@@ -24,7 +24,7 @@ import { AddResourcesNewTeamComponent } from './modals/add-resources-new-team/ad
 @NgModule({
   declarations: [
     BottomMenuComponent,
-    ProfileComponent,
+    ProfileModalComponent,
     SchoolSearchResultComponent,
     SearchComponent,
     TemplateComponent,
@@ -47,7 +47,7 @@ import { AddResourcesNewTeamComponent } from './modals/add-resources-new-team/ad
   ],
   exports: [
     BottomMenuComponent,
-    ProfileComponent,
+    ProfileModalComponent,
     SchoolSearchResultComponent,
     SearchComponent,
     TemplateComponent,
