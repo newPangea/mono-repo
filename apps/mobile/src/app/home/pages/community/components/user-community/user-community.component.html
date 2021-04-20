@@ -17,8 +17,8 @@
         <p class="user-name" @info>My connections</p>
         <div class="more" @info>
           <button pang-flat-button>Show more</button>
-          <button class="user-option">
-            <img src="assets/img/icon-more-options.svg" />
+          <button class="user-option" (click)="filter()">
+            <img src="assets/img/icon-filter.svg" />
           </button>
         </div>
       </div>
@@ -30,8 +30,13 @@
             [size]="94"
             [userAvatar]="item.avatar ? item.avatar : ''"
             (click)="goToUser(item.uid)"
+            *ngIf="i <= 5"
           ></pang-avatar-with-label>
-          <img class="flag" src="https://www.countryflags.io/{{ item.country }}/shiny/64.png" />
+          <img
+            *ngIf="i <= 5"
+            class="flag"
+            src="https://www.countryflags.io/{{ item.country }}/shiny/64.png"
+          />
         </div>
       </div>
 

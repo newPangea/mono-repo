@@ -30,6 +30,10 @@ import { AppState } from '@pang/mobile/app/state/app.state';
 import { AlgoliaService } from '@pang/algolia';
 import { environment } from '@pang/mobile/environments/environment';
 import { MemberData } from '@pang/mobile/app/shared/modals/interfaces/member-interface';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { PreferencesFilterComponent } from '@pang/mobile/app/shared/modals/preferences-filter/preferences-filter.component';
+import { PreferenceInterface } from '@pang/mobile/app/shared/modals/interfaces/preferences-interface';
+import { UserService } from '@pang/core';
 
 @Component({
   selector: 'pang-user-community',
@@ -56,13 +60,16 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
 
   connection: ConnectionInterface;
   request: ConnectionInterface;
+  userSubscription: Subscription;
   showLevel1 = false;
   scaleFactor = 1;
   uid: string;
   hits: Array<Hit<UserAlgolia>> = [];
   users: MemberData[] = [];
+  usersAux: MemberData[] = [];
   arrayTransformed: string;
   stateSubscription: Subscription;
+  selectedPreferences: PreferenceInterface[] = [];
 
   private group: d3.Selection<HTMLDivElement, unknown, null, undefined>;
   private height: number;
@@ -76,9 +83,11 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
   readonly level1 = 5;
 
   constructor(
-    private state: State<AppState>,
-    private router: Router,
     private algoliaService: AlgoliaService,
+    private bottomSheet: MatBottomSheet,
+    private router: Router,
+    private state: State<AppState>,
+    private userService: UserService,
   ) {
     this.opacityScale = d3.scaleLinear().domain([1, 4]).range([1, 0]);
   }
@@ -86,6 +95,9 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
   ngOnChanges(): void {
     if (this.subscribe) {
       this.subscribe.unsubscribe();
+    }
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
     }
   }
 
@@ -126,6 +138,44 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
     if (this.subscribe) {
       this.subscribe.unsubscribe();
     }
+  }
+
+  filter() {
+    const aux = this.bottomSheet.open(PreferencesFilterComponent, {
+      panelClass: 'profile_sheet',
+      data: {
+        preferences: this.selectedPreferences,
+      },
+    });
+    aux.afterDismissed().subscribe((preferences) => {
+      this.selectedPreferences = preferences;
+      this.filterByPreferences(this.selectedPreferences);
+    });
+  }
+
+  filterByPreferences(preferences: PreferenceInterface[]) {
+    this.users = [];
+    let aux = [];
+    preferences.forEach((element) => {
+      this.userSubscription = this.userService.getByPreference(element.key).subscribe((users) => {
+        this.usersAux = [];
+        users.forEach((element) => {
+          this.usersAux.push({
+            name: element.name,
+            address: element.school.addres.split(','),
+            avatar: element.imgUrl,
+            checked: false,
+            country: element.country.code,
+            role: this.getNameCode(element.code),
+            uid: element.uid,
+          });
+        });
+        aux = [...this.users, ...this.usersAux];
+      });
+    });
+    setTimeout(() => {
+      this.users = aux;
+    }, 500);
   }
 
   getConnectionsState(uid: string) {

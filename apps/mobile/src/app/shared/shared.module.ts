@@ -21,6 +21,7 @@ import { AddMembersNewTeamComponent } from './modals/add-members-new-team/add-me
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AddResourcesNewTeamComponent } from './modals/add-resources-new-team/add-resources-new-team.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { PreferencesFilterComponent } from './modals/preferences-filter/preferences-filter.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     UserSearchResultComponent,
     AddMembersNewTeamComponent,
     AddResourcesNewTeamComponent,
+    PreferencesFilterComponent,
   ],
   imports: [
     CommonModule,
@@ -56,6 +58,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     UserSearchResultComponent,
     AddMembersNewTeamComponent,
     AddResourcesNewTeamComponent,
+    PreferencesFilterComponent,
   ],
 })
 export class SharedModule {}

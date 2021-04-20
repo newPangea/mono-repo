@@ -80,7 +80,17 @@ export class PreferencesComponent implements OnInit {
     }
     const preferences = Object.values(this.tagSelected);
     const user = await this.auth.currentUser;
-    await this.userService.savePreferences(user.uid, preferences, this.bio, urlImag);
+    const preferencesKey = [];
+    preferences.forEach((element) => {
+      preferencesKey.push(element.key);
+    });
+    await this.userService.savePreferences(
+      user.uid,
+      preferences,
+      preferencesKey,
+      this.bio,
+      urlImag,
+    );
     await this.router.navigate(['/home']);
   }
 
