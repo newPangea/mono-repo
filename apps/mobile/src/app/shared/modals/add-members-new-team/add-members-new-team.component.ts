@@ -38,6 +38,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
   user: User;
   user$: Observable<User>;
   users: MemberData[] = [];
+  private subscription: Subscription;
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: { members: MemberData[] },
@@ -68,7 +69,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
   }
 
   getConnectionsState(uid: string) {
-    this.state.pipe(first(), select(selectMyConnections)).subscribe((connections) => {
+    this.subscription = this.state.pipe(select(selectMyConnections)).subscribe((connections) => {
       const keys = [];
       connections.forEach((element) => {
         if (element.from != uid) {
@@ -176,6 +177,9 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.connectionsSubscription) {
       this.connectionsSubscription.unsubscribe();
+    }
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 
