@@ -84,7 +84,7 @@ export class AddMembersNewTeamComponent implements OnInit, OnDestroy {
     });
   }
 
-  remove(member: MemberData) {
+  remove(member: SelectedMembers) {
     this.selectedMembers.forEach((element, index) => {
       if (element.uid == member.uid) {
         this.selectedMembers.splice(index, 1);
