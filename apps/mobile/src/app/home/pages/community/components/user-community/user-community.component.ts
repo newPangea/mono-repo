@@ -191,6 +191,7 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
   }
 
   getConnectionsState(uid: string) {
+    this.users = [];
     this.stateSubscription = this.state
       .pipe(select(selectMyConnections))
       .subscribe((connections) => {
