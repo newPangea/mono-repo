@@ -7,6 +7,7 @@ import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { UserRoleLabelPipe } from './pipes/user-role-label/user-role-label.pipe';
 import { UserRoleColorPipe } from './pipes/user-role-color/user-role-color.pipe';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { CountryFlagPipe } from './pipes/country-flag/country-flag.pipe';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
     AngularFireDatabaseModule,
   ],
   providers: [SchoolService],
-  declarations: [UserRoleLabelPipe, UserRoleColorPipe],
-  exports: [UserRoleLabelPipe, UserRoleColorPipe],
+  declarations: [UserRoleLabelPipe, UserRoleColorPipe, CountryFlagPipe],
+  exports: [UserRoleLabelPipe, UserRoleColorPipe, CountryFlagPipe],
 })
 export class CoreModule {}
