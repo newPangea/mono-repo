@@ -49,11 +49,15 @@ export class SignUpComponent implements OnInit {
   ) {
     this.signFom = formBuild.group({
       name: ['', Validators.required],
-      country: ['', Validators.required],
+      country: [''],
       date: ['', Validators.required],
       email: [
         '',
-        [Validators.required, Validators.email, Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}')],
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}'),
+        ],
       ],
       password: ['', [Validators.required, Validators.minLength(6)]],
       schoolCode: ['', [Validators.required, Validators.pattern('[a-zA-Z]{1}[0-9]{8}')]],

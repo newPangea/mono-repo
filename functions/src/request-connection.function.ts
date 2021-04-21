@@ -12,7 +12,7 @@ export const requestconnection = functions.firestore
       userIndex.getObject<any>(from),
     ]);
     const msg =
-      `${toUser.name} wants to connect with you, ` + 'check his profile here';
+      `${toUser.name} wants to connect with you, ` + 'check profile here';
     return admin.messaging().sendToDevice(fromUser.token, {
       notification: {
         title: 'Request connection',
