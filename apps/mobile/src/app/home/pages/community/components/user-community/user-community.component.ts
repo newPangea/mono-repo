@@ -172,7 +172,7 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
       avatar: user.imgUrl,
       checked: false,
       uid: user.uid,
-      country: user.country.code,
+      country: user.country?.code,
       role: this.getNameCode(user.code),
     });
   }

@@ -31,7 +31,11 @@
             [userAvatar]="item.avatar ? item.avatar : ''"
             (click)="goToUser(item.uid)"
           ></pang-avatar-with-label>
-          <img class="flag" src="https://www.countryflags.io/{{ item.country }}/shiny/64.png" />
+          <img
+            *ngIf="item.country"
+            class="flag"
+            src="https://www.countryflags.io/{{ item.country }}/shiny/64.png"
+          />
         </div>
       </div>
 
