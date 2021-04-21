@@ -169,8 +169,8 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
     this.users = [];
     let aux = [];
     preferences.forEach((element) => {
+      this.usersAux = [];
       this.userSubscription = this.userService.getByPreference(element.key).subscribe((users) => {
-        this.usersAux = [];
         users.forEach((element) => {
           this.usersAux.push({
             name: element.name,
@@ -207,7 +207,9 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
         if (keys.length > 0) {
           const objectIDsArray = this.transformArray(keys);
           this.algoliaSearchData(objectIDsArray);
-          this.stateSubscription.unsubscribe();
+          if (this.stateSubscription) {
+            this.stateSubscription.unsubscribe();
+          }
         }
       });
   }
@@ -224,7 +226,6 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
             this.addToUsers(element);
           });
         });
-      console.log(this.users);
     }
   }
 
@@ -235,7 +236,7 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
       avatar: user.imgUrl,
       checked: false,
       uid: user.uid,
-      country: user.country.code,
+      country: user.country?.code,
       role: this.getNameCode(user.code),
     });
   }

@@ -33,7 +33,7 @@
             *ngIf="i <= 5"
           ></pang-avatar-with-label>
           <img
-            *ngIf="i <= 5"
+            *ngIf="i <= 5 && item.country"
             class="flag"
             src="https://www.countryflags.io/{{ item.country }}/shiny/64.png"
           />
