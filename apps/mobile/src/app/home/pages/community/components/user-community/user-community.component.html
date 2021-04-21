@@ -32,22 +32,18 @@
             (click)="goToUser(item.uid)"
             *ngIf="i <= 5"
           ></pang-avatar-with-label>
-          <img
-            *ngIf="i <= 5 && item.country"
-            class="flag"
-            src="https://www.countryflags.io/{{ item.country }}/shiny/64.png"
-          />
+          <span class="flag">{{ item.country | countryFlag }}</span>
         </div>
-      </div>
 
-      <div class="user-action user-connection" style="display: none">
-        <div class="user-action__data hideZoom">
-          <pang-icon
-            class="icons"
-            url="assets/img/icon-connections.svg"
-            name="connection"
-          ></pang-icon>
-          <span class="user-action__text">Connections</span>
+        <div class="user-action user-connection" style="display: none">
+          <div class="user-action__data hideZoom">
+            <pang-icon
+              class="icons"
+              url="assets/img/icon-connections.svg"
+              name="connection"
+            ></pang-icon>
+            <span class="user-action__text">Connections</span>
+          </div>
         </div>
       </div>
     </div>

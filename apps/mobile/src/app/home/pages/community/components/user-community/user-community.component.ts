@@ -177,7 +177,7 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
             address: element.school.addres.split(','),
             avatar: element.imgUrl,
             checked: false,
-            country: element.country.code,
+            country: element.country?.code,
             role: this.getNameCode(element.code),
             uid: element.uid,
           });
@@ -225,6 +225,7 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
           hits.forEach((element) => {
             this.addToUsers(element);
           });
+          console.log(this.users);
         });
     }
   }
