@@ -30,6 +30,11 @@ import { AppState } from '@pang/mobile/app/state/app.state';
 import { AlgoliaService } from '@pang/algolia';
 import { environment } from '@pang/mobile/environments/environment';
 import { MemberData } from '@pang/mobile/app/shared/modals/interfaces/member-interface';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { PreferencesFilterComponent } from '@pang/mobile/app/shared/modals/preferences-filter/preferences-filter.component';
+import { PreferenceInterface } from '@pang/mobile/app/shared/modals/interfaces/preferences-interface';
+import { UserService } from '@pang/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'pang-user-community',
@@ -56,13 +61,16 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
 
   connection: ConnectionInterface;
   request: ConnectionInterface;
+  userSubscription: Subscription;
   showLevel1 = false;
   scaleFactor = 1;
   uid: string;
   hits: Array<Hit<UserAlgolia>> = [];
   users: MemberData[] = [];
+  usersAux: MemberData[] = [];
   arrayTransformed: string;
   stateSubscription: Subscription;
+  selectedPreferences: PreferenceInterface[] = [];
 
   private group: d3.Selection<HTMLDivElement, unknown, null, undefined>;
   private height: number;
@@ -76,9 +84,12 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
   readonly level1 = 5;
 
   constructor(
-    private state: State<AppState>,
-    private router: Router,
     private algoliaService: AlgoliaService,
+    private bottomSheet: MatBottomSheet,
+    private router: Router,
+    private state: State<AppState>,
+    private userService: UserService,
+    private snackBar: MatSnackBar,
   ) {
     this.opacityScale = d3.scaleLinear().domain([1, 4]).range([1, 0]);
   }
@@ -86,6 +97,9 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
   ngOnChanges(): void {
     if (this.subscribe) {
       this.subscribe.unsubscribe();
+    }
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
     }
   }
 
@@ -128,7 +142,56 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
     }
   }
 
+  filter() {
+    const aux = this.bottomSheet.open(PreferencesFilterComponent, {
+      panelClass: 'profile_sheet',
+      data: {
+        preferences: this.selectedPreferences,
+      },
+    });
+    aux.afterDismissed().subscribe((preferences) => {
+      this.selectedPreferences = preferences;
+      if (this.selectedPreferences && this.selectedPreferences.length > 0) {
+        this.snackBar.open('Showing users based on preferences selected', 'close', {
+          duration: 5000,
+        });
+        this.filterByPreferences(this.selectedPreferences);
+      } else {
+        this.snackBar.open('No filter selected, showing my connections', 'close', {
+          duration: 3000,
+        });
+        this.getConnectionsState(this.user.uid);
+      }
+    });
+  }
+
+  filterByPreferences(preferences: PreferenceInterface[]) {
+    this.users = [];
+    let aux = [];
+    preferences.forEach((element) => {
+      this.usersAux = [];
+      this.userSubscription = this.userService.getByPreference(element.key).subscribe((users) => {
+        users.forEach((element) => {
+          this.usersAux.push({
+            name: element.name,
+            address: element.school.addres.split(','),
+            avatar: element.imgUrl,
+            checked: false,
+            country: element.country?.code,
+            role: this.getNameCode(element.code),
+            uid: element.uid,
+          });
+        });
+        aux = [...this.users, ...this.usersAux];
+      });
+    });
+    setTimeout(() => {
+      this.users = aux;
+    }, 500);
+  }
+
   getConnectionsState(uid: string) {
+    this.users = [];
     this.stateSubscription = this.state
       .pipe(select(selectMyConnections))
       .subscribe((connections) => {
@@ -144,7 +207,9 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
         if (keys.length > 0) {
           const objectIDsArray = this.transformArray(keys);
           this.algoliaSearchData(objectIDsArray);
-          this.stateSubscription.unsubscribe();
+          if (this.stateSubscription) {
+            this.stateSubscription.unsubscribe();
+          }
         }
       });
   }
@@ -160,8 +225,8 @@ export class UserCommunityComponent implements AfterViewInit, OnChanges, OnDestr
           hits.forEach((element) => {
             this.addToUsers(element);
           });
+          console.log(this.users);
         });
-      console.log(this.users);
     }
   }
 

@@ -40,8 +40,6 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     formBuild: FormBuilder,
-    private fireAuth: AngularFireAuth,
-    private fireStore: AngularFirestore,
     private router: Router,
     private schoolService: SchoolService,
     private snackBar: MatSnackBar,

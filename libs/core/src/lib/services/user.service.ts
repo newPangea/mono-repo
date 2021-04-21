@@ -42,6 +42,12 @@ export class UserService {
     return this.db.collection<User>(FIRESTORE_COLLECTION.user).valueChanges();
   }
 
+  getByPreference(preferenceKey: string) {
+    return this.userCollection((ref) =>
+      ref.where('preferencesKey', 'array-contains', preferenceKey),
+    ).valueChanges();
+  }
+
   getBySchoolCode(code: string) {
     return this.userCollection((ref) => ref.where('schoolCode', '==', code)).valueChanges();
   }
@@ -67,8 +73,14 @@ export class UserService {
     );
   }
 
-  savePreferences(uid: string, preferences: Preference[], bio: string, imgUrl: string = '') {
-    return this.updateUser(uid, { preferences, bio, imgUrl });
+  savePreferences(
+    uid: string,
+    preferences: Preference[],
+    preferencesKey: string[],
+    bio: string,
+    imgUrl: string = '',
+  ) {
+    return this.updateUser(uid, { preferences, bio, imgUrl, preferencesKey });
   }
 
   updateUser(uid: string, data: Partial<User>) {

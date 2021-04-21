@@ -45,12 +45,6 @@ jobs:
       - name: Build affected
         run: npm run affected:build -- --base=origin/dev --configuration qa
 
-      - name: Deploy temporal
-        run: npm run affected:pre-deploy -- --base=origin/dev --chanel="$BRANCH_NAME"
-        env:
-          PULL_NUMBER: ${{ github.event.pull_request.number }}
-          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
-
   validate_functions:
     runs-on: ubuntu-latest
     strategy:
