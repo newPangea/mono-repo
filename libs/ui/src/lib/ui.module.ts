@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { HighlightPipe } from './pipes/highlight.pipe';
 import { IconComponent } from './components/icon/icon.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CountryFlagPipe } from './pipes/country-flag/country-flag.pipe';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     GoBackDirective,
     HighlightPipe,
     IconComponent,
+    CountryFlagPipe,
   ],
   providers: [DatePipe],
   exports: [
@@ -48,6 +50,7 @@ import { HttpClientModule } from '@angular/common/http';
     GoBackDirective,
     HighlightPipe,
     IconComponent,
+    CountryFlagPipe,
   ],
 })
 export class UiModule {}

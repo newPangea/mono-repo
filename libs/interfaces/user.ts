@@ -13,6 +13,7 @@ export interface User {
   code: string;
   school?: School;
   preferences?: Preference[];
+  preferencesKey?: string[];
   bio?: string;
   imgUrl?: string;
   token?: string;

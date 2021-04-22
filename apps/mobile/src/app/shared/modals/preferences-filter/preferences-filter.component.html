@@ -1,0 +1,25 @@
+<p class="header">Filter by preferences</p>
+<p class="subtitle">
+  Looking for new connections? here you can search by preference among all new pangea's users
+</p>
+<div class="preferences-container">
+  <div class="secuential" *ngFor="let item of preferences">
+    <p class="name">{{ item.name }}</p>
+    <mat-checkbox
+      class="example-margin"
+      color="primary"
+      [(ngModel)]="item.checked"
+      (change)="togglePreference(item, $event)"
+    ></mat-checkbox>
+  </div>
+</div>
+<div class="create-container">
+  <button
+    pang-button
+    color="primary"
+    (click)="filter()"
+    [disabled]="selectedPreferences.length == 0"
+  >
+    Filter ({{ selectedPreferences.length }}) preferenes
+  </button>
+</div>

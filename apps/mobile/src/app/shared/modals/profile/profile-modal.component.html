@@ -38,8 +38,8 @@
   <p class="bio">
     {{ user?.bio }}
   </p>
-  <hr class="line" />
-  <button class="logout-button" (click)="logout()">
+  <hr *ngIf="user.uid == uid" class="line" />
+  <button *ngIf="user.uid == uid" class="logout-button" (click)="logout()">
     <pang-icon class="icons" url="/assets/icons/icon-logout.svg" name="logout"></pang-icon>
     Log out
   </button>
